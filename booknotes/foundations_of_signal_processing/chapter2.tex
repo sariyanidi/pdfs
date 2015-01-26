@@ -1,0 +1,274 @@
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\topmargin=-0.65in    % Make letterhead sftart about 1 inch from top of page
+\textheight=9.10in    % text height can be bigger for a longer letter
+\oddsidemargin=-0.1in % leftmargin is 1 inch
+\textwidth=6.7in   % textwidth of 6.5in leaves 1 inch for right margin
+
+% some shortcuts
+\newcommand{\ea}{\textit{et al. }} 
+\newcommand{\eg}{\textit{e.g. }} 
+\newcommand{\ie}{\textit{i.e. }} 
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\setlength{\parindent}{0mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OUTLINE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\bf Outline of Foundations of Signal Processing}
+\maketitle
+\section*{Chapter 2}
+Introduce the basic concepts for signal representation. 
+\begin{itemize}
+\item Vector spaces (def'n and properties in \#18)
+	\begin{itemize}
+	\item Subspace, Span, Linear independence, Dimension (or rank?)
+	\item Inner product \\
+	{\color{gray}
+	\footnotesize
+	i) distributivity $\la x+y,z \ra=\la x,z \ra + \la y,z \ra$\\
+	ii) linearity in 1st argument $\la \alpha x,y \ra = \alpha \la x,y \ra$\\
+	iii) Hermitian symmetry $\la x, y \ra^{*}=\la y,x \ra$\\
+	iv) positive definiteness $\la x,x \ra\ge 0$, and $\la x,x \ra=0$ iff $x=\mathbf{0}$\\
+	v) linearity in 2nd argument (by ii and iii): $\la x, \alpha y \ra = \alpha^{*}\la x,y \ra$
+	}
+	\item Orthogonality (\#25) \\
+	{\footnotesize\color{gray}
+	can be defined for vector vs vector, vector vs set of vectors, vector vs space, space vs space etc.
+	}
+	\item Norm \hyperref[nomr_thms]{see theorems}\\
+	{\footnotesize \color{gray}
+	i) positive def: $||x||\ge 0$, and $||x||=0$ iff $x=\mathbf{0}$\\
+	ii) positive scalability: $||\alpha x||=|a|\,||x||$\\
+	iii) triangle inequality: $||x+y|| \le ||x||+||y||$, with equality if $y=\alpha x$
+	}
+	\item Metric
+	\end{itemize}
+\item Standard Spaces
+	\begin{itemize}
+	\item Standard inner product spaces -- {\color{gray} inner product must be finite for space to be inner product sp.}
+		\begin{itemize}
+		\item $\mathbb{C}^N, \ell^2(\mathbb{Z}), \mathcal{L}^2(\mathbb{R}),$ ... (\#30)
+		\end{itemize}
+	\item Standard normed vector spaces -- {\color{gray} space must have a finite norm}
+		\begin{itemize}
+			\item $\mathbb{C}^N, \ell^p(\mathbb{Z}), \mathcal{L}^p(\mathbb{R}),$ ... (\# 33)
+ 		\end{itemize}
+	\end{itemize}
+\item Hilbert Spaces
+	\begin{itemize}
+	\item Convergence
+	\item Closed Subspace (\#37 and \#135)
+	\item Cauchy Sequence -- {like convergence, but limit value doesn't have to be in defined metric space}
+	\item Complete Space -- {\color{gray} A normed vector sp. V where every Cauchy seq. converges to a vector in V}
+	\item Banach Space -- {\color{gray} A normed vector sp. V where each Cauchy Sequence converges to a v in V}
+	\item Hilbert Space -- {\color{gray} A complete inner product space}
+	\item Linear Operator, $A: H_0 \rightarrow H_1$ -- {i) $A(x+y) = Ax+Ay$, ii) $A(\alpha x)=\alpha(Ax)$ }
+	\item Bounded Linear Operator
+	\item Operator Norm {\color{gray} $||A|| = \sup_{||x=1||}||Ax||$}
+	\item Inverse
+	\item Adjoint operator (see \#46 for properties)	\begin{flalign}
+	&\langle Ax, y\rangle_{H_0}=\langle x, A^{*}y\rangle,\, \mbox{for every}\,\, x \in H_0 \,\,\mbox{and}\,\, y \in H_1.&
+	\end{flalign}
+	\item Unitary Operator: A bounded linear operator (BLO) that is invertible and preserves inner products: $\langle Ax,Ay\rangle_{H_1} = \langle x,y \rangle_{H_0}\,\,\,\forall
+	x,y \in H_0$.  \\
+	Theorem: A BLO is unitary iff $A^{-1}=A*$
+	\item Eigenvalues/vectors: $A: H\rightarrow H; v $ is eigvector if $Av=lv$ for some $\lambda \in \mathbb{C}$.
+	\item Definite Linear Operator -- a self-adjoint ($A=A^{*}$) operator such that: \\
+	{\footnotesize \color{gray}
+	positive semi-definite: $\la Ax, x \ra \ge 0$, positive definite: $\la Ax, x \ra > 0$ \\
+	negative semi-definite: $\la Ax, x \ra \le 0$, negative definite: $\la Ax, x \ra < 0$
+	}
+	\end{itemize}
+	\item Approximations
+	\begin{itemize}
+		\item Best approximation: orthogonal projection
+		\item Projection Theorem (\#51): Let $S$ be a closed subspace of a Hilbert sp. $H$, and let $x \in H$ \\
+		{\footnotesize \color{gray}
+			i) Existence: There exists $\hat{x}$ such that $||x-\hat{x}||\le ||x-s||$ for all $s \in S$.	\\
+			ii) Orthogonality: $x-\hat{x}\perp S$ is necessary and sufficient for determining $\hat{x}$.\\
+			iii) Uniqueness: $\hat{x}$ is unique\\
+			iv) Linearity: 	$\hat{x}=Px$, where $P$ is a linear operator that depends on $S$ and not on $x$\\
+			v) Idempotency: $P(Px)=Px\,\,\,\forall x \in S$ \\
+			vi) Self-adjointess: $P=P^{*}$
+		}
+	\item Projection Operator (not necessarily orthogonal, \#55) \\
+	{\footnotesize \color{gray}
+	i) A projection operator is a BLO that is idempotent ($P^2=P$) \\
+	ii) Orthogonal projection operator is self-adjoint,  Oblique projection operator is not self-adjoint
+	}
+	\item Theorem: Orthogonal Projection Operator: $\la x-Px, Py\ra = 0\,\,\,\, \forall x,y\in H$
+	\item Pseudoinverse (see \hyperref[pseudoinv]{here} for theorem).
+	\item Direct Sum: \\
+	{\footnotesize\color{gray}A vec. sp. $V$ is a \textit{direct sum} of subspaces $S$ and $T$, denoted $V=S\oplus T$, if any non-zero $x$ can be written uniquely as: \\
+	$x=x_S+x_T$, where $x_S\in S, x_T\in T$
+	}
+	\item Decomposition: $S$ and $T$ form a \textit{decomposition} of $V$, and $x_S,x_T$ the \textit{decomposition} of $x$.
+	\item Orthogonal Random Vectors: RVs $x,y$ are \textit{orthogonal} when $\mathbb{E}[xy^{*}]=\mathbf{0}$. (not inner product).
+	\end{itemize}
+	\item Bases and Frames
+	\begin{itemize}
+		\item Basis: \\
+		{\footnotesize\color{gray}
+		$\Phi = \{\phi_k\}_{k\in\mathcal{K}} \subset V$, where $\mathcal{K}$ is finite or countably infinite (FOCI). $\Phi$ is a basis for normed $V$ when: \\
+			i) it is \textit{complete} in $V$: $\forall x \in V$, there is sequence $\alpha \in \mathbb{C}^{\mathcal{K}}$ s.t. $x=\sum_{k\in\mathcal{K}}\alpha_k \phi_k$ \\
+			ii) for any $x\in V$, $\alpha$ that satisfies above is unique.
+		}
+	\item Riesz Basis (\#72): \\
+	{\color{gray} A Basis $\Phi$ with \textit{stability constraints} $\lambda_{\min}, \lambda_{\max}$ s.t. $\lambda_{\min}||x||^2 \le \sum_{k\in\mathcal{K}}|\alpha_k|^2\le \lambda_{\max}||x||^2$ \\
+	The largest $\lambda_{\min}$ and smallest $\lambda_{\max}$ are \textit{optimal stability constants}. \\
+	!!! The stability constants are very useful -- the farther they are from optimum, the more a matrix becomes vulnerable to numerical ill-conditioning
+	}
+	\item Basis Synthesis Operator $\Phi$ and Basis Analysis Operator $\Phi^{*}$ (defined for Riesz Bases \#75)\\
+	{\footnotesize\color{gray} $\Phi: \ell^2(\mathcal{K})\rightarrow H$ with $\Phi\alpha = \sum_{k\in\mathcal{K}}\alpha_k\phi_k$ \\
+	\footnotesize\color{gray} $\Phi^{*}: H \rightarrow \ell^2(\mathcal{K})$ with $\alpha_k = (\Phi^{*}x)_k = \la x, \phi_k \ra$ (the $k^{th}$ analysis coefficient).
+ 	}
+ 	\item Orthonormal Basis: A basis $\Phi=\{\phi_k\}$ s.t. $\la \phi_i, \phi_k \ra = \delta_{i-k}$ \\ 
+ 	{\footnotesize\color{gray} Are unitary $\Phi\Phi^{*}=I$ \\
+ 	The above implies $\Phi^{-1}=\Phi^{*}$}
+ 	\item Gram-Schmidt Orthogonalization (recursive algorithm to derive orthonormal basis \#84).
+ 	\item Biorthogonal Pairs of Bases: Bases $\Phi$ and $\tilde{\Phi}$ that are \textit{biorthogonal}, \ie $\la \phi_i, \tilde{\phi}_k\ra\delta_{i-k}$ \\
+ 	{\footnotesize\color{gray}
+ 	$\alpha=\tilde{\Phi}^{*}x$ \\
+ 	$x=\alpha\Phi=\Phi\tilde{\Phi}^{*}x$ (these two due to Theorem 2.44 \#88) \\
+ 	$\tilde{\Phi}^{*}\Phi=I$ on $\ell^2(\mathcal{K})$ \\
+ 	$\tilde{\Phi}^{*}=\Phi^{-1}$ \\
+ 	$\tilde{\lambda}_{\min}=1/\lambda_{\max}$ \\
+ 	$\tilde{\lambda}_{\max}=1/\lambda_{\min}$
+ 	}
+ 	\item Gram Matrix (enables computations w.r.t only 1 basis): \\
+ 	{\footnotesize \color{gray}
+ 	$G=\Phi^{*}\Phi$, each value $G_{ik}=\la \phi_k, \phi_i \ra$ \\
+ 	$\la x,y \ra = \beta^{*}G\alpha$
+ 	}
+ 	\item Dual basis properties (Theorem 2.46 \#94): \\
+ 	{\footnotesize\color{gray}
+ 	Let $A=(\Phi^{*}\Phi)^{-1}$ (inverse Gram matrix). \\
+ 	Dual basis vectors $\phi_k$ can be computed as $\tilde{\phi}_k=\sum_{\ell\in\mathcal{K}}a_{\ell,k}\phi_{\ell}$. \\
+ 	Synthesis operator: $\tilde{\Phi}=\Phi A = \Phi (\Phi^{*}\Phi)^{-1}$
+ 	}
+ 	\item Successive Approximation (algo to compute \textit{canonical} dual basis)
+ 	\item Frame: A vector set $\{\phi_k\}_{k\in\mathcal{J}}\subset H$ that spans $H$ but is overcomplete (like having more vectors than the rank).\\
+ 	{
+ 	\footnotesize\color{gray} $\lambda_{\min}||x||^2 \le \sum_{k\in\mathcal{J}}|\la x, \phi_k\ra|^2\le \lambda_{\max}||x||^2$
+ 	}
+ 	\item Tight Frame or $\lambda$-tight Frame: frame such that  $\lambda_{\min}=\lambda_{\max}$. 
+ 	{ \footnotesize\color{gray}
+ 	$\Phi\Phi^{*}=I$ \\
+ 	Acc. to Theorem 2.51 (\#105), the analysis and synthesis operations of 1-tight frames is analogous to orthonormal basis situation, but expansion is not unique anymore.
+ 	}
+ 	\end{itemize}
+ 	\item Matrix Representations of Linear Operators:
+ 	\begin{itemize}
+ 		\item Change of bases \\
+ 		{\footnotesize\color{gray}
+ 		Consider two bases $\Phi, \Psi$ such that $x=\Phi\alpha$ and $x=\Psi\beta$\\
+ 		A change of bases operator $C_{\Phi,\Psi}\alpha=(\Psi^{-1}\Phi)\alpha=\Psi^{-1}(\Phi\alpha)=\Psi^{-1}x=\beta$. \\
+ 		We don't want to apply the latter operation from right to left, because we'll move back to original space $H$ which can be complicated. Instead, we want to have a matrix operator $C_{\Phi,\Psi}=(\Psi^{-1}\Phi)$ that will allow the operations to stay within $\ell^2(\mathcal{K})$ See \#113. }
+ 	\end{itemize}
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Norm- and Inner Product-related Theorems}
+\label{nomr_thms}
+\textbf{The opposite triangle inequality}
+$||\upsilon-w||\ge \big| ||\upsilon||-||w|| \big|$ 
+
+\textbf{Pythagorean theorem}
+$x\perp y$ implies $||x+y||^2=||x||^2+||y||^2$. Generalize: $\{x_k\}_{k\in \mathcal{K}}$ implies ... (\# 29)
+
+\textbf{Parallelogram law} $||x+y||^2+||x-y||=2(||x||^2+||y||^2)$
+
+\textbf{H\"older's inequality} Let $p,q\in [1,\infty]$ satisfy $1/p+1/q=1$; then, $||xy||_1 \le ||x||_p ||y||_q$ with equal. iff $|x|^p$ and $|y|^q$ are scalar multiples of each other.
+
+\textbf{Cauchy-Schwarz inequality} $|\la x,y\ra|\le ||x||\, ||y||$ with equality iff $x=\alpha y$. (it's a special case of H\"older's ineq.) Using this, we can compute the angle bw any two vectors x,y as $\cos \theta = \la x,y \ra/||x||\,||y||$
+
+\textbf{Minwosky's inequality} for any $p\in [1,\inf)$ (there are equivalents for integrals instead of sums as well, see \#139):
+\begin{equation}
+\left(\sum\limits_{k\in\mathbb{Z}}|x_k+y_k|^p \right)^{1/p} \le \left(\sum\limits_{k\in\mathbb{Z}}|x_k|^p \right)^{1/p}+\left(\sum\limits_{k\in\mathbb{Z}}|y_k|^p \right)^{1/p}
+\end{equation}
+
+\section{Projection-related Theorems}
+\label{pseudoinv}
+\textbf{Orthogonal proj. via pseudoinverse} Let $A: H_0 \rightarrow H_1$ be a BLO.
+
+i) if $AA^{*}$ invertible, then $B=A^{*}(AA^{*})^{-1}$ is the \textit{pseudoinverse} of $A$, and $BA=A^{*}(AA^{*})^{-1}A$ is the orthogonal projection operator onto the range of $A^{*}$
+
+ii) If $A^{*}A$ is invertible, then $B=(A^{*}A)^{-1}A^{*}$ is the \textit{pseudoinverse} of $A$ and $AB=A(A^{*}A)^{-1}A^{*}$  is the orthogonal projection operator onto the range of $A$.
+
+\textbf{Diect-sum decomposition from Projection Operator} (\#61):
+
+i) Let $P$ be a projection op on $H$. $P$ generates a direct-sum decomposition $H=\mathcal{R}(P)\oplus\mathcal{N}(P)$
+
+ii) Conversely, if $H=S\oplus T$, then there is $P$ on $H$ s.t. $S=\mathcal{R}(P)$ and $T=\mathcal{N}(P)$
+
+\textbf{Orthonormal Basis Expansions} Let $\Phi=\{\phi_k\}_{k\in\mathcal{K}}$ be an orthonormal basis for $H$. The unique \textit{expansion coefficients} $\alpha_k$ can be obtained: 
+\begin{eqnarray}
+\alpha_k &= \la x, \phi_k \ra \\
+\alpha &= \Phi^{*} x
+\end{eqnarray}
+Synthesis:
+\begin{eqnarray}
+x &= \sum_{k\in\mathcal{K}}\la x, \phi_k\ra \phi_k \\
+&= \Phi\alpha = \Phi\Phi^{*}x
+\end{eqnarray}
+
+
+\textbf{Parseval Equalities} 
+
+For orthonormal bases (\#77) and 1-tight frames (\#105): $||x||^2=||\alpha||^2$ (more generally $\la x,y \ra = \la \alpha, \beta \ra$)
+
+For biorthogonal pair of bases (\#89): $||x||^2=\la \tilde{\alpha}, \alpha\ra$ (more generally $\la x,y \ra = \la \tilde{\alpha}, \beta \ra$)
+
+\textbf{Orthogonal projection onto a\textit{subspace}}
+Let $\{\phi_k\}_{k\in\mathcal{I}}$. Then, $P_{\mathcal{I}}=\Phi_{\mathcal{I}}\Phi_{\mathcal{I}}^{*}x$ is the orthogonal projection of x onto the (subspace) $S_{\mathcal{I}}=\overline{\mbox{span}}(\{\phi_k\}_{k\in\mathcal{I}})$
+
+\textbf{Orthogonal projection onto a\textit{subspace}}
+Analogous to above, only that $P_{\mathcal{I}}=\Phi_{\mathcal{I}}\tilde{\Phi}_{\mathcal{I}}^{*}x$
+
+\textbf{Bessel's Inequality} $||x||^2\ge ||\Phi_{\mathcal{I}}^{*}x||^2$ (definitions above).
+\clearpage
+\section*{Quiz}
+\begin{enumerate}
+\bf
+\item What is a Unitary Operator?
+\item What is a Direct Sum?
+\item What is a finite-energy function?
+\item Order the following spaces from largest to smallest: Banach, Hilbert, Inner Product, Normed
+\item Which matrices are called Hermitian?
+\item What is the infinity norm or uniform norm or supremum norm or Chebyshev norm?
+\item What is a tight frame? [options?]
+\item What is the difference between a frame and a basis?
+\item Group the synonyms among these four terms: cross product, inner product, scalar product, dot product.
+\end{enumerate}
+
+% https://www.youtube.com/watch?v=VXwXkME9uWU&list=PLMn2aW3wpAtOqo0g0OnHndXB1LnYBeMaX&index=1
+\end{document}

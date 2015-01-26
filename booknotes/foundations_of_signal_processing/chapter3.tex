@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\topmargin=-0.65in    % Make letterhead sftart about 1 inch from top of page
+\textheight=9.10in    % text height can be bigger for a longer letter
+\oddsidemargin=-0.1in % leftmargin is 1 inch
+\textwidth=6.7in   % textwidth of 6.5in leaves 1 inch for right margin
+
+% some shortcuts
+\newcommand{\ea}{\textit{et al. }} 
+\newcommand{\eg}{\textit{e.g. }} 
+\newcommand{\ie}{\textit{i.e. }} 
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\cg}{\color{gray}}
+\newcommand{\fs}{\footnotesize}
+\setlength{\parindent}{0mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OUTLINE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\bf Outline of Foundations of Signal Processing}
+\author{Evangelos Sariyanidi}
+\maketitle
+\section*{Chapter 3}
+Discrete(-time) Fourier Transform, Z-Transform, Stochastic Processes
+
+\begin{itemize}
+
+\item Discrete-time (DT) Systems {\cg \textit{Operators} having sequences as their inputs and outputs}\\
+{\cg\fs Some types \#195: \color{gray} Linear, Memoryless, Causal, Shift-invariant, Stable (BIBO). {\bf We focus on Linear\&Shift-Invariant}}
+\item Basic systems {\color{gray} Shift, modulator, accumulator, averaging operator, maximum}
+\item Table 3.3 (\#203) !important! illustrates types of systems and their properties!
+\item Difference equations (DE): many systems can be described via DEs. \\
+{\color{gray} \footnotesize
+DE systems are NOT linear or shift-invariant UNLESS the initial conditions are zero (Appendix 3.A.2)
+}
+\item Linear Shift-invariant Systems (LSISs)
+\begin{itemize}
+	\item Impulse response {\color{gray} $h$: the of an LSI sys for input $\delta$}
+	\item Convolution {\color{gray} $(Hx)_n=(h\ast x)_n=\sum_{k\in\mathbb{Z}}x_kh_{n-k}=\sum_{k\in\mathbb{Z}}h_kx_{n-k}$} \\
+	{\color{gray}\footnotesize
+	Connection to inner product: $(h\ast x)_n=\sum_{x\in\mathbb{Z}}x_kh_{n-k}=\la x_k, h_{n-k}^{*} \ra$\\
+	Commutativity, Associativity\\
+	Deterministic autocorrelation (AC): $a_n = x_n\ast_n x^{*}_{-n}$ \\
+	Shifting: $x_n\ast_n\delta_{n-k}=x_{n-k}$	\\
+	IMPORTANT! Most properties above depend on the sums -- must be abs. converging.
+	}
+	\item Filter: {\color{gray}Impulse response of a system}; Filtering: {\color{gray} convolving a seq with impulse response}.
+	\item THM 3.8: (BIBO) Stability {\color{gray}An LSIS is BIBO-stable iff its impulse response is abs. summable. \\
+	Limiting in $\ell^2(\mathbb{Z})$ avoids convergence issues \#209}
+	\item Circular conv: {\color{gray} applies to finite-length ($N$) seqs, extended circularly	}
+ \\
+	{\color{gray} \footnotesize
+	$(h\circledast x)_n=\sum_{k=0}^{N-1}h_kx{(n-k)\mod N}$}
+	\item THM 3.10 - Equiv of circular and linear conv: \\
+	{\color{gray} If length of $x$ is $M$ and of $h$ is $L$, linear and circular conv is equiv if $N\ge L+M-1$}
+\end{itemize}
+\item Discrete-time Fourier Transform (DTFT) {\color{gray} is a cont fn of $\omega$; $X(e^{j\omega})=\sum_{n\in\mathbb{Z}}x_n {\upsilon^{-1}_{n}}$ where $\upsilon_n=e^{j\omega n}$} \\
+Inverse DTFT: {\cg $x_n=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}X(e^{j\omega n})e^{j\omega n}d\omega$}\\
+{\color{gray} \footnotesize
+IMPORTANT! Why FT?: "Simply b/c they are based on eigensequences of LSIS":\\
+$(H\upsilon)_n=\sum_{k\in\mathbb{Z}}h_k e^{j\omega (n-k)} = \sum_{k\in\mathbb{Z}}h_k e^{-j\omega k} e^{j\omega n} = \lambda_{\omega} e^{j\omega n} = \lambda_{\omega} \upsilon_n$ \---- an eigendecomposition
+}
+\begin{itemize}
+\item Convergence in the mean square  \\
+{\color{gray} \footnotesize if sequence not abs. convergent, we can pursue convergence in mean square $(\mathcal{L}^2)$. There may be points that don't converge, but we may remove them through Dirac delta fn \#220}.
+\item Properties of DTFT: (Table 3.4 \#222) \\
+{\color{gray}\footnotesize 
+Linearity, shift in time, shift in freq, scaling in time, time reversal, differentiation, moment computation, conv ($x\ast y=XY$), circular convolution in freq, deterministic AC ($a_n=|X(e^{j\omega})|^2$), deterministic crosscorelation (CC) ($c_{x,y,n}=X(e^{j\omega})Y^{*}(e^{j\omega})$)}
+\item Parseval equality \#226 (energy conservation): {\color{gray} $||X||^2=2\pi ||x||^2$; $X=Fx$, $F:\ell^2(\mathbb{Z})\rightarrow \mathcal{L}^2([-\pi,\pi])$ }
+\item Freq Resp of filter: {\color{gray} The DTFT of a filter (\ie impulse resp of an LSIS) $h$: $H(e^{j\omega})=\sum_{n\in \mathbb{Z}} h_n e^{-j\omega n}$}\\
+{\color{gray}\footnotesize
+We often write magnitude and phase resp separately: $H(e^{j\omega})=|H(e^{j\omega})|e^{j\arg(H(e^{j\omega}))}$
+\\
+{Zero-phase Filter: Filter that has real freq resp\\
+Generalised Linear-Phase Filter: $H(e^{j\omega})=|H(e^{j\omega})|e^{\alpha j+\beta}$ \\
+Linear-Phase Filter: $H(e^{j\omega})=|H(e^{j\omega})|e^{\alpha j}$ }
+}
+\item Ideal Filter: {\cg Unrealizable filter, needs infinite support but able to pass requested frequencies exactly}
+{\cg\fs Ideal lowpass filt: $\sqrt{\frac{\omega_0}{2\pi}}\text{sinc}(\frac{1}{2}\omega_0 n) \rightarrow \begin{cases}\sqrt{2\pi/\omega_0} & |\omega|\le \frac{1}{2}\omega_0 \\ 0 & other\end{cases}$ \\
+Ideal $N$th-band filter: $\frac{1}{\sqrt{N}}\text{sinc}(\frac{\pi n}{N}) \rightarrow \begin{cases}\sqrt{N} & |\omega|\le \frac{\pi}{N} \\ 0 & other\end{cases}$
+}
+\item Finite Impulse Response (FIR) Filters: {\cg realizable filters} \\
+\item Linear-Phase Filters: {\cg Real-valued FIR filters that are symmetric or antisymmetric}
+\item Allpass filters: \\
+{\cg \fs
+i) Energy conservation: $||y||^2=||x||^2$ \#231
+ii) Ortonormal set: Shifts of $h$, $\{h_{n-k}\}_{k\in\mathbb{Z}}$, form an orthonormal set\\
+iii) Orthonormal basis: $\{\phi_k\}_{k\in\mathbb{Z}}$ where $\phi_{k,n}=h_{n-k}$ form an orthonormal basis for $\ell^2(\mathbb{Z})$}
+
+\end{itemize}
+\item $z$-transform {\cg DTFT cool but assumes convergence. $z$-transforms relaxes this through region of convergence (ROC) concept; $X(z)|_{z=e^{j\omega}}=X(e^{j\omega}) \implies $ DTFT is a special case of $z$-transform. }
+\begin{itemize}
+	\item Defn: {\cg $X(z) = \sum_{n\in\mathbb{Z}}x_nz^{-n}$ and $\text{ROC} = \{z:|X(z)|< \infty \}$ where $\upsilon_n=z^n=r^{n}e^{j\omega n}$}
+	\item Properties similar to DTFT; Table 3.6 \#243
+	\item Rational $z$-transforms {\cg important class, $H(z)=\frac{B(z)}{A(z)}$}
+	\item THM 3.13: Rational AC {\cg A rational fn A(z) is the deterministic $AC$ of a stable real sequence $x$, iff ... \#245}
+	\item Corollary 3.14: Spectral Factorization \#247 {\cg A rational z-trans $A(z)$ is the deterministic AC of a stable real sequence $x$ iff it can be factored as $A(z)=X(z)X(z^{-1})$}
+	\item THM 3.15 (BIBO stability with rational fns) {\cg A causal LSIS is BIBO-stble iff the poles of its Transfer Function (TF) are} inside the unit circle.
+	\item !important! ROC can't contain any poles \#238, \#246
+\end{itemize}
+	\item Discrete Fourier Trans (DFT) {\cg While DTFT is $F_{\text{DTFT}}:\ell^2(\mathbb{Z})\rightarrow \mathcal{L}^2([-\pi,\pi])$, DFT is $F_{\text{DFT}}:\ell^2(\mathbb{Z})\rightarrow\ell^2(\mathbb{Z})$ }\\
+	{\cg\fs
+	DFT: $X_k = (Fx)_k = \sum\limits_{n=0}^{N-1}x_nW_N^{kn};$\\
+	$W_N^{nk}=e^{-j kn 2\pi/N}; \upsilon_n=e^{j\omega n}$ \\
+	Inverse DFT: $x_n = \frac{1}{N}(F^{*}X)_n =\frac{1}{N}\sum\limits_{n=0}^{N_1}X_k W_N^{-kn}$ 
+	}
+	\begin{itemize}
+		\item Again, is eigenseq \#252: {\cg$(H\upsilon)_n=(h\circledast \upsilon)_n=\sum\limits_{i=0}^{N-1}\upsilon_{(n-i)\mod N}h_i =\sum\limits_{i=0}^{N-1}W_N^{ki)}h_iW_N^{-kn}=\sum\limits_{i=0}^{N-1}\lambda_k \upsilon_n$}
+		\item $k$: Discrete Frequency
+		\item Relation to DFT \#255: {\cg $X(e^{j\omega})|_{\omega=\omega_k}=X_k$; $\omega_k=\frac{k2\pi}{N}$}
+		\item Properties similar to DTFT, Table 3.7 \#256
+		\item Modulation: {\cg A shift $k_0$ in frequency \#257}
+		\item Frequency response of filters: {\cg DFT of a N-dim filter (impulse resp of an LSIS) $h$ is frequency response:} \\
+		{\cg\fs $H_k=\sum\limits_{n=0}^{N-1}h_n W_N^{kn}$\\
+		Again, we separate as magnitude and phase response $H_k=|H_k|e^{j\arg(H_k)}$ 
+		}
+		\item !Beware! DFT analysis of infinite-long sequences can be misleading!\\
+		{\cg Misleading allpass behaviour \#260\\
+		Misleading linear-phase
+		}
+		\item !Beware! On periodic seqs, windowing becomes crucial to avoid SPURIOUS high frequencies
+	\end{itemize}
+	\item ... Multirate seqs and systems (Sec 3.7, \#264--\#285) ...
+	\begin{itemize}
+		\item Upsampling and downsampling not commutative in general; {\cg only when upsampling and downsampling rates $M,N$ are relatively prime (they have no common factors)}
+		\item Hermitian transposition equals time reversal (\#277)
+		\item Quadrature mirror formula (3.217 \#277) or \textit{power complementarity}\\
+		{\cg\fs This is central in the design of orthonormal filter banks} 
+	\end{itemize}
+	
+	\item DT Stochastic Processes (SP)\\
+	{\cg A countably infinite collection of jointly distributed RVs $\{\hdots, x_0, x_1, \hdots \}$\\
+	We study systems that act deterministically on Random signals.}
+	\begin{itemize}
+		\item 2nd order statistics: {\cg mean, var, std, AC, CC}
+		\item For iid, $\mu_{x,n}=\mu_x,\sigma_{x,n}=\sigma_x$ etc. \#286
+		\item Stationarity \#287 {\cg Generalizes the iid prop by allowing dependence bw RVs}\\
+		{\cg\fs An SP is stationary if the joint distros of $(x_{n_0},x_{n_1},\hdots,x_{n_L})$ and $(x_{n_0+k},\hdots,x_{n_L+k})$ are identical for finite $\{n_0,\hdots,n_L\}$}
+		\item Wide-sense SP (WSS) {\cg More relaxed than stationary processes}\\
+		{\cg\fs When $\mu_{x,n}=\mu_x$, AC $a_{x,n,k}=a_{x,k}$. Two SPs $x,y$ are jointly WSS when $c_{x,y,n,k}=c_{x,y,k}$}
+		\item White Noise: {\cg An SP such that $\mu_{x,n}=0$ and $\sigma_{x,n}=\sigma_x$, $a_{x,n,k}=\sigma_x^2\delta_k$}
+		\item Orthogonality (Tab 3.10 \#301) {\cg $c_{x,y,k}=\text{E}[x_n y^{*}_{n-k}]=0;$ in frequency: $C_{x,y}(e^{j\omega})=0$}		
+		\item Whitening (decorrelation) {\cg Processing that results in a white noise proc}
+		\item System analysis {\cg Props of sys output $y$ when SP $x$ is input}\\
+		{\cg\fs$\mu_{y,n}=\mu_y$, $a_{y,n,k}=a_{y,k}$, $c_{x,y,n,k}=c_{x,y,k}$}
+		\item Autoregressive Moving-average (ARMA) Process {\cg Output of a BIBO-stable causal LSIS when input is white noise $x$.} \\
+		{\cg\fs One generative model is: $y_n=\sum\limits_{k=0}^M b_k x_{n-k}+\sum\limits_{k=1}^N a_k y_{n-k}$}
+		\item Moving Average (MA) Process {\cg when $a_i=0 \forall i$ in the eq above}
+		\item Autoregressive (AR) Process {\cg when $b_i=0$ !for $i>0$!}
+	\end{itemize}
+	
+\end{itemize}
+
+
+The definitions of power and energy can be very confusing for discrete vs continuous or deterministic seqs vs SPs. Tab 3.8 (copied below) \#293  clarifies:
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{l l} \hline
+\textbf{Deterministic  sequences} & \textbf{WSS discrete-time stochastic processes} \\\hline\hline
+Energy spectral density & Power spectral density\\
+$A(e^{j\omega})=|X(e^{j\omega})|^2$ & $A(e^{j\omega})=\sum\limits_{k\in\mathbb{Z}}\text{E}[x_nx^{*}_{n-k}e^{-j\omega k}]$ \\ 
+ & \\
+ Energy & Power \\
+ $E=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}A(e^{j\omega})d\omega$ &
+ $P=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}A(e^{j\omega})d\omega$ \\
+ $E = a_0 = \sum\limits_{n\in\mathbb{Z}}|x_n|^2$  & $P=a_0=\text{E}[|x_n|^2]$ \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+% https://www.youtube.com/watch?v=VXwXkME9uWU&list=PLMn2aW3wpAtOqo0g0OnHndXB1LnYBeMaX&index=1
+\end{document}
