@@ -57,10 +57,10 @@ where $\alpha$ is \textit{constant group delay} and $H_r$ is the amplitude. The 
 \centering
 \begin{tabular}{|l|l|l|l|l|} \hline
  & M & symm/anti-symm  & $\beta$ & usage \\ \hline
-\textbf{Type I} & odd & symm & 0 & any\\
-\textbf{Type I} & even & anti-symm & 0 & lowpass only (not highpass or bandstop (see \#233)) \\
-\textbf{Type I} & odd & symm & $\pi/2$ & digital Hilbert transformers and differentiators (to take derivative)\\
-\textbf{Type I} & even & anti-symm & $\pi/2$ & digital Hilbert transformers and differentiators (to take derivative)\\ \hline
+\textbf{Type I} & odd & symm & 0 & lowpass, highpass, bandstop \\
+\textbf{Type II} & even & symm & 0 & lowpass only (not highpass or bandstop (see \#233)) \\
+\textbf{Type III} & odd & anti-symm & $\pi/2$ & dig. Hilbert transformers and differentiators (for derivative)\\
+\textbf{Type IV} & even & anti-symm & $\pi/2$ & dig. Hilbert transformers and differentiators (for derivative)\\ \hline
 \end{tabular}
 \caption{Filter types}
 \label{tab:types}
@@ -93,12 +93,105 @@ All these can be done very simply in MATLAB through the \ttt{remez} function. Th
 \end{enumerate}
 
 
-Exemlar piece of code: 
+Exemplar piece of code to create bandpass filter: 
+{
+\footnotesize
+\begin{verbatim}
+% Filter specifications
+Rp = 0.5; As = 50;
+ws1 = 0.2*pi; wp1 = 0.3*pi; wp2 = 0.7*pi; ws2 = 0.8*pi;
+
+% deltas are defined through simple equations, see #226
+delta1 = (10^(Rp/20)-1)*(10^(Rp/20)+1);
+delta2 = (1+delta1)*(10^(-As/20));
+
+deltaH = max(delta1, delta2); deltaL = min(delta1, delta2);
+delta_f = min((ws2-wp2)/(2*pi), (wp1-ws1)/(2*pi)); see #284
+
+% Compute initial M, see #284
+M = ceil((-20*log10(sqrt(delta1*delta2))-13)/(14.6*delta_f)+1);
+if mod(M,2) == 0; M = M+1; end
+
+f = [0 ws1/pi wp1/pi wp2/pi ws2/pi  1]; % key frequency values (normalized to range [0,1])
+m = [0 0 1 1 0 0]; % desired magnitude values at above frequencies
+weights = [1 delta2/delta1 1]; % weight parameter needed by equiripple design theory, see #280
+
+h = remez(M-1,f,m,weights); % create the filter
+[H,w] = freqz(h,1,1000,'whole'); % Filter in frequency domain
+
+% Plot
+H = (H(1:1:501))'; w = (w(1:1:501))';
+mag = abs(H);
+db = 20*log10((mag+eps)/max(mag));
+
+% Now check if we met constraints
+delta_w = 2*pi/1000; ws1i = floor(ws1/delta_w)+1;
+Asd = -max(db(1:1:ws1i))
+
+% Not enough min attenuation, we need to increment a bit more
+M = M+2;
+h = remez(M-1,f,m,weights); % create the filter
+[H,w] = freqz(h,1,1000,'whole'); % Filter in frequency domain
+
+% Plot
+H = (H(1:1:501))'; w = (w(1:1:501))'; mag = abs(H);
+db = 20*log10((mag+eps)/max(mag));
+
+subplot(2,1,1); plot(w/500/(2*pi),mag) ylim([0 1.3]);
+subplot(2,1,2); plot(w/500/(2*pi),db); ylim([-100 2]);
+\end{verbatim}
+}
+
+
+
+
+
+
+
+\clearpage
+\section{IIR Filter Design}
+The idea is to first design an analogue filter, then convert it to a digital one. There are 3 types of prototypical analogue filters: i) Butterworth, ii) Chebyshev (Chebysev I and II) and iii) Elliptical \---- see Fig. \ref{fig:IIR}. Butterworth has no ripples and its phase response is the closest to linear but produces the widest transition band for a filter order $N$. Elliptical has ripples on both passband and stopband and the most nonlinear phase, but produces the narrowest transition band for same $N$. Chebyshev is somewhere between the two in terms of transition bandwidth and phase linearity, and has ripples only on passband. 
+
+\subsection{Converting to Digital} The analogue design is carried out in $s$ domain, we will convert to $z$ domain (A/D conversion). Different conversion designs retain different characteristics of the filter. One is \textit{impulse invariant design} which retains the shape of the analog impulse response after conversion to digital (\#327) and also retains stability, but possibly creates aliasing frequency response. The standard A/D conversion scheme is bilinear transformation which is not only stable but also has no aliasing (due to one-to-one mapping from $s$- to $z$-domain) and can also be applied to any type of filter (\#344).
+
+\subsection{Filter Design in MATLAB with Bilinear Transform}
+See \#339 for non-MATLAB summary. Here we consider using MATLAB functions.
+
+We first decide the digital filter specifications $\omega_p$,$\omega_s$, $R_p$, $A_s$. % $A_s$ is needed only by elliptic filters (due to ripples in stopband) and $R_p$ is needed only by elliptic and Chebyshev filters. 
+Then we use the following functions to compute the right $N$ and $\omega_n$ values:
+\begin{verbatim}
+[N,wn] = buttord(wp/pi, ws/pi, Rp, As); % for butterworth filter
+[N,wn] = cheb1ord(wp/pi, ws/pi, Rp, As); % for chebyshev I
+[N,wn] = cheb2ord(wp/pi, ws/pi, Rp, As); % for chebyshev II
+[N,wn] = ellipord(wp/pi, ws/pi, Rp, As); % for elliptic
+\end{verbatim}
+
+Then we feed these parameters to the filter implementation functions:
+\begin{verbatim}
+[b,a] = butter(N, wn,'filterType') % filterType is 'high', 'stop' etc. see doc.
+[b,a] = cheby1(N, Rp, wn, 'filterType')
+[b,a] = cheby2(N, Rp, wn, 'filterType')
+[b,a] = ellip(N, Rp, As, wn, 'filterType')
+\end{verbatim}
+
+The output \ttt{b,a} are the nominator and denominator of the filter function in $z$ domain. We perform filtering via the \ttt{filter(b,a,x)} function.
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.13]{fig/iir_design.jpg}
+\label{fig:iir}
+\caption{IIR Filters \---- the three prototype analogue filters}
+\end{figure}
+
+
 
 \begin{figure}
 \includegraphics[scale=0.20]{fig/fir_design.jpg}
 \label{fig:design}
+\caption{FIR filter design specs}
 \end{figure}
+
 
 % https://www.youtube.com/watch?v=VXwXkME9uWU&list=PLMn2aW3wpAtOqo0g0OnHndXB1LnYBeMaX&index=1
 \end{document}
