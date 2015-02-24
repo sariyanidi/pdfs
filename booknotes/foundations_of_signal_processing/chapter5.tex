@@ -18,32 +18,114 @@
 \newcommand{\ra}{\rangle}
 \newcommand{\cg}{\color{gray}}
 \newcommand{\fs}{\footnotesize}
-\setlength{\parindent}{0mm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
+\author{Outline by: Evangelos Sariyanidi}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OUTLINE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{\bf Outline of Foundations of Signal Processing}
 \maketitle
-\section*{Chapter 5}
+\section*{Chapter 5 -- Sampling and Interpolation}
 
-* The rate at which the approximation error $\hat{x}_T-x$ goes to zero for as $T\rightarrow 0$ is an important indicator of the approximation power of the interpolation scheme.
-* Thm 5.1	
-* Def: consistent (\#427)
-* Def: ideally matched (\#427)
-* Def: shift-invariant space and generator (\#430)
+The chapter considers how to move from discrete to continuous spaces (and vice versa), which were studied in earlier chapters. This is essential for many studies including wavelet analysis.\\
 
-errata \#434 shouldn't it be $\hat{x}$
+Throughout the chapter two things are placed to focus: Interpolation followed by sampling (IFS) and sampling followed by interpolation (SFI). These two are discussed for three types of inputs: i) Continuous functions, ii) sequences and iii) periodic functions. For each type of input the discussion is repeated for a) orthogonal vectors and b) nonorthogonal vectors (often biorthogonal pairs of bases).
 
-** follow the general structure of the chapter. 
+\subsection*{Finite-dimensional Sequences}
+\begin{itemize}
+\setlength{\parindent}{0mm}
+\item Orthogonal vectors
+\begin{itemize}
+	\item Thm 5.1 \--- Recovery from orthogonal vecs (\#423) \\
+{\cg \fs Let $\Phi^{*}:\mathbb{C}^M\rightarrow \mathbb{C}^N$ be sampling operator and $\Phi:\mathbb{C}^N\rightarrow \mathbb{C}^M$ interpolation operator. \\
+	Approximated fn is: $\hat{x} = Px = \Phi\Phi^{*}x$, the best approximation of $x$ in $S$. \\
+	If rows of $\Phi^{*}$ orthonormal, error is orthogonal to $S=\mathcal{R}(\Phi)$, \ie $x-\hat{x}\perp S$} 
+\end{itemize}
+\item Non-orthogonal vectors 
+\begin{itemize}
+	\item We have sampling op $\tilde{\Phi}^{*}$ and interpolation op $\Phi$. \\
+	{\cg\fs
+	Define $\tilde{S}=\mathcal{N}(\tilde{\Phi}^{*})^{\perp}=\text{span}(\{\tilde{\phi_k}\}_{k=0}^{N-1})$ and \\
+	$S=\mathcal{R}(\Phi)$}
+	\item Def \-- Consistency (\#428): {\cg When $\tilde{\Phi}^{*}\Phi=I$, ops $\tilde{\Phi}^{*}, \Phi$ are called \textit{consistent}}
+	\item Def \-- Ideally Matched (\#427): {\cg When $S=\tilde{S}$.}
+	\item Thm 5.2 \-- Recovery from non-orthogonal vectors (\#428) \\
+	{\cg\fs
+	Similar to Thm 5.1 but we need consistency to satisfy $x-\hat{x}\perp \tilde{S}$. \\
+	If ideal matching also exists, approximation $\hat{x}=Px=\Phi\tilde{\Phi}^*x$ is best approximation, and also $S=\tilde{S}$
+	}
+\end{itemize}
+\end{itemize}
 
+\subsection*{Sequences and Functions}
+Now we consider (infinite-dimensional) sequences (Sec 5.3) and functions (Sec 5.4). Of particular importance will be the \textit{bandlimited} sequences, which we'll be able to represent with a finite number of coefficients. The abstract space $S$ above will be typically replaced by the space of bandlimited sequences $\text{BL}[\omega_1,\omega_2]$.
+
+\begin{itemize}
+\item Sequences
+\begin{itemize}
+\item Def \-- Shift-invariant Subspace of $\ell^2(\mathbb{Z})$ \\
+{\cg\fs
+$S\subset \ell^2(\mathbb{Z})$ is shift-inv. subspace \textit{with respect to a shift} $L\in\mathbb{Z}^+$ when $x{_n\in S}$ implies $x{n-kL}\in S$ for every $k\in\mathbb{Z}$.}
+\item Def \-- Generator of $S$ \\
+{\cg\fs
+$s\in\ell^2(\mathbb{Z})$ is called a \textit{generator} of $S$ when $S=\overline{\text{span}}(\{s_{n-kL}\}_{k\in\mathbb{Z}})$
+}
+\item Thm 5.4 \-- Recovery from sequences (very similar to Thm 5.1 above)
+\item Def \-- Bandlimited sequence (\#437) {\cg(otherwise called full-band sequence)}\\
+{\cg\fs
+A seq $x$ is called \textit{bandlimited} when there is $\omega_0\in[0,2\pi)$ s.t. its DTFT $X$ satisfies $X(e^{j\omega}=0$ for all $|\omega|\in (\frac{1}{2}\omega_0,\pi]$
+}
+\item Def \-- Bandwidth {\cg the smallest $\omega_0$ for bandlimited sequence.}
+\item Def \-- Subspace of Bandlimited seqs (\#438) \\
+{\cg\fs Set of sequences in $\ell^2(\mathbb{Z})$ with bandwidth at most $\omega_0$ is \textit{a closed subspace} denoted $\text{BL}[-\frac{1}{2}\omega_0,\frac{1}{2}\omega_0]$. }
+\item Thm 5.7 (\#439) Projection to BL spaces \\
+{\cg\fs The best approximation of $x$ on $\text{BL}[\pi/N,\pi/N]$ involves ideal LP filters (\ie trunctation of spectrum $x$ to $[-\pi/n,\pi/N]$):\\
+$\hat{x}_n=\frac{1}{\sqrt{N}}\sum\limits_{k\in\mathbb{Z}}y_k \text{sinc}(\frac{\pi}{N}(n-kN))$, $n\in\mathbb{Z}$ where \\
+$y_k=\frac{1}{\sqrt{N}}\sum\limits_{n\in\mathbb{Z}}x_n\text{sinc}(\frac{\pi}{N}(n-kN))$}
+\item Thm 5.8 \-- Sampling theorem for seqs (\#440) \\
+{\cg\fs
+If $x$ in $\text{BL}[\-pi/N,\pi/N]$: \\
+$x_n=\sum\limits_{k\in\mathbb{Z}}x_{kN}\text{sinc}(\frac{\pi}{N}(n-kN))$
+}
+\item Def \-- Aliasing (\#440): {\cg When the component of $x$ at freq $\omega$ affects a component $\tilde{\omega}\neq \omega$ (i.e. assumes \--aliases\-- the role of the component)}
+\item Thm 5.9 \-- Recovery for sequences, non-orthogonal \\
+{\cg\fs Counterpart of Thm 5.2 for infinite-dim sequences.}
+\end{itemize}
+\item Functions
+\begin{itemize}
+	\item Very similar definitions for {\cg bandwidth (\#452), subspace of bandlimited functions (\#453), aliasing (\#460) and theorem of projection to bandlimited subspace (\#454).}
+	\item Thm 5.15 -- Sampling Theorem (cornerstone theorem for signal processing)
+\end{itemize}
+\end{itemize}
+
+%* The rate at which the approximation error $\hat{x}_T-x$ goes to zero for as $T\rightarrow 0$ is an important indicator of the approximation power of the interpolation scheme.
+
+%* Def: shift-invariant space and generator (\#430)
+%* 5.3.2 Shift-invariant subspaces are subspaces of band-limited spaces!!!
+%*Def: spectral replicas and base specrum \#441
+%* interpolation and sampling are adjoints of each other	
+%* #460 when freqs not centred at zero, we can do bandpass postfiltering to %recover signal
+%* #462 -> Thm 5.16 emulating CT op
+%* \# 464 only an ideal filter can afford to sample at critical sampling %rateramfi
+%* Ex 5.26 CRITICAL how to find ideally matched postfilter so that %$S=\tilde{S}$
+
+%* Ex 5.27 nice imperfect reconstruction  of triangle wave
+%* Why can we skip prefiltering for BL Functions?
+%* Projection onto convex sets!
+
+%** follow the general structure of the chapter. 
+
+%errata \#434 shouldn't it be $\hat{x}$ 
+%errata \#446 shouldn't $\hat{x} = Px$
+%errata \#528 shouldn't "first five" be "first four"?
+
+	
 % https://www.youtube.com/watch?v=VXwXkME9uWU&list=PLMn2aW3wpAtOqo0g0OnHndXB1LnYBeMaX&index=1
 \end{document}
 
