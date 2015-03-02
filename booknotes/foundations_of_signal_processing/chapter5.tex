@@ -100,8 +100,29 @@ $x_n=\sum\limits_{k\in\mathbb{Z}}x_{kN}\text{sinc}(\frac{\pi}{N}(n-kN))$
 \item Functions
 \begin{itemize}
 	\item Very similar definitions for {\cg bandwidth (\#452), subspace of bandlimited functions (\#453), aliasing (\#460) and theorem of projection to bandlimited subspace (\#454).}
-	\item Thm 5.15 -- Sampling Theorem (cornerstone theorem for signal processing)
+	\item Thm 5.15 -- Sampling Theorem (cornerstone theorem) \\
+	{\cg\fs If $x\in BL[-pi/T, pi/T]$, then $x(t)=\sum\limits_{n\in \mathbb{Z}}x(nT) sinc(\frac{\pi}{T}(t-nT))$}
+	\item Thm 5.16: Continuous convolution via discrete operators (\#462) \\
+	{\cg\fs Let $x\in BL[\frac{-\pi/T}{\pi/T}]$, and $\tilde{h}_n=\langle h(t), sinc(\frac{\pi}{T}(n-T))_t\rangle$. Let sampled signal be $\tilde{x}_n=\sqrt{T}x(nT)$ and discrete conv output be $\tilde{y}=\tilde{x}\ast\tilde{x}$. Then: \\
+	$y(t) = \sqrt{T}\sum_{n\in\mathbb{Z}}\tilde{y}_n sinc(\frac{\pi}{T}(t-nT))$}
 \end{itemize}
+\item Periodic Functions
+\begin{itemize}
+	\item Similar definitions for bandlimited and bandwidth ($k_0$ s.t. $X_k=0$ for $k>k_0$, see \#481), subspace of bandlimited fns (\#482), projection to bandlimited subspace (Thm 5.25, \#484), and sampling thm (Thm 5.26 \#489).
+	\item Dirichlet Kernel (\#482-\#483): The counterpart of the ideal LP filter (with $\text{sinc}$)for periodic functions. 
+	{\cg\fs
+	$d(t)=\sum\limits_{k=-K}^K e^{j(2\pi/T)}kt$ \\
+	* Acts like a LP filter and forms a basis for $\text{BL}[\cdot,\cdot]$ space. (\#483)\\
+	* Plays the role of interpolating filter sinc in sampling Thm 5.26 (\#489)}
+\end{itemize}
+\item Projection onto convex sets via Papoulis-Gerhberg algorithm. \\
+{\cg\fs A nice algorithm for signal reconstruction.\\
+Assumption: $x$ is bandlimited perioduc function in $\mathcal{L}^2([0,1])$ where a part for $t\in(\alpha,\beta)$ is unobserved/missing.\\
+Then, we know $x$ belongs to two sets: $S_1=BL\{\hdots\}$ and $S_2=\mathcal{L}^2([0,1])$.\\
+We find the full signal by exploiting these two set memberships in an alternating and iterative manner (\#492)\\
+Discrete version from in \#494}
+
+
 \end{itemize}
 
 %* The rate at which the approximation error $\hat{x}_T-x$ goes to zero for as $T\rightarrow 0$ is an important indicator of the approximation power of the interpolation scheme.
