@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\topmargin=-0.65in    % Make letterhead sftart about 1 inch from top of page
+\textheight=9.10in    % text height can be bigger for a longer letter
+\oddsidemargin=-0.1in % leftmargin is 1 inch
+\textwidth=6.7in   % textwidth of 6.5in leaves 1 inch for right margin
+
+% some shortcuts
+\newcommand{\ea}{\textit{et al. }} 
+\newcommand{\eg}{\textit{e.g. }} 
+\newcommand{\ie}{\textit{i.e. }} 
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\cg}{\color{gray}}
+\newcommand{\fs}{\footnotesize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\author{Outline by: Evangelos Sariyanidi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OUTLINE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\bf Outline of Foundations of Signal Processing}
+\maketitle
+\section*{Chapter 6 -- Approximation and Compression}
+
+
+Various approximation techniques, including linear polynomial approx with primitive, Legandre and Lagrange polynomials; non-linear approximation and approximation with splines.
+
+Of particular interest is non-linear approx (although not treated very thoroughly), minimax approximation which guarantees minimal error, and approximation with splines. 
+
+\subsection*{Approximation with Polynomials}
+\begin{itemize}
+\item The common problem with polynomial approximation is that we fit a global function, and this turns out to be producing large errors near the edges. This is the main motivation of the minimax approximation, which prevents large errors around the edges by spreading the error throughout the interval evenly.
+\setlength{\parindent}{0mm}
+\item Some common orthonormal polynomial bases:\\
+{\cg\fs
+Legendre polynomials (\#515), Lagrange polys (\#518), Taylor series around point (\#521) and Hermite interpolation (\#522).}
+\item Minimax approximation: $||x-\hat{x}||_{\infty}=\max\limits_{t\in[a,b]}|x(t)-\hat{x}(t)|$ \\
+{\cg The idea is to \textit{minimise} the \textit{maximal} error throughout an interval, so we can avoid the typical problem of polynomial approx (\ie large errors near interval edges). }
+\begin{itemize}
+	\item Minimax approx builds up based on a few theorems.
+	\item Thm 6.6 -- Weierstrass approx thm (\#524) {\cg(pointwise error can be arbitrarily minimised)} \\
+	{\cg We can always find a polynomial $p$ s.t. $|e(t)|=|x(t)-p(t)|<\epsilon$ for any $\epsilon>0$. }
+	\item Thm 6.7 (De la Vallee-Poussin Alternation thm)\\
+	{\cg Let's partition $t$ into $K$ subintervals $I_k$. Denote supremum error of minimax approx as $\epsilon_{p,K}=||e_{p,K}||_\infty$. Suppose that there exists polynomial $q_{K}$ of degree at most $K$ such that $e_{q,K}=x(t)-q_K(t)$ alternates sign at each interval. 
+	Theorem says that $\epsilon_{p,K}$ \textit{cannot} be less than the minimum of the interval-wise error of the sign-alternating polynomial $q_K$:\\
+	$\min_{k=0,1,...,K+1}|e_{q,K}(s_K)|\leq \epsilon_{p,K}\leq \epsilon_{q,K}$
+	\\ The left inequality is the interesting one (\#525).
+	}
+	\item Thm 6.8 Chebyshev equioscillation Thm
+\end{itemize}
+\end{itemize}
+
+%* Def: shift-invariant space and generator (\#430)
+%* 5.3.2 Shift-invariant subspaces are subspaces of band-limited spaces!!!
+%*Def: spectral replicas and base specrum \#441
+%* interpolation and sampling are adjoints of each other	
+%* #460 when freqs not centred at zero, we can do bandpass postfiltering to %recover signal
+%* #462 -> Thm 5.16 emulating CT op
+%* \# 464 only an ideal filter can afford to sample at critical sampling %rateramfi
+%* Ex 5.26 CRITICAL how to find ideally matched postfilter so that %$S=\tilde{S}$
+
+%* Ex 5.27 nice imperfect reconstruction  of triangle wave
+%* Why can we skip prefiltering for BL Functions?
+%* Projection onto convex sets!
+
+%** follow the general structure of the chapter. 
+
+%errata \#434 shouldn't it be $\hat{x}$ 
+%errata \#446 shouldn't $\hat{x} = Px$
+%errata \#528 shouldn't "first five" be "first four"?
+
+	
+% https://www.youtube.com/watch?v=VXwXkME9uWU&list=PLMn2aW3wpAtOqo0g0OnHndXB1LnYBeMaX&index=1
+\end{document}
+
+
