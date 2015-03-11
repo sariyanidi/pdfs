@@ -1,0 +1,117 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{color,graphicx,amsmath,hyphenat}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.25in}
+\usepackage{xcolor}
+\setlength{\textheight}{9in}
+\setcounter{MaxMatrixCols}{20}
+\pagestyle{empty}
+
+% some shortcuts
+\newcommand{\ea}{\textit{et al. }} 
+\newcommand{\eg}{\textit{e.g. }} 
+\newcommand{\ie}{\textit{i.e. }} 
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\cg}{\color{gray}}
+\newcommand{\fs}{\footnotesize}
+\newcommand{\mb}{\mathbf}
+
+\begin{document}
+\pagestyle{empty}
+  
+  
+\section*{Summary of Matrix Calculus}
+
+\section*{15.1 Definitions, Notation and Preliminaries}
+\begin{itemize}
+\item Derivative of scalar-valued function $f$ with input $\mathbf{x}=(x_1,\hdots,x_m)$
+\begin{itemize}
+\setlength{\parindent}{0mm}
+\item Interior point: 	$\{\mathbf{x} \in \mathcal{R}^{m\times 1}: ||\mathbf{x}-\mathbf{c}||<r\}$ {\cg 	for some pos. const $r$} \\
+{\cg\fs Applies to matrices too:\\
+$\{\mathbf{X}\in\mathcal{R}^{m\times n} : ||\mathbf{X}-\mathbf{C}||<r\}$
+}
+\item \textbf{Def:} \textit{j$^{th}$ (first) partial derivative (scalar-value function with vector input $\mathbf{x}=(x_1,\hdots,x_m)^{T}$} \\
+$D_j f(\mathbf{c})$ denotes the $j$th part. deriv. of $f$ at $\mathbf{c}$: \\
+$D f_j(\mathbf{c})=\lim\limits_{t\rightarrow 0}=\frac{f(\mathbf{c}+t\mathbf{u}_j)-f(\mathbf{c})}{t}$ {\cg where $\mathbf{u}_j$ is the $j$th row of identity mx.} \\
+Alternative notation: $\frac{\partial f(\mathbf{x})}{\partial x_j}$ \\
+Alternative notation: At times, it may be more convenient to reshape vector $x$ as matrix $\mathbf{X}$ and denote its partial derivative wrt element $x_{ij}$ as $\frac{\partial f(\mathbf{X})}{x_{ij}}$. The way we treat this derivative depends on whether the elements of $\mathbf{X}$ are dependent (\eg symmetric matrix) or independent (Sec. 15.1.f)
+
+\item \textbf{Def:} \textit{Vector of partial derivatives}
+$\mathbf{D} f(\mathbf{c})$ denotes vector of all part. derivs of $f$ at $\mathbf{c}$:\\
+$\mathbf{D}f(\mathbf{c}) = (D_1 f(\mathbf{c}), D_2 f(\mathbf{c}), \hdots, D_m f(\mathbf{c}))'$\\
+Alternative notation: $\frac{\partial f(\mathbf{x})}{\partial \mathbf{x}'}$
+\item \textbf{Def:} $(\mathbf{D}f)'$  is called \textit{gradient vector} \\
+Alternative notation: $\frac{\partial f(\mathbf{x})}{\partial \mathbf{x}}$
+
+\item \textbf{Def: } \textit{continuously differentiable}: \\
+Function $f$ with domain $S\in \mathcal{R}^{m\times 1}$ is continuously differentiable at the interior pt $\mathbf{c}\in S$ if $D_1f(\mathbf{x}),\hdots, D_mf(\mathbf{x})$ exist and are continuous at every pt in some neighbourhood of $\mathbf{c}$.\\
+In this case the following holds: $\lim\limits_{\mathbf{x}\to\mathbf{c}} \frac{f(\mathbf{x})-[f(\mathbf{c})+\mathbf{D}f(\mathbf{c})(\mathbf{x-c})]}{||\mathbf{x-c}||}$
+
+\item \textbf{Def:} \textit{ij}$^{th}$ \textit{(second) partial derivative}
+$D_{ij}^2f(\mathbf{x)}$ \\
+Alternative notation: $\frac{\partial^2 f(\mathbf{x})}{\partial x_i x_j}$
+\item \textbf{Def:} \textit{Hessian Matrix} $\mathbf{H}f$\\
+An $m\times m$ matrix whose \textit{ij}th element is $D_{ij}^2f(\mathbf{x)}$
+\end{itemize}
+\item Derivative of vector-valued fn $\mathbf{f}=(f_1,\hdots,f_p)'$ where each $f_i$ takes input $\mathbf{x}=(x_1,\hdots,x_m)'$.
+\begin{itemize}
+	\item $D_jf_s(\mathbf{c})$: $j$th partial derivative of $f_s$
+	\item $D_j\mathbf{f(c)}$ is $p\times 1$ vector $D_j\mathbf{f(c)}=[D_jf_1(\mathbf{c}), \hdots, D_jf_p(\mathbf{c})]'$ \\
+	Alternative notation $\frac{\partial f(\mathbf{x})}{\partial\mathbf{x}'}$ (row vector, $1\times p$ \--- see Sec 15.1.c \#287) \\
+	Alternative notation $\frac{\partial f(\mathbf{x})}{\partial\mathbf{x}}$ (column vector, $p\times 1$)
+	\item $\mathbf{Df}$ is $p\times m$ matrix: $\mathbf{Df(c)}=[D_1\mathbf{f(c)}, \hdots, D_p\mathbf{f(c)}]$\\
+	$\mathbf{Df}$ is called \textit{Jacobian} of $\mathbf{f}$ and it's the matrix whose $sj$th element is $D_jf_s$. \\
+	$(\mathbf{Df})'$ is called the \textit{gradient (matrix)} of $\mathbf{f}$. \\ 
+	Alternative notation to Jacobian: $\frac{\partial\mathbf{f(x)}}{\partial \mathbf{x}'}$ and it's the matrix whose $sj$th element is $\frac{\partial f_s(\mathbf{x})}{\partial x_j}$
+\end{itemize}
+\item Derivative of matrix of functions $F={f_{st}}$ where $\mathbf{F}$ is $p\times q$
+\begin{itemize}
+\item It's preferable to keep the $j$th partial derivatives of $\mathbf{F}$ as a separate $p\times q$ matrix, denoted as :
+$\frac{\partial\mb{F}(\mb{x})}{\partial x_j}$ or $D_j\mb{F(x)}$
+\end{itemize}
+\end{itemize}
+
+\section*{15.2 Differentiation of Scalar-valued Functions}
+\begin{itemize}
+\setlength{\parindent}{0mm}
+\item Lem 15.2.1 \--- If $f(\mathbf{x})$ does not vary wrt $x_j$ at $\mathbf{c}$ then $D_jf(\mathbf{c})=0$
+\item Lem 15.2.2 \--- Let $l,h,r$ be functions defined as:
+$l=af+bg$, $h=fg$ and $r=f/g$. The rules of derivative for single-variable calculus function apply for the $j$th partial derivative of $l,h,g$.
+\end{itemize}
+\section*{15.3 Differentiation of Linear and Quadratic Forms}
+\begin{itemize}
+\setlength{\parindent}{0mm}
+\item Let $\mathbf{a}=(a_1,\hdots,a_m)$ be constant (or fn of $\mb{x}$ that is invariant wrt $x_j$), and $\mb{A}$ be an $m\times m$ constant matrix (or matrix of functions invariant wrt $x_j$). Then:
+\begin{itemize}
+\setlength{\parindent}{0mm}
+\item $\frac{\partial  \mb{a'x}}{\partial x_j}=a_j$ (see \#294)
+\item $\frac{\partial  \mb{a'x}}{\partial \mathbf{x}}=\mb{a}$ or $\frac{\partial  \mb{a'x}}{\partial \mathbf{x}'}=\mb{a}'$
+\item $\frac{\partial \mb{x'Ax}}{\partial x_j} = \sum\limits_{i=1}^m a_{ij}x_i+\sum\limits_{k=1}^{m} a_{jk}x_k$ (see \#295)
+\item $\frac{\partial \mb{x'Ax}}{\partial \mb{x}} = (\mathbf{A+A'})\mathbf{x}$ \---- if $\mb{A}$ symmetric then $\frac{\partial \mb{x'Ax}}{\partial \mb{x}} = 2\mathbf{Ax}$
+\item $\frac{\partial^2 \mb{x'Ax}}{\partial x_s x_j} = a_{sj}+a_{js}$ (see \#295)
+\item $\frac{\partial^2 \mb{x'Ax}}{\partial \mb{x}^2} = (\mathbf{A+A'})$ \---- if $\mb{A}$ symmetric then $\frac{\partial^2 \mb{x'Ax}}{\partial \mb{x}^2} = 2\mathbf{A}$
+\end{itemize}
+
+\end{itemize}
+\clearpage
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{report}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
