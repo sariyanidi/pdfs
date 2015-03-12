@@ -16,6 +16,10 @@
 \newcommand{\la}{\langle}
 \newcommand{\ra}{\rangle}
 \newcommand{\cg}{\color{gray}}
+\newcommand{\tr}{\text{tr}}
+\newcommand{\rank}{\text{rank}}
+\newcommand{\adj}{\text{adj}}
+\newcommand{\diag}{\text{diag}}
 \newcommand{\fs}{\footnotesize}
 \newcommand{\mb}{\mathbf}
 
@@ -88,15 +92,103 @@ $l=af+bg$, $h=fg$ and $r=f/g$. The rules of derivative for single-variable calcu
 \item Let $\mathbf{a}=(a_1,\hdots,a_m)$ be constant (or fn of $\mb{x}$ that is invariant wrt $x_j$), and $\mb{A}$ be an $m\times m$ constant matrix (or matrix of functions invariant wrt $x_j$). Then:
 \begin{itemize}
 \setlength{\parindent}{0mm}
-\item $\frac{\partial  \mb{a'x}}{\partial x_j}=a_j$ (see \#294)
+\item $\frac{\partial  \mb{a'x}}{\partial x_j}=a_j$ (see \#294)\\
+{\cg\fs The core idea is to see that $\frac{\partial x_i}{\partial x_j}=\begin{cases}1 &\text{ if }i=j\\0& \text{ else}\end{cases}$}
 \item $\frac{\partial  \mb{a'x}}{\partial \mathbf{x}}=\mb{a}$ or $\frac{\partial  \mb{a'x}}{\partial \mathbf{x}'}=\mb{a}'$
-\item $\frac{\partial \mb{x'Ax}}{\partial x_j} = \sum\limits_{i=1}^m a_{ij}x_i+\sum\limits_{k=1}^{m} a_{jk}x_k$ (see \#295)
+\item $\frac{\partial \mb{x'Ax}}{\partial x_j} = \sum\limits_{i=1}^m a_{ij}x_i+\sum\limits_{k=1}^{m} a_{jk}x_k$ (see \#295)\\ 
+{\cg\fs The core idea is again a similar piecewise (4-case) function as above}
 \item $\frac{\partial \mb{x'Ax}}{\partial \mb{x}} = (\mathbf{A+A'})\mathbf{x}$ \---- if $\mb{A}$ symmetric then $\frac{\partial \mb{x'Ax}}{\partial \mb{x}} = 2\mathbf{Ax}$
 \item $\frac{\partial^2 \mb{x'Ax}}{\partial x_s x_j} = a_{sj}+a_{js}$ (see \#295)
 \item $\frac{\partial^2 \mb{x'Ax}}{\partial \mb{x}^2} = (\mathbf{A+A'})$ \---- if $\mb{A}$ symmetric then $\frac{\partial^2 \mb{x'Ax}}{\partial \mb{x}^2} = 2\mathbf{A}$
 \end{itemize}
-
 \end{itemize}
+
+\section*{15.4 Differentiation of Matrix Sums, Products and Transposes}
+Now we consider to function-valued matrices $\mb{F,G,H}$
+\begin{itemize}
+\item $\frac{\partial a\mb{F}+b\mb{G}}{\partial x_i} = a\frac{\partial \mb{F}}{\partial x_i}+b\frac{\partial \mb{G}}{\partial x_i}$
+\item $\frac{\partial \mb{FG}}{\partial x_j} = \mb{F}\frac{\partial \mb{G}}{\partial x_j}+\frac{\partial \mb{F}}{\partial x_j}\mb{G}$
+\item $\frac{\partial \mb{FGH}}{\partial x_j} = \mb{FG}\frac{\partial \mb{H}}{\partial x_j}+\mb{F}\frac{\partial \mb{G}}{\partial x_j}\mb{H}+\mb{FG}\frac{\partial \mb{H}}{\partial x_j}$
+\item if $g$ is fn of $\mathbf{x}: \frac{\partial g\mb{F}}{\partial x_i} = \frac{\partial g}{\partial x_i}\mb{F}+g\frac{\partial \mb{F}}{\partial x_i}$
+\end{itemize}
+
+\section*{Section 15.5 -- 15.7 }
+\begin{itemize}
+\item 15.5 Differentiation of Vector/Matrix $\mb{x,X}$ wrt its Elements $x_j,x_{ij}$
+\begin{itemize}
+\item $\frac{\partial \mathbf{x}}{\partial x_i} = \mb{u}_j$
+\item if $\mb{X}$ matrix of independent variables $x_ij$:\\
+$\frac{\partial \mathbf{X}}{\partial x_{ij}} = 	\mathbf{u}_i\mb{u}_j'$
+\item if $\mb{X}$ symmetric matrix: \\
+$\frac{\partial \mb{X}}{\partial x_{ij}} = \mb{u}_i\mb{u}_j'+\mb{u}_j	\mb{u}_i'$
+\item The above are derived by constructing piecewise functions for $\frac{\partial x_{st}}{\partial x_{ij}}$ by considering all cases for $s,i,j,t$ (\ie when they are equal, unequal etc.)
+
+$\frac{\partial a\mb{F}+b\mb{G}}{\partial x_i} = a\frac{\partial \mb{F}}{\partial x_i}+b\frac{\partial \mb{G}}{\partial x_i}$
+\item $\frac{\partial \mb{FG}}{\partial x_j} = \mb{F}\frac{\partial \mb{G}}{\partial x_j}+\frac{\partial \mb{F}}{\partial x_j}\mb{G}$
+\item $\frac{\partial \mb{FGH}}{\partial x_j} = \mb{FG}\frac{\partial \mb{H}}{\partial x_j}+\mb{F}\frac{\partial \mb{G}}{\partial x_j}\mb{H}+\mb{FG}\frac{\partial \mb{H}}{\partial x_j}$
+\item if $g$ is fn of $\mathbf{x}: \frac{\partial g\mb{F}}{\partial x_i} = \frac{\partial g}{\partial x_i}\mb{F}+g\frac{\partial \mb{F}}{\partial x_i}$
+\end{itemize}
+\item 15.6 Differentiation of a Trace of a Matrix {\cg -- again trace is critical for more complicated differentiations}
+\begin{itemize}
+\item Some trace properties:
+\begin{itemize}
+\item $\tr(AB)=\tr(BA)$
+\item $\tr(A+B)=\tr(A)+\tr(B)$
+\end{itemize}
+\item $\frac{\partial \tr{\mb{F}}}{\partial x_j} = \tr\left(\frac{\partial\mb{F}}{\partial x_j}\right)$
+\item $\frac{\partial (\mb{AX})}{\partial x_{ij}}=a_{ji}$
+\item $\frac{\partial (\mb{AX})}{\partial \mb{X}}=A'$
+\item if $\mb{X}$ is symmetric:\\
+$\frac{\partial (\mb{AX})}{\partial \mb{X}}=\mb{A}+\mb{A}'-\diag(a_{11},a_{22}, \hdots, a_{mm})$ \\
+\item Regardless whether $\mb{X}$ is symmetric or not, $\frac{\partial \tr{\mb{X}}}{\partial \mb{X}} = \mb{I}$
+\end{itemize}
+\item 15.7 The Chain Rule
+\begin{itemize}
+\item Thm 15.7.1: Let $\mb{h} = \{h_i\}$ be an $n\times 1$ vector of functions of variables $\mb{x}=(x_1,\hdots,x_m)$. Let $g$ be a scalar-valued function of a vector of $\mb{y}=(y_1,\hdots,y_n)$. Define $f(\mb{x}) = g[\mb{h(x)}]$. Then, the $j$th partial derivative of $f$: \\
+ $D_j f(\mb{c}) = \sum_{i=1}^n D_i g[\mb{h}(c)]D_j h_i(\mb{c}) = \mb{D}g[\mb{h(c)}]D_j\mb{h(c)}$
+ \item Alternative notation: $\frac{\partial f}{\partial x_j} = \sum_{i=i}^n \frac{\partial g}{\partial y_i }\frac{\partial h_i}{\partial  x_j} = \frac{\partial g}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial x_j}$
+\item The vector of all first partial derivatives:\\
+$\mb{D}f(\mb{c}) = \sum_{i=1}^n D_i g[\mb{h(c)}]\mb{D}h_i (\mb{c}) = \mb{D}g[\mb{h(c)}]\mb{D(h(c))}$ \\
+Alternative notation: $\frac{\partial f}{\partial \mb{x}'} = \sum_{i=i}^n \frac{\partial g}{\partial y_i }\frac{\partial h_i}{\partial  \mb{x}'} = \frac{\partial g}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial \mb{x}'}$
+ \item For vector-valued function $\mb{f}$: \\
+ $D_j \mb{f(c)} = \sum\limits_{i=1}^n D_i\mb{g[h(c)]}D_j h_i(\mb{c}) = \mb{Dg[h(c)]}D_j\mb{h(c)}$
+\item For all partial derivatives of $\mb{f}$: \\
+ $\mb{Df(c)}=\sum\limits_{i=1}^n D_i \mb{g[h(c)]}\mb{D}h_i(\mb{c})=\mb{Dg[h(c)]Dh(c)}$\\
+ Alternative notation: $\frac{\partial \mb{f}}{\partial \mb{x}'} = \sum_{i=i}^n \frac{\partial \mb{g}}{\partial y_i }\frac{\partial h_i}{\partial  \mb{x}'} = \frac{\partial \mb{g}}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial \mb{x}'}$
+\end{itemize}
+\end{itemize}
+
+\section*{Section 15.8 -- Derivs of Determinants, Inverses, Adjugates and Generalized inverses}
+\begin{itemize}
+\item $\frac{\partial \det(\mb{X})}{\partial x_{ij} }=\xi_{ij}$ where $\xi_{ij}$ is the $ij$th cofactor of $\mb{X}$ and $\mb{X}$ is a matrix of variables (and not functions)
+\item $\frac{\partial \mb{X}}{\partial \mb{X}} = [\adj(\mb{X})]'$ where $\adj()$ is adjugate
+\item $\frac{\partial \det(\mb{F})}{\partial x_{j} }=\tr\left[\adj(\mb{F})\frac{\partial \mb{F}}{\partial x_j}\right]\stackrel{(a)}{=}|\mb{F}|\tr\left(\mb{F}^{-1}\frac{\partial\mb{F}}{\partial x_j}\right)$ where $\mb{F}$ is a matrix of functions (a) follows only if $\mb{F}$ is nonsingular and differentiable.
+\item $\frac{\partial \log\det(\mb{X})}{\partial x_{ij}}=\tr({\mb{X}^{-1}\mb{u}_i\mb{u}_j'})=\mb{u}_j'\mb{X}^{-1}\mb{u}_i=y_{ji}$ where $y_{ji}$ is $ji$th element of $\mb{X}^{-1}$
+\item $\frac{\partial \log \det (\mb{F}}{\partial x_j } = \frac{1}{|\mb{F}|} \frac{\partial\det(\mb{F})}{\partial x_j} = \frac{1}{|\mb{F}|}\tr\left[\adj(\mb{F})\frac{\partial \mb{F}}{ \partial x_j}\right]=\tr\left(\mb{F}^{-1}\frac{\partial \mb{F}}{\partial x_j}\right)$
+\item if $\mb{X}$ symmetric matrix of variables:
+\begin{itemize}
+\item $\frac{\partial\det(X)}{\partial\mb{X}}=2\adj(\mb{X})-\diag(\xi_{11}, \xi_{22}, \hdots, \xi_{mm})$
+\item $\frac{\partial\log\det(X)}{\partial\mb{X}}=2\adj(\mb{X}^{-1})-\diag(y_{11}, y_{22}, \hdots, y_{mm})$ where $y_{ij}$ are elements of $\mb{X}^{-1}$
+\end{itemize}
+\item $\frac{\partial \adj(\mb{F})}{\partial x_j}=\frac{\partial|\mb{F}|}{\partial x_j}\mb{F}^{-1}+|\mb{F}|\frac{\partial \mb{F}^{-1}}{\partial x_j}=\hdots$ (can be completed with info above)
+\end{itemize}
+\section*{Section 15.9 \-- Second-order derivatives of Determinants and Inverses}
+\section*{Differentiation of Generalized Inverses}
+The section considers derivatives of generalized inverses of possibly singular or non-square matrix of functions $\mb{F}$. The idea is to re-order the rows and cols of $\mb{F}$ and then partition the new matrix so the leading principal submatrix is nonsingular. 
+
+\paragraph{Summary of Theorem 15.10.1}
+
+Let $\mb{P,Q}$ be permutation matrices that yield matrix $\mb{B}=\mb{PFQ}$ such that the leading principal submatrix $\mb{B}_{11}$ in partitioning $\mb{B}=\left(\begin{matrix}
+\mb{B}_{11} & \mb{B}_{12} \\ \mb{B}_{21} & \mb{B}_{22}
+\end{matrix}\right)$ is an $r\times r$ nonsingular matrix where $r=\rank(\mb{F})$. Then, there exists a generalized inverse of $\mb{G}$ of $\mb{F}$ such that: $\mb{G} = \mb{Q\begin{bmatrix}
+\mb{B}^{-1}_{11} & 0 \\ 0 & 0
+\end{bmatrix}P}$ and its derivative is:
+\begin{equation}
+\frac{\partial \mb{G}}{\partial x_j} = -\mb{Q} \begin{bmatrix}
+\mb{B}^{-1}_{11}(\partial \mb{B}_{11}/\partial x_j)\mb{B}^{-1}_{11} & 0 \\ 0 & 0
+\end{bmatrix}\mb{P} = -\mb{G}\frac{\partial \mb{F}}{\partial x_j}\mb{G}
+\end{equation}
+
 \clearpage
 \newpage
 
