@@ -1,0 +1,248 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{color,graphicx,amsmath,hyphenat}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.25in}
+\usepackage{xcolor}
+\setlength{\textheight}{9in}
+\setcounter{MaxMatrixCols}{20}
+\pagestyle{empty}
+
+% some shortcuts
+\newcommand{\ea}{\textit{et al. }} 
+\newcommand{\eg}{\textit{e.g. }} 
+\newcommand{\ie}{\textit{i.e. }} 
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\cg}{\color{gray}}
+\newcommand{\tr}{\text{tr}}
+\newcommand{\rank}{\text{rank}}
+\newcommand{\adj}{\text{adj}}
+\newcommand{\diag}{\text{diag}}
+\newcommand{\fs}{\footnotesize}
+\newcommand{\mb}{\mathbf}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\lnote}[1]{#1\reversemarginpar\marginpar{{\textit{#1}}}}
+\newcommand{\bnote}[1]{#1\reversemarginpar\marginpar{{\textit{{\textcolor{blue}{#1}}}}}}
+\usepackage{marginnote}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=50mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm,
+ }
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\setcounter{section}{3}
+
+
+
+\begin{document}
+\pagestyle{empty}
+  
+
+\section{Linear Models for Classification}
+Discusses linear models and \textit{generalised linear models} (GLM). GLM means that even if the prediction functions are non-linear, the decision surfaces are linear.
+
+\subsection{Discriminant functions}
+\subsubsection{Two Classes}
+Describes the geometry of a discriminant function $y(\mb{x}) = \mathbf{w}^T\mb{x}+w_0$. That is, $\mb{w}$'s are orthogonal to decision surface and $|w_0|/||\mb{w}||$ describes dislocation from origin.
+
+\subsubsection{Multiple Classes}
+Discuss the limitation of one-vs-rest and one-vs-one classifiers, introduce the benfits of multi-class linear discriminant.
+
+\subsubsection{Least-squares Classification}
+Least squares classification has one extra limitation wrt. limitation of least squares regression: The target vector $\mb{t}$ are of 1-of-$K$ type.
+
+\subsubsection{Fisher's Linear Discriminant}
+Perform a dimensionality reduction and then discrimination. $J(\mb{w})$ is a function that does this and can be minimised via (4.2.9).
+
+\subsubsection{Relation to Least-squares}
+By changing the target variable representation for the 2-class problem, it's possible to relate Fisher and least-squares.
+
+\subsubsection{Fisher's Discriminant for multiclass}
+Consider generalisation to $K>2$ classes. The extension is similar to 2-class. Now there are multiple possible choices of (Fisher) criterion.
+
+\subsubsection{The Perceptron Algorithm}
+Construct GLM $y(\mb{x})=f(\mb{w}^T\phi(\mb{x}))$ where $f(a) = \begin{cases}+1 & a\ge 0 \\ -1& a<0 \end{cases}$. Patterns in $C_1$ become +1 and for $x_n \in C_1$ we want $\mb{w}^T\phi(\mb{x})>0$ and for $x\in C_2$ we want it to be $<0$. Both can be summarised as $t\mb{w}^T\phi(\mb{x})>0$.
+
+The perceptron criterion minimises error only on misclassified patterns. The weight update algorDenemeithm operates for each sample $n$:
+%
+\begin{equation}
+\mb{w}^{(\tau+1)}=\mb{w}^{(\tau)}-\eta \nabla E_p(\mb{w}) = \mb{w}^(\tau)+\eta \phi_n t_n
+\end{equation}
+%
+where $\eta$ is the \textit{learning rate}. The update $(\tau+1)$ happens in the \textit{direction of misclassification} and \textit{guarantees} the error on misclassified sample to be reduced. Of course it doesn't guarantee anything on \textit{all} training samples.
+
+\subsection{Probabilistic Generative Models}
+Construct posterior $p(C_k|\mb{x})$ and represent via \textit{logistic sigmoid}:
+
+\begin{equation}
+p(C_1|\mb{x}) = \frac{p(\mb{x}|C_1)p(C_1)}{\sum\limits_{j\in \{1,2\}} p(\mb{x}|C_j)p(C_j)}=\frac{1}{1+\exp(-\alpha)}=\sigma(\alpha)
+\end{equation}
+%
+%
+where $\alpha = \ln \frac{p(\mb{x}|C_1)p(C_1)}{p(\mb{x}|C_2)p(C_2)}$ and $\sigma(\alpha)$ is the logistic sigmoid function.
+
+\textit{We are interested in} situations where $\alpha(\mb{x})$ is linear and therefore creates posteriors governed by GLMs.
+
+\subsubsection{Continuous Inputs}
+We sgtart by assuming that all classes $C_k$ share same cov matrix $\Sigma$.
+
+For $K$ classes $\alpha_k$ becomes $\alpha_k(\mb{x}) = \mb{w}^T\mb{x}+w_{k0}$ where $\mb{w}_k=\Sigma^{-1}\boldsymbol{\mu}_k$ and $w_{k0}$ is as in (4.70). 
+
+That is, $\alpha_k$ is linear in $\mb{x}$. Decision boundaries (which correspond to misclassification rate) wioll be again linear in $\mb{x}$ so again we have GLM.
+
+If we relax the ``shared covariance matrix'' assumption, then we'll have \textit{quadratic discriminant} rather than GLM.
+
+\subsubsection{Maximum likelihood solution}
+Once $p(\mb{x}|C_k)$ defined, we can determine values of its parameters and parameters of $p(C_k)$ via \textit{maximum likelihood}. Construct maximum function:
+%
+\begin{equation}
+p(\mb{T,X} | \pi, \bs{\mu}_1, \bs{\mu}_2, \Sigma) = \prod\limits_n [\pi \mathcal{N}(x_n|\bs{\mu}_1, \Sigma)]^{t_n} [(1-\pi) \mathcal{N}(x_n|\bs{\mu}_2, \Sigma)]^{(1-t_n)}
+\end{equation}
+In the ML solution we get $\bs{\mu} = \frac{1}{N_1}\sum\limits_{n} t_n \mb{x}_n$ and $\bs{\mu} = \frac{1}{N_2}\sum\limits_{n} (1-t_n) \mb{x}_n$.
+
+For covariance $\Sigma$, define $\mb{S}_1,\mb{S}_2, \mb{S}$ as:
+%
+\begin{align}
+\mb{S}_1=&\frac{1}{N_1}\sum\limits_{n\in C_1}(\mb{x}_n-\bs{\mu}_1)(\mb{x}_n-\bs{\mu}_1)^T\\
+\mb{S}_2=&\frac{1}{N_2}\sum\limits_{n\in C_2}(\mb{x}_n-\bs{\mu}_2)(\mb{x}_n-\bs{\mu}_2)^T\\
+\mb{S}=&\frac{N_1}{N}\mb{S}_1+\frac{N_2}{N}\mb{S}_2
+\end{align}
+
+Overall, process not robust to outliers because ML is not. 
+
+\subsubsection{Discrete Features}
+\subsubsection{Exponential Family}
+We manage to get GLMs for the above types too.
+\subsection{Probabilistic Discriminative Models}
+Advantage: There are less parameters to discover and usually leads to improved performance. 
+\subsubsection{Fixed Basis Functions}
+\subsubsection{Logistic Regression}
+Here we set $M$ params whereas in generative modelling we set $(M+5)/2+1$ params.
+
+Consider implementing a discriminative function directly as a via logistic sigmoid function:
+\begin{equation}
+p(C_1|\mb{\phi})=y(\phi)=\sigma(\mb{w}^T\phi)
+\end{equation}
+and naturally $p(C_2|\phi)=1-p(C_1|\phi)$. We can set params via ML. We start by seeing that $\frac{d\sigma}{d\alpha}=\sigma(1-\sigma)$ (exercise 4.12). Likelihood can be written as:
+\begin{equation}
+p(\mb{T}|\mb{w}) = \prod\limits_n y_n^{t_n}(1-y_n)^{1-t_n}
+\end{equation}
+%
+where $y_n=p(C_1|\phi_n)$. Error function here is also called \lnote{cross entropy error}:
+%
+\begin{equation}
+E(\mb{w})=-\ln p(\mb{T}|\mb{w}) = -\sum\limits_{n}[t_n \ln y_n + (1-t_n)\ln(1-y_n)]
+\end{equation}
+%
+Taking the gradient wrt $\mb{w}$:
+%
+\begin{equation}
+\nabla E(\mb{w})=\sum_n(y_n-t_n)\phi_n
+\end{equation}
+
+\subsubsection{Iterative Reweighted Least Squares}
+We no longer have closed-form solution (as we did for regression). Fortunately the error function is still convex there is the (iterative) \lnote{Newton-Raphson or iterative reweighted least squares} algorithm:
+%
+\begin{equation}
+\mb{w}^{(new)}=\mb{w}^{(old)}=\mb{H}^{-1}\nabla E(\mb{w})
+\end{equation}
+%
+where $\mb{H}$ is the hassian matrix whose elements comprise the second derivs of $E(\mb{w})$ wrt components of $\mb{w}$.
+%
+\begin{align}
+\nabla E(\mb{w})=&\sum_{n}(y_n-t_n)\phi_n=\mb{\Phi}^T(\mb{Y-T})\\
+\mb{H}=&\nabla\nabla E(\mb{w})=\sum\limits_{n}y_n(1-y_n)\phi_n\phi_n^T=\mb{\Phi}^T\mb{R\Phi}
+\end{align}
+where $\mb{\Phi}$ is the $N\times M$ \lnote{design matrix} whose $n$th row is given by $\phi_n^T$ and $\mb{R}$ is the $N\times N$ diagonal matrix with elements $\mb{R}_{nn}=y_n(1-y_n)$.
+
+\subsubsection{Multiclass logistic regression}
+The formalism is similar to 2-class logistic regression. Instead of sigmoid we use the \textit{softmax} function. Again we have \textit{cross-entropy} function as error function. The multiclass version of cross-entropy is:
+\begin{equation}
+E(\mb{w}_1,\hdots, \mb{w}_K) = -ln p(\mb{T}| \mb{w}_1, \hdots, \mb{w}_K) = -\sum\limits_n\sum\limits_k t_{nk}-\ln y_{nk}.
+\end{equation}
+Again we can use \textit{iterative reweighted least squares} (\#210).
+
+\subsubsection{Probit regression}
+The inverse probit function (or the similar $\text{erf}$ function) are similar to sigmoid in shape but have more plausible analytical properties. Will be discussed in Sec. 4.5.
+
+\subsubsection{Canonical link function}
+This is one of the most frequently-referred sections of the book. The choices of sigmoid/softmax in earlier sections were not arbitrary \---- they were chosen to convert the error function to a simple form that involves $y_n-t_n$. This is a general result of assuming a conditional distribution for the activation function known as the \lnote{canonical link function}.
+
+A GLM is a model for which $y$ is a nonlinear function of a linear combination of input variables: 
+\begin{equation}
+y=f(\mb{w}^T\phi)
+\end{equation}
+%
+where $f(\cdot)$ is the \textit{activation function} and $f^{-1}(\cdot)$ is known as the \textit{link function}.
+
+Let the conditional distro be $p(\mb{T}|\eta, s)$. We formulate its derivative in the following form:
+%
+\begin{equation}
+\nabla_{\mb{w}} \ln p(\mb{T}|\eta,s)= \hdots \text{(see \#213)} = \sum\limits_n\frac{1}{s}\psi'(y_n)f'(y_n)\phi_n
+\end{equation}.
+The canonical link function chosen as $f^{-1}(y)=\psi(y)$ provides a great simplification:
+\begin{equation}
+\nabla E(\mb{w})= \frac{1}{s}\sum\limits_n(y_n-t_n)\phi_n
+\end{equation}
+
+\subsection{The Laplace Approximation}
+To perform closed-form analysis for Bayesian logistic regression, we'll need to do approximation. The Laplace approx. is used for this purpose. Approximation is performed by matching the \textit{mode} of the target distribution with the mode of a Gaussian via Taylor expansion (where the first-order term disappears as expansion is made around a local maximum). Let $\mathbf{z}_0$ be the mode of the target distribution. The 2$^{nd}$ order Taylor expansion around $\mb{z}_0$ is:
+\begin{equation}
+f(\mb{z})\approx\ln f(\mb{z}_0)-\frac{1}{2}(\mb{z-z}_0)^{T}\mb{A}(\mb{z-z}_0).
+\end{equation}
+%
+This will enable us to compute the approximated distribtion $q(\mb{z})$ directly as $q(\mb{z})=\mathcal{N}(\mb{z}|\mb{z}_0, \mb{A})$.
+
+\bnote{Better methods will be explored in Chapter 10}.
+
+\subsubsection{Model comparison and BIC}
+We can use the approximation above for model comparison, which will lead to Bayesian Information Criterion (BIC). Start with the normalisation term: 
+\begin{equation}
+Z\approx f(\mb{z}_0) \int \exp \left[ -\frac{1}{2}(\mb{z-z}_0)^T \mb{A}(\mb{z-z}_0) \right] d\mb{z}=f(\mb{z}_0)\frac{(2\pi)^{M/2}}{|\mb{A}|^{1/2}}.
+\end{equation}
+
+Consider data set $\mathcal{D}$ and models $\{\mathcal{M}_i\}$ with parameters $\{\bs{\theta}_i\}$. For each model we define a likelihood function $p(\mathcal{D}|\bs{\theta}_i, \mathcal{M}_i)$ \---- or shortly, $p(\mathcal{D}|\bs{\theta}_i)$.
+
+Defining $f(\bs{\theta})=p(\mathcal{D}|\bs{\theta})p(\theta)$ and identifying that $Z=p(\mathcal{D})$, we can apply the result above to get:
+%
+\begin{equation}
+\ln p(\mathcal{D})\approx \ln p(\mathcal{D}|\bs{\theta}_{\text{MAP}})+\overbrace{\ln p(\bs{\theta}_{\text{MAP}})+\frac{M}{2}\ln(2\pi)-\frac{1}{2}\ln |\mb{A}|}^{\text{Occam factor}}.
+\end{equation}
+
+With further simplifications via (not necessarily realistic) assumptions (see \#217) we get the BIC:
+\begin{equation}
+\ln p(\mathcal{D}) \approx \ln p(\mathcal{D}|\bs{\theta}_{\text{MAP}})-\frac{1}{2}M \ln N
+\end{equation}
+Essentially this is an information criterion that penalizes model complexity
+
+\clearpage
+\newpage
+
+\section*{Miscellaneous}
+\paragraph*{Model Comparison} The more rigorous section is Sec. 3.4 (and 3.5) with a proper treatment of a theoretically plausible model selection approach. AIC (see 1.73) and BIC (Sec 4.4.1, \#217) offer simpler model comparison criteria.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{report}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
