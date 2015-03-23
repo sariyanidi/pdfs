@@ -224,11 +224,168 @@ With further simplifications via (not necessarily realistic) assumptions (see \#
 \end{equation}
 Essentially this is an information criterion that penalizes model complexity
 
+
+\subsection{Bayesian Logistic Regression}
+Again, exact inference for logistic regression is intractable, due to normalisation (which involves likelihood computation, which is a product of sigmoids (one for each data point)). We apply Laplace approximation for tractability.
+
+\subsubsection{Laplace Approximation}
+Because Laplace involves Gaussian approx, we start with Gaussian prior $p(\mb{w}) = \mathcal{N}(\mb{w}|\mb{m}_0,\mb{S}_0)$. Posterior is $p(\mb{w}|\mb{T})\propto p(\mb{w})p(\mb{T|w})$. To compute the approx of this posterior, $q(\mb{w})$, we first express it in closed form (4.142) and then find the MAP solution, $\mb{w}_{\text{MAP}}$. Then we compute the approximation around $\mb{w}_{\text{MAP}}$; that is, we find the cov. matrix $S_N$ by using (4.132) \---- the mean is already $\mb{w}_{\text{MAP}}$ \--- and obtain approx as: $p(\mb{w|T})\approx q(\mb{w}) = \mathcal{N}(\mb{w}|\mb{w}_{\text{MAP}}, \mb{S}_N)$.
+
+Now we'll use this for prediction by computing the \textit{predictive distribution}.
+
+\subsubsection{Predictive Distribution}
+Recall that for 2-class NN the prob of a sample being $C_1$ is the output of the NN, which is $p(C_1|\bs{\phi},\mb{w})=\sigma(\mb{w}^T\phi)q(\mb{w})$. Predictive distribution involves the following marginalization over $\mb{w}$:
+%
+\begin{equation}
+p(C_1|\bs{\phi},\mb{T})=\int p(C_1|\bs{\phi},\mb{w}) p (\mb{w}|\mb{T}) \approx \int \sigma (\mb{w}^{T}\bs{\phi})q(\mb{w})d\mb{w}.
+\label{eq:pred_distr}
+\end{equation}
+%
+The problem here is that $\sigma(\cdot)$ is non-linear and again not tractable. Putting this aside for a moment, the section first computes the marginalization of $q(\mb{w})$, $\int q(\mb{w})d\mb{w}$. Then, it computes the overall integral in (\ref{eq:pred_distr}) by approximating the sigma function with the inverse probit function, $\Phi(\cdot)$ \---- see \#219 for details.
+
+ 
 \clearpage
 \newpage
 
+\section{Neural Networks}
+This is a critical chapter because many commonly-used techniques are motivated and described in detail. These include the \textit{gradient-descent optimization} and also the \textit{backpropagation} technique which is used for many purposes including \textit{exact Hessian computation}. 
+
+\subsection{Feed-forward Neural Networks}
+\subsection{Network Training}
+Again we'll minimize an error function. We can directly minimize a sum-of-squares error such as $E(\mb{w}) = \frac{1}{2}\sum||\mb{y}(\mb{x}_n-\mb{t}_n)||^2$. But we'll give rise to a probabilistic interpretation by considering likelihood maximization. This will be beneficial for many purposes.
+
+The rest of the section derives the energy function and cross-entropy error function in the context of NNs.
+
+\subsubsection{Parameter optimisation}
+Clearly, there is no hope to find an analytical solution to optimum $\mb{w}$. We'll therefore resort to iterative algorithms of the following form:
+%
+\begin{equation}
+\mb{w}^{(\tau+1)}=\mb{w}^{(\tau)}+\Delta \mb{w}^{(\tau)}.
+\end{equation}
+%
+There are many algos of this form, and they differ by their choice of $\Delta\mb{w}^{(\tau)}$. Most use \textit{gradient information} due to reasons discussed in following section.
+
+\subsubsection{Local quadratic approximation}
+Consider second-order Taylor approx of $E(\mb{w})$ around some $\mb{\widehat{w}}$:
+%
+\begin{equation}
+E(\mb{w})\approx E(\mb{\widehat{w}})+(\mb{w-\widehat{w}})^T\mb{b}+\frac{1}{2}(\mb{w-\widehat{w}})^T \mb{H} \mb{(w-\widehat{w}})
+\end{equation}
+%
+where $\mb{b}=\nabla E_{\mb{w}}(\mb{w})|_{\mb{w=\widehat{w}}}$ and $\mb{H}$ is the Hessian matrix with elements $(\mb{H})_{ij}=\frac{\partial^2 E}{\partial w_i\partial w_j}|_{\mb{w=\widehat{w}}}$. If we pick $\mb{\widehat{w}}$ to be a minimum, say $\mb{w}^{\star}$ the second term above vanishes.
+%
+\begin{equation}
+E(\mb{w})\approx E(\mb{{w}^{\star}})+\frac{1}{2}(\mb{w-{w}^{\star}})^T \mb{H} \mb{(w-{w}^{\star}})
+\end{equation}
+%
+We analyse $\mb{H}$ by considering its eigenvectors, and we see that constant-error contours $E(\mb{w})=C$ are ellipses whose axes are aligned with the eigenvectors of $\mb{H}$, $\mb{u}_i$, and the length of these axes are inverse proportional to the corresponding eigenvectors, $\lambda_i$ (see \#238-239 and Exercise 5.10).
+
+\subsubsection{Use of gradient information}
+Gradient allows us to compute evaluate $E$ in $O(W^2)$ instead of $O(W^3)$.
+
+\subsubsection{Gradient descent optimization}
+Standard (\ie batch) gradient descent ($\mb{w}^{(\tau+1)}=\mb{w}^{(\tau)}-\eta \nabla E(\mb{w}).$) leads to poor performance. However we can perform gradient-descent for each sample in dataset separately, which is known as on-line gradient descent (or stochastic GD or sequential GD), which proved to be much better.  
+
+But for batch optimization there are much more efficient methods such as \textit{conjugate gradients} and \textit{quasi-Newton} methods.
+
+\subsection{Error Backpropagation}
+The main goal is to find efficient methods to compute the gradient of $E(\mb{w})$, $\nabla E(\mb{w})$. The importance of backpropagation lies in that it can be used beyond the scope of NNs and gradient descent, such as other derivatives and graphical models etc.
+
+There are 2 steps at each iteration of a backpropt technique:
+\begin{enumerate}
+\setlength{\parindent}{0mm}
+\item Evaluate $\nabla E(\mb{w})$ (this is where backpropagation comes to play)
+\setlength{\parindent}{0mm}
+\item Update $\mb{w}^{\star}$ based on step 1.
+\setlength{\parindent}{0mm}
+\end{enumerate}
+
+\subsection{Evaluation of error-function derivatives}
+We will analyse the error of a single sample, $E_n$, and the total error is simply the sum over $N$. Let $\delta_j$ be defined as
+\begin{equation}
+\delta_j=\frac{\partial E_n}{\partial a_j},
+\end{equation}
+where $\delta$'s are typically referred to as errors. In the last layer, due to our choice of activation function, we have (see 5.18):
+%
+\begin{equation}
+\delta_k = \frac{\partial E_n}{\partial a_k} = y_k-t_k
+\end{equation}
+%
+The ultimate goal is to compute derivatives $\frac{\partial E_n}{\partial w_{ji}}$ and the $\delta$'s will be the messages that are propagated backwards.
+
+We can express the desired derivative by means of the output and label as:
+%
+\begin{equation}
+\frac{\partial E_n}{\partial w_{ji}} = (y_{nj}-t_{nj})x_{ni}
+\end{equation}
+%
+Note that by feed-forward NN definition we have $a_j=\sum\limits_i w_{ji}z_i$ and $z_j=h(a_j)$. We can therefore express the derivative above through the chain rule as:
+%
+\begin{equation}
+\frac{\partial E_n}{\partial w_{ji}} = \frac{\partial E_n}{\partial a_j}\frac{\partial a_j}{\partial w_{ji}}=\delta_j \frac{\partial a_j}{\partial w_{ji}}
+\end{equation}
+%
+%
+Note that the first derivative on the rhs corresponds to our $d_j$ definition.
+
+Now we can start from the last (output) layer and propagate backwards:
+\begin{equation}
+\delta_j=\frac{\partial E_n}{\partial a_j}=\sum\limits_k \frac{\partial E_n}{\partial a_k}\frac{\partial a_k}{\partial a_j}=\sum\limits_k\delta_k w_{kj}
+\label{eq:bp_output}
+\end{equation}
+where the units $k$ are those to which $j$ sends connections. Here $\frac{\partial a_k}{\partial a_j}=w_{kj}$ holds because the $k$th layers are output layers, and we are considering the regression problem where the activation function ($h(\cdot)$) is simply the unity function and therefore:
+%
+\begin{equation}
+a_k=\sum\limits_i w_{ki}a_{i}.
+\end{equation}
+%
+
+Now let us consider a node $j$ that lies in one layer before where the activation function is not unity and therefore:
+\begin{equation}
+a_j=\sum\limits_i w_{ji} h(a_{i})
+\end{equation}
+%
+%
+and therefore we have 
+\begin{equation}
+\delta_j=h'(a_j)\sum_{k}w_{kj}\delta_k.
+\label{eq:bp_hidden}
+\end{equation}
+
+We can summarise backpropagation as follows:
+\begin{enumerate}
+\setlength{\parindent}{0mm}
+\item Apply an input vector $\mb{x}_n$ to the network and propagate forwards
+\item Evaluate $\delta_k$ for output units through (5.54) (or (\ref{eq:bp_output} above)
+\item Evaluate $\delta_j$ for all hidden units in between input and output layers (or (\ref{eq:bp_hidden}) above).
+\item Finally obtain the derivative $\frac{\partial E_n}{\partial w_{ji}}$ through (5.53), which is $\frac{\partial E_n}{\partial w_{ji}}=\delta_j z_i$
+\end{enumerate}
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\newpage
+
+
+
 \section*{Miscellaneous}
 \paragraph*{Model Comparison} The more rigorous section is Sec. 3.4 (and 3.5) with a proper treatment of a theoretically plausible model selection approach. AIC (see 1.73) and BIC (Sec 4.4.1, \#217) offer simpler model comparison criteria.
+
+
+
 
 
 \bibliographystyle{IEEEtran}
