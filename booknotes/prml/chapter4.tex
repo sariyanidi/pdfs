@@ -513,13 +513,162 @@ To make progress we'll approximate the output function $\mb{y(x,w)}$ around $\mb
 In the formalism so far we assumed that $\alpha, \beta$ are known and fixed. In this section we see how to optimize them. 
 
 
+\clearpage
+\newpage
+
+\section{Kernel Methods}
+Problems that is formulated as empirical risk minimisation can be converted into a dual representation where an explicit \textit{kernel representation} comes out. 
+
+\subsection{Dual Representations}
+
+Consider that we wish to minimise the sum-of-squares error function below:
+%
+\begin{equation}
+J(\mb{w}) = \frac{1}{2}\sum\limits_{n}\{\mb{w}^T\phi(\mb{x}_n)-t_n\}^2+\frac{\lambda}{2}\mb{w}^T\mb{w}
+\end{equation}
+%
+By defining $\mb{a}=(a_1,\hdots,a_N)^T$ where $a_n$ is:
+%
+\begin{equation}
+a_n=-\frac{1}{\lambda}\{\mb{w}^T \phi(\mb{x}_n)-t_n\}
+\end{equation}
+%
+we obtain the dual representation of the error function:
+%
+\begin{equation}
+J(\mb{a})=\frac{1}{2}\mb{a}^T\mb{\Phi\Phi}^T\mb{\Phi\Phi}^T\mb{a}-\mb{a}^T\mb{\Phi\Phi}^T\mb{T}+\frac{1}{2}\mb{T}^T\mb{T}+\frac{\lambda}{2}\mb{a}^T\mb{\Phi\Phi}^T\mb{a}.
+\end{equation}
+%
+%
+We define \textit{Gram matrix} $\mb{K}=\mb{\Phi\Phi}^T$ and obtain the following more compact representation:
+%
+%
+\begin{equation}
+J(\mb{a}) = \frac{1}{2}\mb{KK}^T-\mb{a}^T\mb{K}\mb{T}+\frac{1}{2}\mb{T}^T\mb{T}+\frac{\lambda}{2}\mb{a}^T\mb{Ka}.
+\end{equation}
+Solving for $\mb{a}$ we obtain:
+%
+\begin{equation}
+\mb{a} = (\mb{K}+\lambda\mb{I}_N)^{-1}\mb{T}
+\end{equation}
+which we can plug back to linear regression function to express the prediction in terms of training samples:
+%
+\begin{equation}
+y(\mb{x})= \mb{k}(\mb{x})^T(\mb{K}+\lambda\mb{I}_N)^{-1}\mb{T}
+\end{equation}
 
 
+\subsection{Constructing Kernels}
+
+The section discusses how to construct ``valid'' kernels. Valid is a kernel for which the Gram matrix $\mb{K}$ is positive semi-definite for all possible choices of the set $\{\mb{x}_n\}$. Page \#296 lists some rules to construct sophisticated kernels from simple kernels.
+
+Important discussion in Section \#297: \rnote{getting the best of two (discriminative and generative) worlds} worlds by kernels from probability functions.
+
+\subsection{Radial Basis Function Networks}
+Historically RBFs were first considered for the interpolation problem, and they were used by adding one kernel centred on each data point.
+
+But in ML we don't want to fit data exactly due to noise. Noise can exists i) in the target values $t_n$ ii) in the training samples $\mb{x}_n$. The latter will give rise to \textit{Nadaraya-Watson} model in Section 6.3.1.
+
+\subsubsection{Nadaraya-Watson model} 
+A common kernel method that assigns more weight to data points that are closer to a given point.
+
+\subsection{Gaussian Processes}
+\subsubsection{Linear regression revisited}
+\subsubsection{Gaussian processes for regression}
+We are given a training set $\mb{X}=\{\mb{x}_n\}$, $\mb{T}=\{t_n\}$. We want to make predictions based on these. More specifically, we want to obtain a \textit{predictive distribution} which in the context of Gaussian processes is a conditional distribution $p(t_{N+1}|\mb{x}_{N+1},\mb{T},\mb{X})$. 
+
+We have a model $y(\mb{x})=\mb{w}^T\mb{\phi}(\mb{x})$. Consider a prior over $\mb{w}$:
+%
+\begin{equation}
+p(\mb{w}) = \mathcal{N}(\mb{w}|\mb{0}, \alpha^{-1}\mb{I})
+\end{equation}
+%
+%
+Define $\mb{Y}=(y_1,\hdots,y_n)$. Using eq. above we note that this vector is given by $\mb{Y}=\mb{\Phi w}$. We'll use the following \textit{joint distribution} while estimating via GPs: 
+%
+\begin{align}
+\mathbb{E}[\mb{Y}] &= 0 \\
+\text{cov}[\mb{Y}] &= \mb{K}
+\end{align}
+%
+where $K_{nm} = \frac{1}{\alpha}\phi{\mb{x}_n}^T\phi{\mb{x}_m}$.
+
+To obtain $p(t_{N+1}|\mb{x}_{N+1},\mb{T},\mb{X})$, we'll first obtain $p(\mb{T}|\mb{x}_{N+1})$. We'll obtain the latter by marginalisation using the distributions $p\mb{(\mb{Y}|\mb{X}})$ and $p\mb{(T|Y,X)}$. Using (2.115) we get:
+%
+\begin{equation}
+p(\mb{T}) = \int p(\mb{T|Y})p(\mb{Y})d\mb{Y} = \mathcal{N}(\mb{T}|\mb{0,C})
+\end{equation}
+%
+%
+where $C_{nm}=C(\mb{x}_n,\mb{x}_m)=k(\mb{x}_n,\mb{x}_m)+\beta^{-1} \delta_{nm}$. Here we can use any valid kernel function. A frequently used one is given via (6.63) and has four parameters $\theta_0,\theta_1,\theta_2,\theta_3$:
+%
+\begin{equation}
+k(\mb{x}_n,\mb{x}_m) = \theta_0 \exp\left\{-\frac{\theta_1}{2} ||\mb{x}_n-\mb{x}_m||^2 \right\}+\theta_2+\theta_3\mb{x}_n^T\mb{x}_m.
+\end{equation}
 
 
+To obtain ultimate predictive distro for a $\mb{x}_{N+1}$ we first compute a new joint distro $P(\mb{T}_{N+1})$, which, similarly as above, is given as $p(\mb{T}_{N+1})=\mathcal{N}(\mb{T}_{N+1}|\mb{0}, \mb{C}_{N+1})$. 
+Finally, using (2.81) and (2.82), we can obtain the predictive distribution as:
+%
+\begin{equation}
+p(t_{N+1}|\mb{T,X})=\mathcal{N}(\mb{x}_{N+1},\sigma^2(\mb{x}_{N+1}))=\mathcal{N}(\mb{k}^T\mb{C}_{N}^{-1},\mb{T},c-\mb{k}^T \mb{C}_N^{-1},\mb{k})
+\label{eq:GP}
+\end{equation}
+%
+The critical point here is that both the mean and covariance depend on $\mb{x}_{N+1}$.
+
+There are various extensions of GPs. GTM is also an extension that models the \rnote{distribution over low-dimensional manifolds for unsupervised learning}.
 
 
+\subsubsection{Learning the hyperparameters}
+The goal here is to learn the parameters $\bs{\theta}=(\theta_0,\theta_1,\theta_2,\theta_3)$. The straightforward way is to maximize the likelihood $p(\mb{T}|\bs{\theta})$.
+ 
+\subsubsection{Gaussian processes for classification}
+We'll derive GP expression for classification. Again we'll use the sigmoid function. We consider the two-class case $t\in\{0,1\}$. 
 
+Assume we have a function $a(\mb{x})$ that takes arbitrary values. For regression we defined a GP for $y(\mb{x})$ but now we'll define a GP over $a(\mb{x})$. Instead of computing the predictive distro via $p(\mb{T})$, we'll compute it via $p(\mb{a}_N)$:
+%
+\begin{equation}
+p(\mb{a}_N) = \mathcal{N}(\mb{a}_{N+1}|\mb{0}, \mb{C}_{N+1})
+\label{eq:GP_cls}
+\end{equation}
+%
+This is a non-Gaussian process due to the non-linear sigmoid function that is used to obtain it, $p(t|a)=\sigma(a)^t (1-\sigma(a))^{1-t}$.
+
+\subsubsection{Laplace approximation}
+Now we'll use the Laplace approx machinery to approximate the non-Gaussian process above to a Gaussian process.
+
+Again our ultimate goal will be to derive the predictive distro 
+\begin{equation}
+p(t_{N+1}=1|\mb{T}_N)=\int p(t_{N+1}=1|a_{N+1})p(a_{N+1}\mb{T}_N)d a_{N+1}.
+\end{equation}
+
+Again, we'll first derive the posterior $p(a_{N+1}|\mb{T})$ which boils down to the following expression:
+%
+\begin{equation}
+p(a_{N+1}|\mb{T}_N) = \int p(a_{N+1}|\mb{a}_N)p(\mb{a}_N|\mb{T}_N) d\mb{a}_N 
+\label{eq:GP_post_cls}
+\end{equation}
+%
+The first term in RHS above is computed via (\ref{eq:GP}) \---- or (6.66) and (6.67) in the book. The tricky part where we need to do approximation is the posterior $p(\mb{a}_{N}|\mb{T}_{N})$.
+
+To compute $p(\mb{a}_{N}|\mb{T}_{N})$ we need two terms: the prior over $\mb{a}_N$, $p(\mb{a}_{N})$, and the data term $p(\mb{T}_{N}|\mb{a}_{N})$. The first is a zero-mean GP given by (\ref{eq:GP_cls}). The latter term is the \textit{data term} (resembles likelihood), assuming iid:
+%
+\begin{equation}
+p(\mb{T}_N|\mb{a}_N) = \prod\limits_n \sigma(a_n)^{t_n}(1-\sigma(a_n))^{1-tn}
+\end{equation}
+%
+To obtain $p(\mb{a}_N|\mb{T}_N)\propto p(\mb{a}_N)p(\mb{T}_N|\mb{a}_N)$ we'll compute the following approx:
+%
+\begin{equation}
+\Psi(\mb{a}_N) = \ln p(\mb{a}_N) + \ln p(\mb{T}_N|\mb{a}_N)
+\end{equation}
+%
+To compute the approx we find the mode of the above function finding the solution of $\nabla \Psi(\mb{a}_n)=0$, which will be done via the IRLS algorithm because we can't find a closed form solution (\#316). IRLS requires the second derivatives $\nabla\nabla\Psi(\mb{a}_N)$.
+
+The approximation is denoted as $q(\mb{a}_N) = \mathcal{N}(\mb{a}_N|\mb{a}_N^\star, \nabla\nabla\Psi(\mb{a}_N))$. Now we can approximate $p(a_{N+1}|\mb{T}_N)$ in (\ref{eq:GP_post_cls}). Because $q(\mb{a}_N)$ is Gaussian, $p(a_{N+1}|\mb{T}_N)$ is also a Gaussian with second order statistics given by (6.87) and (6.88). The predictive distro $p(t_{N+1}|\mb{T}_N)$ is finally obtain by the inverse Probit approximation given in (4.153).
+
+The section concludes on a similar approximation strategy that aims at determining the parameters $\bs{\theta}$.
 
 
 
