@@ -673,6 +673,67 @@ The section concludes on a similar approximation strategy that aims at determini
 
 
 
+\section{Sparse Kernel Machines}
+
+\subsection{Maximum Margin Classifiers}
+\subsection{Relevance Vector Machines}
+\subsubsection{RVM for regression}
+As usual, we'll eventually have a linear model in the form $y(\mb{x}) = \sum\limits_{i=1}^{M}w_i\phi_i(\mb{x}) = \mb{w}^T\bs{\phi}(\mb{x})$. Following the concept of ``Kernel Machine'', the model will be in the following form:
+%
+\begin{equation}
+y(\mb{x}) = \sum\limits_{n=1}^N w_n k(\mb{x}, \mb{x}_n)+b.
+\end{equation}
+%
+That is, the output is produced in terms of training samples. We are after probabilistic predictions, and because of their advantages in closed form analysis, we use Gaussian RVs. For a given sample $\mb{x}$, we produce the following conditional distribution:
+%
+\begin{equation}
+p(t|\mb{x}, \mb{w}, \beta) = \mathcal{N}(t|y(\mb{x}), \beta^{-1})
+\end{equation}
+%
+The parameters $\mb{w},\beta$ will be learnt in the training process.	More critically, we'll define a prior $\alpha_n$ for each training sample $\mb{x}_n$. Sparsity will be achieved by setting some priors $\alpha_i=\infty$.
+
+Let us denote the training samples with the matrix $X$ whose $n$th row is $\mb{x}_n^T$ and the target values with $\mb{T}=(t_1,\hdots, t_N)$. In training we'll consider two terms. First, the likelihood function, $p(\mb{T}|\mb{X},\mb{w},\beta)$, and second the prior $p(\mb{w}|\bs{\alpha})$. Likelihood is given by:
+%
+\begin{equation}
+p(\mb{T}|\mb{X}, \mb{w}, \beta) = \prod\limits_n^{N} p(t_n|\mb{x}_n, \mb{w}, \beta).
+\end{equation}
+%
+The prior term is defined as follows (we assume independence between priors of different training samples):
+%
+\begin{equation}
+p(\mb{w}|\bs{\alpha}) = \prod\limits_{i=1}^M \mathcal{N}(w_i|0, \alpha_i^{-1})
+\end{equation}
+%
+%
+%
+%
+%
+We'll follow the typical full-Bayesion solution, according to which we'll first derive the posterior distribution $p(\mb{w}|\mb{T},\mb{X}, \bs{\alpha}, \beta)$ and then will marginalize over this distribution to obtain a predictive distribution.
+
+The posterior is derived rather straightforwardly because both the prior and likelihood are Gaussians:
+%
+\begin{equation}
+p(\mb{w}|\mb{T,X},\bs{\alpha}, \beta) = \mathcal{N}(\mb{w|m,\Sigma})=\mathcal{N}(\mb{w}|\beta \mb{\Sigma \Phi}^T\mb{T}, (\mb{A}+\beta\mb{\Phi}^T\mb{\Phi})^{-1})
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
