@@ -718,11 +718,156 @@ p(\mb{w}|\mb{T,X},\bs{\alpha}, \beta) = \mathcal{N}(\mb{w|m,\Sigma})=\mathcal{N}
 
 
 
+\section{Graphical Models}
+\section{Mixture Models and EM}
 
 
 
 
 
+
+\newpage
+\clearpage
+
+\section{Approximate Inference}
+Too often we our task boils down to approximating an intractable distribution. EM was one way to achieve this.
+
+Two further classes of methods are i) Stochastic approx via Markov chain Monte Carlo (will be discussed in Chapter 11) and variational inference techniques (discussed here). The former is in fact able to model a distro \textit{exactly}, provided that there exist infinite computational resources. The approximation there occurs due to the usage of a finite amount of processor time. The approximation in the latter set of techniques comes from the particular choice of distribution classes that are used while approximating distros (\eg exponential distributions) \---- after we specify the distro class there is nothing intrinsically approximate (see \#463 par 2).
+
+\subsection{Variational Inference}
+Overall, inference will try discover some functions: the form of the functions as well as their parameters. These parameters are typically the parameters that describe the distribution (\eg mean and cov. of Gaussians), hyperparameters that define the priors of the distributions or the values of latent variables assumed while modelling the distribution. 	
+
+The theoretical framework of variational framework resembles EM optimisation. Our task will finding an approximation for a \textit{complete-data} distribution $p(\mb{X,Z})$. Similarly to EM we decompose the distribution $p(\mb{X})$ as:
+%
+\begin{align}
+\ln p(\mb{X}) &= \mathcal{L}(q)+\text{KL}(p||q) \label{eq:decomp}\\
+ &= \int q(\mb{Z})\ln \left\{\frac{p(\mb{X,Z})}{q(\mb{Z})}\right\}d\mb{Z} - 
+ \int q(\mb{Z})\ln \left\{\frac{p(\mb{Z|X})}{q(\mb{Z})}\right\}d\mb{Z}
+\end{align}
+
+
+\subsubsection{Factorized Distributions}
+So we are after approximating a distribution with another distribution $q(\mb{Z})$ of our choice. In our choice we'll have to make an assumption that ensures the tractability of our solution. 
+
+This section investigates what happens for a particular type of assumption: the assumption that the distribution $q(\mb{Z})$ can be factorized such as:
+%
+\begin{equation}
+q(\mb{Z}) = \prod\limits_{i=1}^M q_i(\mb{Z}_i)
+\end{equation}
+%
+%
+Importantly, there will be \textbf{no other assumptions}. The form of the distribution (\eg Gaussian etc.) will be discovered automatically.
+
+To understand how a good approximation will be made, we first must realize that (\ref{eq:decomp}) will hold \textit{no matter which $q(\mb{Z})$ we choose} \---- the r.h.s. terms will always sum up to the l.h.s. What separates a good approx from a bad one is how small the KL divergence in the 2nd term is. This is equivalent to saying how large the 1st term on the r.h.s., \ie $\mathcal{L}(q)$, is. This is the most critical thing to understand about variational inference, because we are converting the problem of finding an approximate distribution to the problem of maximising the lower bound $\mathcal{L}(q)$.
+
+Now let's discuss how to maximise $\mathcal{L}(q)$ when we assume that a distribution can be factorised. We'll discuss the maximisation for one factor $q_j(\mb{Z}_j)$, but the discussion will be applicable to any factor. To maximise $\mathcal{L}(q)$, we'll ignore any term that does not depend on $q_j(\mb{Z}_j)$ by simply absorbing them into some constants \---- these constants are denoted in (10.6) with $\text{const}$. Then $\mathcal{L}(q)$ can be written as: 
+%
+%
+\begin{equation}
+\mathcal{L}(q) = \int q_j \ln \tilde{p}(\mb{X},\mb{Z}_j) d\mb{Z}_j-\int q_j \ln q_j d\mb{Z}_j+\text{const} \label{eq:lower_bound}
+\end{equation}
+where $\ln \tilde{p}(\mb{X},\mb{Z}_j) = \mathbb{E}_{i\neq j} [\ln p(\mb{X,Z})]$. Note that (\ref{eq:lower_bound}) now became another (negative) KL divergence, therefore maximising $\mathcal{L}(q)$ is achieved when the two distributions that appear in (\ref{eq:lower_bound}) are identical. This gives the solution of our problem as:
+%
+\begin{equation}
+\ln q_j^{*}(\mb{Z}_j) = \mathbb{E}_{i\neq j} [\ln p(\mb{X,Z})].
+\end{equation}
+
+
+
+
+
+\subsubsection{Properties of Factorised Approximations}
+The order in KL distance affects the type of approximation made: the distances $\text{KL}(p||q)$ and $\text{KL}(q||p)$ have quite different characteristics. See \#468.
+
+\subsubsection{Example: The univariate Gaussian}
+
+\subsection{Illustration: Variational Mixture of Gaussians}
+We have: Dataset.
+We have: likelihood function with \textit{unknown} mean, covariance and prior.
+We have: an unknown latent variable associated with each sample.
+
+Conditional distro of \textit{observed} data vectors \textit{given} latent variables and component parameters is:
+%
+\begin{equation}
+p(\mb{X}|\mb{Z,\mu,\Lambda}) = \prod_n \prod_k \mathcal{N}(\mb{x}_n|\bs{\mu}_k,\bs{\Lambda}_k^{-1})^{z_{nk}}
+\end{equation}
+%
+%
+We introduce priors over parameters $\bs{\mu, \Lambda, \pi}$ \---- We pick conjugate priors:
+%
+%
+\begin{equation}
+p(\bs{\pi}) = \text{Dir}(\bs{\pi|\alpha}_0) = C(\bs{\alpha}_0)\prod_k \pi_k^{\alpha_0-1}
+\end{equation}
+%
+%
+Similarly we introduce a Gaussian-Wishart distro over the component parameters:
+%
+%
+\begin{equation}
+p(\bs{\mu,\Lambda}) =\mathcal{N}(\cdot)\mathcal{W}(\cdot)
+\end{equation}
+
+\subsubsection{Variational Distribution}
+The \textit{actual} distribution decomposes as:
+\begin{equation}
+p(\mb{X,Z},\bs{\pi,\mu},\bs{\Lambda}) = p(\mb{X|Z},\bs{\mu,\Lambda})p(\mb{Z}|\bs{\pi})p(\bs{\mu|\Lambda})p(\bs{\Lambda})
+\end{equation}
+
+We impose the following decomposition on the \textit{variational} distribution \---- note how we dispense with the data after modelling:
+\begin{equation}
+q(\mb{Z},\bs{\pi,\mu,\Lambda}) = q(\mb{Z})q(\bs{\pi,\mu,\Lambda})
+\end{equation}
+
+Using the general conclusion in (10.9) we obtain the following distributions:
+
+\begin{equation}
+\ln q^{\star}(\mb{Z}) = \mathbb{E}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Illustration: Variational Mixture of Gaussians}
+
+To get the big picture of variational inference the best is to build an analogy with EM. See table below:
+%
+\begin{table}
+\centering
+\begin{tabular}{lcc} \hline
+ & EM & Variational Inf. \\\hline
+ Responsibilities (E-step) & $\gamma(z_{nk})$ & $r_{nk}$ \\ 
+ Update eqs (M-step) & $\bs{\mu}_k^{new}, \bs{\Sigma}_k^{new}, \pi_k^{new}$ \--- see \#439 & $\alpha_k, \beta_k, \mb{m}_k, \mb{W}_k, \nu_k$ \--- see \#478 \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Variatonal lower bound}
+Lower bound $\mathcal{L}(q)$ enables the sanity-check of the software implementation. The lower bound should not decrease at each step.
+
+\subsubsection{Determining the number of components}
+\subsubsection{Induced factorizations} 
+Induced factorizations are (unintended) factorizations that arise automatically from the interplay between the data and our design. These factorizations should be exploited during software implementation \---- \eg we shouldn't keep a full covariance matrix.
+\subsection{Variational linear regression}
+An example similar to mixture of Gaussians.
+
+\subsection{Exponential Family Distributions}
+The section separates the variables into two groups:\\
+\textbf{Latent (or extensive) variables}: Grow with the number of training data.\\
+\textbf{Parameters (or intensive) variables}: Fixed size.
+
+
+\subsection{Local Variational Methods}
+\subsection{Variational Logistic Regression}
+\subsection{Expectation Propagation}
 
 
 
