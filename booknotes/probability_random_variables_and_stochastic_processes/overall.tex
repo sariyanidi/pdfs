@@ -1,0 +1,95 @@
+\documentclass[a4paper]{book}
+
+\input{../preliminaries}
+
+\begin{document}
+
+\chapter*{Introduction}
+
+My notes from the legendary book of Papoulis and Pillai \cite{papoulis02}. The book assumes that the reader does already have fairly strong background in calculus and linear algebra. I used two books \cite{Gradshteyn80, Abramowitz70} as assistant for evaluating some of the mathematical identities or integrals. 
+
+This book made me realize that a good technical book is not necessarily one that's easy to follow -- one that shows you very easily how each identity or result is arrived at. Some of the results in the book are presented without much explanation, and this required me to show a lot of effort to understand them; this effort seems to lead to a staying power. 
+
+
+\chapter{Sequences of Random Variables}
+
+
+\section{Notes}
+\begin{itemize}
+\item Multivariate Transformation
+\item How to integrate some RVs from a multi-variate distro to obtain ... (Sec 7.2)
+\item How to compute the mean conditioned on a subset of RVs
+\item Characteristic function leads to so much interesting applications, such as:
+	\begin{itemize}
+	\item Computing the PDF of Bernoulli from Binomials (\#256)
+	\item Computing the PDF of Poisson from Binomials (\#256)
+	\item The sum of jointly normal RVs is normal (\#257)
+	\item The sum of the squares of independent normal variables is chi-square (\#259)
+	\item The sum of two chi-square distros is also chi-square (\#260)
+	\end{itemize}
+\item The optimal single-value estimation (in the MS sense), $c$, of a future value of a RV $\mb{y}$ is $c=E(\mb{y})$.
+\item The optimal functional estimation of $\mb{y}$ \ito a (dependent) RV $\mb{x}$ is $c(x)=E(\mb{y}|x)$. In general, this estimation is \textit{non-linear}.
+\item The optimal linear f. estimation of $\mb{y}$ \ito $\mb{x}$ is $c(x) = Ax + B$ where $B = \eta_y - A\eta_x$ and $A = r \sigma_x/\sigma_y$. 
+\item \textit{For Gaussian RVs, linear and non-linear estimation is identical (\#264)}.
+\end{itemize}
+
+\section{Interesting identities/lemmas/theorems}
+
+\begin{itemize}
+\item The unbiased linear estimator with minimum variance is the one shown in (7-17).
+\item Theorem 7.1: The correlation matrix is nonnegative definite
+\item Sum of jointly normal RVs is normal
+\item Sample mean and variance of $n$ RVs $\mb{x}_1, \hdots, \mb{x}_n$ are $\mb{\bar{x}} = \frac{1}{n}\sum\limits_{i=1}^n$ and $\bar{\mb{v}} = \frac{1}{n-1}\sum\limits_{i=1}^n(\mb{x}-\bar{\mb{x}})^2$.
+\item Goodman's theorem: The statistics of a real zero-mean $n$-dimensional normal RV are completely determined i.t.o. the $n^2$ parameters\----the elements of its covariance matrix. However, a similar \textit{complex} RV requires $2n^2+n$ elements. Goodman's theorem (\#259) gives a special class of normal complex RVs that are determined completely with $n^2$ parameters only.
+\end{itemize}
+
+\section{Important concepts}
+
+\begin{itemize}
+\item Group independence
+\item Correlation and covariance matrices
+\item The orthogonality principle
+\item Mean square estimation (Linear and non-linear)
+\end{itemize}
+
+\section{Some terminology}
+\begin{itemize}
+\item Homogeneous linear estimation:  Linear estimation without a bias term
+\item Nonhomogeneous linear estimation: Linear estimation with a bias term
+
+\end{itemize}
+\section{Redo in future}
+\begin{itemize}
+\item Poisson
+\item Chi square 
+\item Show why sample variance is divided by $n-1$.
+\item Prove why the generalized orthogonality principle (7-92) leads to optimal MS estimators (linear or non-linear).
+\end{itemize}
+
+
+
+\chapter*{Towards a motivation guide}
+\section{Why transformations are useful}
+\begin{itemize}
+\item By applying an orthonormal transformation (\aka whitening) to a set of RVs we can easily compute the optimal 
+\end{itemize}
+
+\chapter*{Towards a cheatsheet}
+\section{Interesting RV Transformations}
+\begin{itemize}
+\item If $\mb{x}_1, \hdots, \mb{x}_n$ are jointly normal, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is also normal (\#257)
+\item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is $\chi^2(n)$ (\#259)
+\item If $\mb{x}$ is $\chi^2(n)$ and $\mb{y}$ is $\chi^2(m)$ and $\mb{x,y}$ independent, then $\mb{z} = \mb{x+y}$ is $\chi^2(n+m)$ (\#260)
+\end{itemize}
+
+
+
+
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{../bibliography}
+
+
+\end{document}
