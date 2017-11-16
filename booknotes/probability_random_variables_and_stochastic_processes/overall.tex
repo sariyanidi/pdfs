@@ -20,17 +20,49 @@ This book made me realize that a good technical book is not necessarily one that
 \item How to integrate some RVs from a multi-variate distro to obtain ... (Sec 7.2)
 \item How to compute the mean conditioned on a subset of RVs
 \item Characteristic function leads to so much interesting applications, such as:
-	\begin{itemize}
+%\begin{itemize}
 	\item Computing the PDF of Bernoulli from Binomials (\#256)
 	\item Computing the PDF of Poisson from Binomials (\#256)
 	\item The sum of jointly normal RVs is normal (\#257)
 	\item The sum of the squares of independent normal variables is chi-square (\#259)
 	\item The sum of two chi-square distros is also chi-square (\#260)
-	\end{itemize}
+%	\end{itemize}
 \item The optimal single-value estimation (in the MS sense), $c$, of a future value of a RV $\mb{y}$ is $c=E(\mb{y})$.
 \item The optimal functional estimation of $\mb{y}$ \ito a (dependent) RV $\mb{x}$ is $c(x)=E(\mb{y}|x)$. In general, this estimation is \textit{non-linear}.
 \item The optimal linear f. estimation of $\mb{y}$ \ito $\mb{x}$ is $c(x) = Ax + B$ where $B = \eta_y - A\eta_x$ and $A = r \sigma_x/\sigma_y$. 
-\item \textit{For Gaussian RVs, linear and non-linear estimation is identical (\#264)}.
+\item \textit{For Gaussian RVs, linear and non-linear MS estimators are identical (\#264)}.
+\item \textit{The orthogonality principle}: The error between of linear estimator $\mb{\hat{y}}=A\mb{x}+B$ of $\mb{y}$ is orthogonal to the data: $E\{(\mb{y}-\mb{\hat{y}})\mb{x}\}=0$
+%	\begin{itemize}
+	\item Generalizes to the linear estimate of $\mb{s}$ \ito multi RVs $\mb{x}_1, \hdots, \mb{x}_n$: $E\{(\mb{s}-\mb{\hat{s}})\mb{x}_i\}$ for $i=1,\hdots,n$.
+	\item Generalizes to \textit{non-linear} estimation: $E\{[\mb{s}-g(\mb{X})]w(\mb{X})\}$, where $g(\mb{X})$ is the non-linear MS estimator and $w(\mb{X})$ \textit{any} function of data $\mb{X}=[\mb{x}_1,\hdots,\mb{x}_n]$. (\#269)
+%	\end{itemize}
+\item Computing the linear MS estimator is \textit{much easier} if the RVs $\mb{x}_i$ are orthogonal to one another (\ie $R_{ij}=0$ for $i\neq j$).  That is why it is often we perform \textit{whitening} (see \#271-272).
+\item Convergence modes for a random sequence (RS) $\mb{x}_1, \hdots, \mb{x}_n, \hdots$
+\begin{itemize}
+\item Everywhere (e), almost everywhere (a.e.), in the MS sense (MS), in prob (p), in distro (d).
+\item Ordered in relaxedness (except last two): d $>$ p $>$ (a.e. $|$ MS)
+\item Cauchy criterion (CC): We typically think of convergence as converging into a sequence $x$. With CC, we can eliminate this need. That is, we ask that $|x_{n+m}-x_n|\to	0$ as $n\to	\infty$.
+\end{itemize}
+\item All the below are technically applications of RS convergence:
+	\begin{itemize}
+	\item The law of large numbers: If $p$ is the prob of event $A$ in a single experiment and $k$ is number of successes in $n$ trials, then we can show that $p$ tends to $k/n$ in \textit{probability}.
+	\item Strong law of large numbers: We can even show that $p$ tends to $k/n$ almost everywhere (but proof is more complicated).
+	\end{itemize}
+	\item The ones below are more specifically applications for estimating $E\{\mb{\bar{x}}_n\}$ (and optionally $\bar{\sigma}^2_n$): the sample mean of a RS of $n$ RVs $\mb{\bar{x}}_n=\frac{\mb{x}_1+\hdots+\mb{x}_n}{n}$ (the variance of the sample mean)
+	\begin{itemize}
+	\item Markov's thm: If the RVs $\mb{x}_i$ are s.t. the mean of $\bar{\eta}_n$ of $\bar{\mb{x}}_n$ tends to a limit $\eta$ and its variance $\bar{\sigma}_n$ tends to $0$ as $n\to \infty$, then $E\{(\mb{\bar{x}}_n-\eta)^2\}\to 0$ as $n\to \infty$. Convergence in MS sense.\\
+	(Note that $\mb{x}_i$ do not have to be uncorrelated or independent)
+	\item Corollary: if $\mb{x}_i$ are uncorrelated and $\frac{\sigma_1^2+\hdots+\sigma_n^2}{n}\to 0$ as $n\to \infty$, then $\mb{\bar{x}}_n\to \eta=\lim_{n\to\infty} \frac{1}{n}\sum\limits_{i=1}^n E\{\mb{x}_n\}$ as $n\to \infty$. Convergence in MS sense. \\
+	(Note that now we do require uncorrelated RVs but in exchange, compared to Markov's thm, the condition on the mean is removed and we \textit{do} have a way of computing the mean $\eta$.)
+	\item Khinchin's thm: the above two required us to know \textit{something} about the variance. According to Khinchin, if $\mb{x}_i$ are \iid (stricter condition), then we $\mb{\bar{x}}_n$ tends to $\eta$ even if we know nothing about the variance of $\mb{x}_i$'s. However, now we have convergence in probability only.
+	\end{itemize}
+\item The Central Limit Theorem (CLT) is also application of RS conv.\----conv. in \textit{distribution}:
+	\begin{itemize}
+	\item Given $n$ independent RVs $\mb{x}_i$, we form their sum (not sample mean!) $\mb{x}=\mb{x}_1+ \hdots+ \mb{x}_n$. This is an RV with mean $\eta$ and $\sigma$. CLT states that the distro $F(x)$ of $\mb{x}$ approaches a \textit{normal distro} with the same mean and variance: $F(x)\approx G(\frac{x-\eta}{\sigma})$.
+	\item If the RVs are continuous, then $f(x)$, the \textit{density} of $x$, also approaches a normal density.
+	\item The approximations become \textit{exact} asymptotically (\ie as $n\to \infty$).  
+	\item Good $n$ values: if $\mb{x}_i$ are \iid, then $n=30$ is adequate for most applications. If the functions $f_{i}(x)$ are smooth, even $n=5$ can be enough.
+	\end{itemize}	
 \end{itemize}
 
 \section{Interesting identities/lemmas/theorems}
@@ -64,6 +96,8 @@ This book made me realize that a good technical book is not necessarily one that
 \item Chi square 
 \item Show why sample variance is divided by $n-1$.
 \item Prove why the generalized orthogonality principle (7-92) leads to optimal MS estimators (linear or non-linear).
+\item Order convergence modes
+\item Prove the law of large numbers
 \end{itemize}
 
 
