@@ -62,7 +62,32 @@ This book made me realize that a good technical book is not necessarily one that
 	\item If the RVs are continuous, then $f(x)$, the \textit{density} of $x$, also approaches a normal density.
 	\item The approximations become \textit{exact} asymptotically (\ie as $n\to \infty$).  
 	\item Good $n$ values: if $\mb{x}_i$ are \iid, then $n=30$ is adequate for most applications. If the functions $f_{i}(x)$ are smooth, even $n=5$ can be enough.
-	\end{itemize}	
+	\item Error corr: The errors of CLT can be corrected by matching higher order moments using Hermite polynomials (see\#281 and also Section~\ref{sec:error_correction}).
+	\item CLT for products $\mb{y}=\mb{x}_1\mb{x}_2\hdots\mb{x}_n$ (assuming $\mb{x}_i>0$) is \textit{lognormal}. (Easily seen by letting $\mb{z} = \ln{\mb{y}} = \ln \mb{x}_1+\hdots+\ln\mb{x}_n$ and $\mb{y} = e^{\mb{z}}$.
+	\end{itemize}
+\item Sampling random sequences for a target distribution $F(x)$
+\item The general idea is to generate a uniform RS $u_1, \hdots, u_n$, and then use some method to convert it to a RS $x_1, \hdots, x_{n'}$ (where $n' \leq n$) that matches the distribution of $F(x)$.
+\item There are several methods for sampling
+	\begin{itemize}
+	\item Percentile Transformation Method: This is a straightforward method ($x_i=F^{-1}_x(u_i)$) but we can apply it only if we can compute the inverse of the target distro, $F^{-1}_x(u)$. We can use this also to transform a sequence $y_i$ with a non-uniform distribution: $x_i=F_x^{-1}\left(F_y(y_i)\right)$ (see \#292).
+	\item Rejection method: Allows sampling without $F^{-1}_x$. The idea is to find an event $M$ such that $f_x(x|M) = f_y(x)$. Turns out that this event is $M=\{\mb{u}\leq r(\mb{x})\}$ where $r(\mb{x}) = a f_y(x)/f_x(x)$. To implement this, one needs to find the upper bound (i.e. $a$; see Example 7-23). 
+	\item Mixing method: $f_x(x) = p_1 f_1(x)+\hdots+p_m f_m(x)$. See proof in \#294 for explanation. 
+	\item Some transformations:
+		\begin{itemize}
+		\item Binomial RV: Sum of $m$ \iid Bernoulli's equals Binomial (\#294).
+		\item Erlang: Sum of $m$ \iid exponentials equals Erlang
+		\item Chi-square: Sum an appropriate Erlang and a Normal
+		\item Student-t: Use a normal and a chi-square
+		\item Log-normal: Use a normal
+		\end{itemize}
+	\item Generating Normal RSs
+		\begin{itemize}
+		\item Clearly, we can use CLT and sum some uniform RSs
+		\item Rejection and mixing: We can mix two Truncated normal RVs obtained via rejection
+		\item Polar coordinates: Use a Rayleigh and a uniform to obtain two independent normals
+		\item Use two uniforms to obtain two normals (see Example 6-15 to follow the equation right after 7-172)
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 
 \section{Interesting identities/lemmas/theorems}
@@ -73,6 +98,7 @@ This book made me realize that a good technical book is not necessarily one that
 \item Sum of jointly normal RVs is normal
 \item Sample mean and variance of $n$ RVs $\mb{x}_1, \hdots, \mb{x}_n$ are $\mb{\bar{x}} = \frac{1}{n}\sum\limits_{i=1}^n$ and $\bar{\mb{v}} = \frac{1}{n-1}\sum\limits_{i=1}^n(\mb{x}-\bar{\mb{x}})^2$.
 \item Goodman's theorem: The statistics of a real zero-mean $n$-dimensional normal RV are completely determined i.t.o. the $n^2$ parameters\----the elements of its covariance matrix. However, a similar \textit{complex} RV requires $2n^2+n$ elements. Goodman's theorem (\#259) gives a special class of normal complex RVs that are determined completely with $n^2$ parameters only.
+\item Berry-Esseen Theorem: Gives an upper bound for the approx. error of CLT, given that the third order of the unknown distro is finite and the variables $\mb{x}_i$ are \iid
 \end{itemize}
 
 \section{Important concepts}
@@ -117,8 +143,61 @@ This book made me realize that a good technical book is not necessarily one that
 \end{itemize}
 
 
+\chapter*{Sketches to solutions}
+\section{Solutions to equations in the book}
 
+\subsection{Error correction for CLT}
+\label{sec:error_correction}
+It is really not obvious how the error correction for CLT is arrived at in \#281. The general idea is to match the higher order moments of the approximation with that of the data. The approximation error between the (unknown) density $f(x)$ and the approximated normal density $f_n(x; 0, \sigma)$ is:
+%
+\begin{equation}
+\epsilon(x) = f(x)-f_n(x; 0, \sigma).
+\end{equation}
+%
+The idea is to write the error (and thus $f(x)$) \ito an orthogonal set of polynomials, viz. Hermite Polynomials $H_k(x)$ (see 7-126). Since they are orthogonal, they form an orthogonal set on the real line:
+%
+\begin{equation}
+\int\limits_{-\infty}^\infty e^{-x^2/2} H_n(x) H_m(x) dx = \begin{cases}n!\sqrt{2\pi}&n=m\\0&n\neq m\end{cases}
+\label{eq:h_orth}
+\end{equation}
+%
+Using those polynomials, one can approximate any function (including $\epsilon(x)$ or $f(x)$) \ito an infinite series:
+%
+\begin{equation}
+\epsilon(x) = \frac{1}{\sigma \sqrt{2\pi}}e^{-x^2/2\sigma^2}\sum\limits_{k=3}^\infty C_k H_k\left(\frac{x}{\sigma}\right)
+\end{equation}
+%
+The sum starts from $3$, as the moments of $\epsilon(x)$ up to order 2 are zero (I guess because the Gaussian approx. is sufficient to make those moments zero?) The book limits itself up to $4th$ order approx.
 
+The idea is to find the coefficients $C_3$ and $C_4$ by matching the $3^{rd}$ and $4^{th}$ order moments of the unknown distro with that of the data (*** Be more pecise here). The third order moment of $\mb{x}$ is:
+%
+\begin{equation}
+E_{f(x)}\{x^3\} = \int x^3 f(x) dx
+\end{equation}
+%
+The third order moment of the (approximated) normal density is zero (see 5-73), and therefore the error in terms of the third moments is:
+\begin{equation}
+E_{f(x)}\{x^3\} - E_{f_n(x)}\{x^3\} = \int x^3 f(x) dx - \int x^3 f_n(x; 0, \sigma) dx = \int x^3\left[f(x)-f_n(x; 0, \sigma)\right] dx.
+\end{equation}
+Since the content of the last brackets equals $\epsilon(x)$, and since $ E_{f_n(x)}\{x^3\}$ is zero, the above equals $m_3 = E_{f(x)}\{x^3\}$ identity can be written as:
+%
+\begin{equation}
+m_3 = \frac{1}{\sigma \sqrt{2\pi}} \int x^3 e^{-x^2/2\sigma^2}\sum\limits_{k=3}^\infty C_k H_k\left(\frac{x}{\sigma}\right) dx \label{eq:mom3}
+\end{equation}
+%
+Now here is the tricky part that is not obvious in the book. Our goal is to find the coefficients $C_k$ using the above equality. This is achieved by using the orthogonality of the Hermite polynomials. The third order Hermite Polynomial is $H_3(x) = x^3-3x$, and using \eqref{eq:h_orth} and doing a change of variables we see that:
+%
+\begin{align}
+&\int e^{-x^2/2\sigma^2} \left(\frac{x^3}{\sigma^3}-3\frac{x}{\sigma}\right)\left(\frac{x^3}{\sigma^3}-3\frac{x}{\sigma}\right)dx = \\
+&=\int e^{-x^2/2\sigma^2} \frac{x^3}{\sigma^3}\left(\frac{x^3}{\sigma^3}-3\frac{x}{\sigma}\right)dx -3\int e^{-x^2/2\sigma^2} \frac{x}{\sigma}\left(\frac{x^3}{\sigma^3}-3\frac{x}{\sigma}\right)dx \label{eq:int2}\\
+&=3!\sigma \sqrt{2\pi}
+\end{align}
+%
+The second integral in \eqref{eq:int2} equals zero because $H_1(x)\propto x$ and $H_3(x)\perp H_1(x)$, and the first integral in \eqref{eq:int2} is proportional to $m_3$. More specifically, using \eqref{eq:int2} and \eqref{eq:mom3}, we arrive at the obscure derivation in the book:
+%
+\begin{equation}
+m_3 = 3! \sigma^3 C_3.
+\end{equation}
 
 \newpage
 
