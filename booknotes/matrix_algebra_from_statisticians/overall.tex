@@ -1,0 +1,502 @@
+\documentclass[a4paper]{book}
+
+\input{../preliminaries.tex}
+
+\begin{document}
+
+\chapter*{Introduction}
+
+These are my notes from the book of Harville~\cite{harville97}. This are probably very esoteric notes, I noted whatever was important for me. That is, however basic, anything that I didn't know found a place here. It is also a summary of what I gained from this book. My coverage of chapters will probably be insanely unbalanced.
+
+\chapter{Matrices}
+Preliminaries and basics of matrix algebra are presented here. But one has to go through to become familiar with the notation that will follow (\eg $\mb{J}_{mn}$ is an $m\times n$ matrix of ones). Plus going through the entire text and solving the exercises helped me to start and become familiar with \textit{proving} linear algebra. Exercise 8 is particularly interesting.
+
+Some interesting notes:
+
+\begin{align*}
+\mb{J}_{mn} \mb{J}_{np} = n \mb{J}_{mp}m
+\end{align*}
+
+\subsection{Redo in future}
+\begin{itemize}
+\item Exercise 4.a--c
+\item Exercise 8
+\end{itemize}
+
+\chapter{Submatrices and Partitioned Matrices}
+A basic topic that I wasn't sufficiently familiar is covered in this chapter (see title). 
+
+\section*{Notes}
+\begin{itemize}
+\item A partitioning of a matrix is obtained by putting horizontal/vertical lines between its various columns or rows. The only requirement is that the lines shouldn't be \textit{staggered} (see \#15). 
+\item The fact that multiplication of partitioned matrices is similar to that of the regular matrices (see 2.7) is very intuitive. Proves useful when proving thing in future chapters.
+\end{itemize}
+
+\section*{Interesting identities/lemmas/theorems}
+\begin{itemize}
+\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $A$ and $B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}'_i\mb{b}_i$.
+\end{itemize}
+
+\section*{Important concepts}
+\begin{itemize}
+\item Block-diagonal matrix
+\item Block-triangular matrix
+\end{itemize}
+
+\subsection{Redo in future}
+\begin{itemize}
+\item Exercise 4
+\end{itemize}
+
+\chapter{Linear Dependence and Independence}
+Very short chapter, but its lemmas are very useful, they can be used extensively in proofs that come later in the chapters. Lemma 3.2.1 and 3.2.2 are fundamental and they should be practically memorized. Lemma 3.2.4 is an elegant one, it seems like it can be the key to some complicated proofs. 
+
+\section{Redo in future}
+\begin{itemize}
+\item Lemma 3.2.1
+\item Lemma 3.2.2
+\item Lemma 3.2.4
+\item Exercise 2
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Linear Space: Row and Column Spaces}
+
+Very useful chapter, it's title doesn't do justice. Fundamental concepts of rank, dimension, basis, linear space, subspace, column/row space are introduced and they are made concrete with many lemmas and theorems.
+
+\section{Important Lemmas/Theorems/Equations}
+\begin{itemize}
+\item Lemma 4.2.2 is easily the most important result in the chapter. Many results in the chapter can be proved directly through this lemma.
+\item Corollary 4.2.3 also very useful.
+\item Theorem 4.3.2
+\item Corollary 4.3.3
+\item Theorem 4.3.4
+\item Lemma 4.3.5
+\item Theorem 4.3.7
+\item Theorem 4.4.2
+\item The restatements of column/row space results in terms of rank results in Section 4.4.b
+\item Theorem 4.4.8
+\item Lemma 4.5.1
+\item Lemma 4.5.4
+\item Lemma 4.5.7
+\item Corollary 4.5.9
+\end{itemize}
+
+
+\section{Redo}
+\begin{itemize}
+\item All listed above
+\item Theorem 4.4.4
+\item Theorem 4.4.9
+\item Theorem 4.4.10
+\item Lemma 4.5.11
+\item Theorem 4.4.1
+\item Exercise 4
+\item Exercise 5
+\item Exercise 6
+\item Exercise 7
+\item Exercise 9
+\item Exercise 10
+\item Exercise 11a
+\end{itemize}
+
+\section{Important concepts}
+\begin{itemize}
+\item Linear Space
+\item Row/Column space
+\item Basis
+\item Linear Space
+\item Rank
+\item Spanning set
+\item Dimension
+\end{itemize}
+
+
+\chapter{Trace of a (Square) Matrix}
+
+The chapter gives some basic identities about traces, and then a very important equivalence for finding whether a matrix is null, $\mb{0}$.
+
+\section*{Notes}
+\begin{itemize}
+\item Basic trace identities and some properties (Section 5.2 and 5.3)
+	\begin{itemize}
+	\item $\tr(k\mb{A}) = k \tr(\mb{A})$
+	\item $\tr(\mb{A+B}) = \tr(\mb{A})+\tr(\mb{B})$
+	\item $\tr(\mb{A'A})\geq 0$
+	\item $\tr(\mb{A}') = \tr(\mb{A})$
+	\item $\tr(\mb{AB}) = \tr(\mb{B'A'}) = \tr(\mb{BA}) =  \tr(\mb{A'B'})$
+	\item The last leads to allowing any cyclical rotations: $\tr(\mb{ABC}) = \tr(\mb{CAB}) = \tr(\mb{BCA})$\\
+	(It is easy to remember that only cyclicals are allowed\----the matrices have to be multipliable)
+	\item \textbf{L5.3.1}: $\mb{A} = \mb{0} \iff \tr(\mb{A'A})=0$ \\
+	\textbf{C5.3.2}: $\mb{A=0} \iff \mb{A'A=0}$ \\
+	\textbf{C5.3.3}: $\mb{AB=AC} \iff \mb{A'AB=A'AC}$ and (transposed) $\mb{BA'=CA'} \iff \mb{BA'A=A'AC}$ 
+	\end{itemize}
+\end{itemize}
+
+\section*{Redo}
+\begin{itemize}
+\item Prove Corollary 5.3.2
+\item Prove Corollary 5.3.3
+\item Exercise 3
+\end{itemize}
+
+\chapter{Geometrical Considerations}
+Geometry is very important because it allows for an intuitive understanding of many linear algebra concepts. There are two opinions about those who teach and write about linear statistical models. Those who advocate the ``geometrical approach'' emphasize its elegance and intuitiveness, and those who advocate a more ``algebraic approach'' highlight its rigour and the fact that it's more suggestive of computational approaches.
+
+
+\section*{Important concepts}
+\begin{itemize}
+\item Inner (or dot) Product (the ``usual'' one): $\mb{x}\cdot\mb{y} = \mb{x'y}$ for vecs $\mb{A'\cdot B} = \tr(\mb{AB})$ for mats
+\item Norm: $||\mb x|| = (\mb{x'\cdot x})^{1/2}$
+\item Angle: $\cos \theta = \frac{\mb{x \cdot y}}{||\mb{x}|| ||\mb{y}||}$ (similar for matrices)
+\item Distance: $||\mb{A-B}||$
+\item Orthogonality
+\end{itemize}
+
+\section*{Notes}
+\begin{itemize}
+\item Schwarz Inequality: $|\mb{A\cdot B}|\leq ||\mb{A}||\,||\mb{C}||$
+\item Gram-Schmidt Orthogonalization: $x_{ij}=\frac{\mb{A}_j\cdot \mb{B}_i}{\mb{B}_i \cdot \mb{B}_i}$
+\item Any linear space has an orthonormal basis (T6.4.3): Follows from T4.3.9 and the fact that we can apply Gram-Schmidt Orthogonalization to any set of bases 
+\item QR decomposition for (full-column matrix): $\mb{A=BX=(BD)(EX)=QR}$, where cols of $\mb Q$ are orthonormal and $\mb{R}$ is upper triangular; cols of $\mb B$ are only orthogonal and $\mb{D,E}$ are diagonal matrices such that (clearly) $\mb D^{-1} = \mb E$ (See Exercise 5 for generalization of QR decomposition to column rank deficient matrices.)
+\end{itemize}
+
+\section*{Redo}
+\begin{itemize}
+\item Schwarz Inequality
+\item Exercise 1
+\item Exercise 5
+\end{itemize}
+
+\chapter{Consistency and Compatibility}
+This chapter is about the two important concepts in the title that relate to whether a linear system has solution(s). Finding the solution(s) is the topic of Chapter 11.
+
+\section*{Important Concepts}
+\begin{itemize}
+\item Linear system (in $\mb{x}$) is: $\mb{Ax=B}$. $\mb A$ is the \textit{coefficient matrix}, $B$ is the \textit{right side} and any $x$ that satisfies the equality is a solution. 
+\item A linear system is called \textit{homogeneous} if $\mb{B=0}$ and \textit{non-homogeneous} otherwise.
+\item A system is called \textit{consistent} if it has one or more solutions.
+\end{itemize}
+
+\section*{Notes}
+\begin{itemize}
+\item \textbf{T7.2.1} gives four necessary and sufficient conditions for consistency. All four can be derived from the first condition: $\mathcal{C}(\mb{B}) \subset \mathcal{C}(\mb{A})$ (and then using L4.2.2, L4.5.1 and C4.5.2).
+\item \textbf{T7.2.2}: A system is \textit{consistent} if $\mb{A}$ has full row rank.
+\item A linear system is \textit{compatible} if $\mb{k'B=0}$ for every $\mb k'$ such that $\mb{k'A=0}$
+\item \textbf{T7.3.1} is the the chapter's main theorem that connects the two main concepts: A linear system is compatible iff it is consistent
+\item \textbf{T7.4.1} connects the chapter with the Trace chapter; specifically with C5.3.3. This leads to important equivalences between $\mb{A'A}$ and $\mb A$ in terms of column/row spaces and ranks (see Section 7.4.b).
+\end{itemize}
+
+
+\section*{Redo}
+\begin{itemize}
+\item Prove T7.2.1 and T7.2.2
+\item Prove T7.3.1
+\item Prove T7.4.1
+\item Prove all T's/C's in Section 7.4.b: this will help with consolidating parts of Chapter 4.
+\item Prove T7.4.8
+\item Exercise 1b
+\end{itemize}
+
+
+
+
+\chapter{Inverse Matrices}
+The chapter introduces the (left, right) inverses and their basic properties. Orthogonal matrices are also introduced. There is a detailed treatment on the use of partitioned matrices for computing (i) the rank and (ii) the inverse. Specifically, if one of the diagonal blocks of a $2\times 2$ partitioning is non-singular, then computing the rank and inverse becomes easy; the larger the non-singular block the easier to compute the rank/inverse. We can use permutation matrices to make the non-singular block as large as possible and thus facilitate computations (see example in \#103).
+
+
+\section*{Basic identities}
+\begin{itemize}
+\item The following assume that $\mb{A,B}$ are non-singular $n\times n$ matrices
+	\begin{itemize}
+	\item $(k\mb A)^{-1}=(1/k)\mb A^{-1}$
+	\item $(\mb{AB})^{-1}=\mb{B}^{-1} \mb{A}^{-1}$ 
+	\item $(\mb A^{-1})' = (\mb A')^{-1}$
+	\item $\rank(\mb{AB}) = n$
+	\end{itemize}
+\item The following assume that $\mb Q, \mb Q_i$ are \textit{orthogonal}
+	\begin{itemize}
+	\item $\mb{Q}\mb{Q}'=\mb I$
+	\item $\mb{Q}^{-1}=\mb{Q}'$
+	\item $\mb{Q}_1\mb{Q}_2\hdots\mb{Q}_k$ is orthogonal
+	\end{itemize}
+\end{itemize}
+
+\section*{Important Concepts}
+\begin{itemize}
+\item Left inverse (LI), right inverse (RI), inverse (\aka left \textit{and} right inverse)
+\item Orthogonal matrix: A matrix is orthogonal if its columns form an \textit{ortho\textbf{normal}} set.
+\item Permutation matrices
+\item Schur complement of a paritioned matrix $\begin{bmatrix}
+\mb W & \mb V \\ \mb U & \mb T
+\end{bmatrix}$ where $\mb T$ is non-singular is $\mb{Q=W-VT^{-1}U}$. It is used, among others, when computing inverses (T8.5.11)
+\end{itemize}
+
+
+\section*{Notes}
+\begin{itemize}
+\item \textbf{L8.1.1} is used very widely: (i) $\mb A$ has RI $\iff$ $\mb A$ has full row rank, and (ii) $\mb A$ has LI $\iff$ $\mb A$ has full col rank. (Remember: \textbf{R}ight inverse if full \textbf{r}ow rank.)
+\item \textbf{C8.3.3} If $\mb A$ non-singular, then $\rank(\mb{AB})=\rank(\mb B)$ (i.e. rank limited by $\mb B$). 
+\item Helmert matrix computes an orthogonal matrix from one vector whose none element is $0$.
+\item Permutation matrices can become very convenient for computing rank (see L8.5.1 and S8.5.f)
+\item Block-triangular matrices are convenient for computing inverses (see L8.5.4, T8.5.11)
+	\begin{itemize}
+	\item The easiest is with block-diagonal matrices $\begin{bmatrix}
+	\mb{T} & \mb 0 \\ \mb 0 & \mb W
+	\end{bmatrix}^{-1} = \begin{bmatrix}
+	\mb{T}^{-1} & \mb 0 \\ \mb 0 & \mb W^{-1}
+	\end{bmatrix}$
+	\item Then with unit block triangular matrices, L8.5.2, $\begin{bmatrix}
+	\mb{I} & \mb 0 \\ \mb V & \mb I
+	\end{bmatrix}^{-1} = \begin{bmatrix}
+	\mb{I} & \mb 0 \\ -\mb V & \mb I
+	\end{bmatrix}$ (sim. for upper up. matrix)
+	\item Next, L8.5.4, $\begin{bmatrix}
+\mb W & \mb V \\ \mb 0 & \mb T
+\end{bmatrix} = \begin{bmatrix}
+\mb W^{-1} & \mb -\mb{W^{-1}VT^{-1}} \\ \mb 0 & \mb T^{-1}
+\end{bmatrix}$  (sim. for upper low. matrix)
+	\item Generalization (S8.5.d): The lemmas above lead to generalizations (through induction) and recursive algorithms for computing the inverses of matrices partitioned to larger than $2\times 2$ submatrices
+	\end{itemize}
+\item \textbf{T8.5.10}: If $\mb T$ is $m\times m$ and nonsingular, then $\rank\left(\begin{matrix}
+	\mb T & \mb U \\ \mb V & \mb W
+	\end{matrix}\right) = m + \rank(\mb{W-VT^{-1}U})$
+\item \textbf{T8.5.11}: Inverse of non-block-triangular part. m. $\begin{bmatrix}
+\mb W & \mb V \\ \mb U & \mb T
+\end{bmatrix}$, given that $\mb T$ is non-singular, is computed using the results for block-triangular matrices and the Schur complement.
+\item The same theorem is used to establish the non-singularity of the part. m.
+\item Summary on how to compute (i) the rank or (ii) the inverse of a part. m. $\begin{bmatrix}
+\mb{A}_{11} & \mb{A}_{12} \\ \mb{A}_{21} & \mb{A}_{22}
+\end{bmatrix}$, given that either $\mb{A}_{11}$ or $\mb{A}_{22}$ is non-singular (see \#101).
+	\begin{itemize}
+	\item Rank: (1) Invert $\mb{A}_{11}$ or $\mb{A}_{22}$, (2) form the Schur complement, (3) find the rank of the Schur complement
+	\item Inverse: (1) Compute $\mb{A}^{-1}_{11}$ or $\mb{A}^{-1}_{22}$, (2) compute the Schur complement, (3) use formula (8.5.16) or (8.5.17).
+	\end{itemize}
+\end{itemize}
+
+\section*{Redo}
+\begin{itemize}
+\item Prove L8.1.1
+\item Prove L8.4.1
+\item Prove L8.5.3
+\item Prove L8.5.4
+\item Prove T8.5.5
+\end{itemize}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Generalized Inverses}
+
+This chapter is about the finding inverses for matrices that are not square or nonsingular. Those so-called generalized inverses apparently become ubiquitous in statistical analysis and possibly other disciplines.
+
+
+\section*{Important Concepts}
+\begin{itemize}
+\item A \textit{generalized inverse} (GI) of an $m\times n$ matrix $\mb A$ is any $n\times m$ matrix $\mb G$ such that $\mb{AGA=A}$. A GI of $\mb A$ is typically denoted as $\mb A^-$
+\end{itemize}
+
+\section*{Basic Identities and Properties}
+\begin{itemize}
+\item $(1/k)\mb{A}^-$ is a GI of $k\mb A$ (L9.3.1)
+\item $(\mb A^-)'$ is a GI of $\mb A'$ (L.9.3.3)
+\item If $\mb A$ is symmetric, then $(A^-)'$ is a GI of $\mb A$ (a weaker prop compared to nonsingular $(\mb A^{-1})' = \mb A^{-1} $)
+\item $\rank(\mb{A^-A}) = \rank(\mb{AA^-}) = \rank(\mb A)$ (C9.3.8)
+\item \textbf{L9.3.5}: $\mathcal{C}(\mb B)\subset \mathcal{C}( \mb A) \iff \mb{B=AA^-B}$ and $\mathcal{R}(\mb C)\subset \mathcal{C}( \mb A) \iff \mb{C=CA^-A}$ \\ (A weaker prop compared to nonsingular $\mb{AA^{-1}=I}$ or, equivalently, $\mb{AA^{-1}-I=0}$)
+	\begin{itemize}
+	\item This lemma immediately relates to the consistency of a linear system:
+	\item \textbf{L9.5.1}: A linear system $\mb{AX=B}$ is consistent iff $\mb{AA^-B=B}$
+	\end{itemize}
+\end{itemize}
+
+\section*{Notes}
+\begin{itemize}
+\item Existence of GI:
+	\begin{itemize}
+	\item \textbf{L9.1.4}: Every matrix has at least one GI
+	\item \textbf{L9.1.1}: A nonsingular matrix has exactly one GI (\ie its inverse)
+	\item A matrix that is not nonsingular has infinite numbers of matrices (see last para of \#114)
+	\end{itemize}
+\item On computing a GI of a matrix: The theorems in Sec 9.2.a give a way to compute a GI through partitioning
+\begin{itemize}
+	\item \textbf{T9.2.1}: Let $\mb A$ be $m\times n$ with rank $r$ and partition it, $\mb A=\begin{bmatrix} \mb A_{11} & \mb A_{12} \\ \mb A_{21} & \mb A_{22} \end{bmatrix}$. Suppose $\mb A_{11}$ is nonsingular. Then, $\mb G$ is a GI of $\mb A$ iff 
+	$\mb{G}=\begin{bmatrix}
+	\mb A^{-1}_{11}-\mb{X}\mb A_{21} \mb A^{-1}_{11}-\mb A^{-1}_{11} \mb A_{12} \mb Y - \mb A^{-1}_{11} \mb A_{12} \mb{ZA}_{21}\mb A^{-1}_{11} & \mb X \\
+	\mb Y & \mb Z
+	\end{bmatrix}$ for some $\mb{X, Y}$ and $\mb Z$ (of appropriate dimensions)
+	\item The theorem above becomes particularly powerful when combined with T9.2.3
+	\item \textbf{T9.2.3}: Let $\mb A$ be $m\times n$ with rank $r$. Let $\mb B$ be obtained from $\mb A$ by permuting its rows/columns, \ie $\mb{B=PAQ}$, so that $\mb{B}_{11}$, the principal leading $r\times r$ submatrix of $\mb{B}$, is of rank $r$. Then, $\mb G$ is GI of $\mb B$ iff 
+	$\mb{G}=\mb Q \begin{bmatrix}
+	\mb B^{-1}_{11}-\mb{X}\mb B_{21} \mb B^{-1}_{11}-\mb B^{-1}_{11} \mb B_{12} \mb Y - \mb B^{-1}_{11} \mb B_{12} \mb{ZB}_{21}\mb B^{-1}_{11} & \mb X \\
+	\mb Y & \mb Z
+	\end{bmatrix}\mb P$
+	\item The theorems above can be used to define a 5-step procedure to compute a GI of $\mb A$: 1) find the rank of $\mb A$, $r$; 2) locate the $r$ independent rows and columns of $\mb A$; 3) Form a submatrix of $\mb A$, $\mb B_{11}$, by striking out all except those $r$ rows and columns; 4) Compute the inverse of $\mb B_{11}$; 5) Use T9.2.1 by setting $\mb{X,Y,Z}$ to zero.
+	\end{itemize}
+	\item Obtaining \textit{every} GI in terms of a particular GI: There us an elegant theorem that provides two formulae for this purpose
+	\begin{itemize}
+		\item \textbf{T9.2.7}: Let $\mb A$ be $m\times n$ and $\mb G$ a particular inverse. Then, a matrix $\mb G^*$ is a GI of $\mb A$ iff \\
+	$\mb G^* = \mb{G+Z-GAZAG}$ for some $\mb Z$. Also, $\mb G^*$ is a GI iff \\
+	$\mb{G^*=G+(I-GA)T+S(I-AG)}$ for some matrices $\mb T$ and $\mb S$.
+		\item By letting $\mb Z$ or $\mb{T, S}$ vary over all matrices, one can compute all GI's from one $\mb G$.
+	\end{itemize}
+	\item Obtaining a matrix invariant to the choice of GI
+	\begin{itemize}
+	\item \textbf{T9.4.1}: 	Let $\mb{A,B,C}$ be matrices such that $\mathcal{R}(\mb B) \subset \mathcal{R}(\mb A)$ and $\mathcal{C}(\mb C) \subset \mathcal{C}(\mb B)$, then $\mb{BA^-C}$ is invariant to the choice of $\mb A^-$. (Nearly-converse holds too.)
+	\end{itemize}
+	\item The Schur treatment for GIs on Partitioned Matrices
+	\begin{itemize}
+	\item A treatment similar to that of computing the inverse (see Section 8.5) applies to GIs
+	\item The Schur complement is now defined as $\mb{Q=W-VT^{-1}U}$. 
+	\item \textbf{T9.6.1}: Computing the rank (v similar to T8.5.10). Suppose $\mathcal{C}(\mb U) \subset \mathcal{C}(\mb T)$ and $\mathcal{R}(\mb V) \subset \mathcal{C}(\mb T)$. Then, $\rank\left(\begin{matrix}
+	\mb T & \mb U \\ \mb V & \mb W
+	\end{matrix}\right) = \rank(\mb T) + \rank(\mb Q)$. Moreover, the GI of the partitioned matrix can be computed in terms of the GI of $\mb T^{-}, \mb Q^{-}, \mb V, \mb U$ (\#121). The bottom right of the GI is $\mb Q^-$
+	\item \textbf{T9.6.4}: The bottom right of \textit{any} GI of the above partitioned matrix is a GI of $\mb Q$.
+	\end{itemize}
+\item Comparison of the 5-step algorithm (above) and the Schur way: 5-step requires finding a basis that spans $\mb A$, whereas Schur-way requires $\mathcal{C}(\mb U) \subset \mathcal{C}(\mb T)$ and $\mathcal{R}(\mb V) \subset \mathcal{C}(\mb T)$.
+\end{itemize}
+
+
+\section*{Important Lemmas and Theorems}
+\begin{itemize}
+\item \textbf{L9.3.5}: See about $\mb{B=AA^-B}$ -- see definition above in Basic Identities and Properties
+\item \textbf{T9.2.7}: On computing all GIs from a particular GI (above)
+\item \textbf{T9.4.1}: Obtaining an matrix invariant to the choice of GI
+\end{itemize}
+
+
+\section*{Redo}
+\begin{itemize}
+\item Prove T9.2.7
+\item Prove T9.4.1
+\item Prove T9.6.4
+\item Solve Exercise 7
+\item Solve Exercise 12a
+\end{itemize}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Idempotent Matrices}
+Apparently the class of idempotent matrices is very important in statistics and other disciplines. They do have some very interesting and non-obvious properties (\eg L10.1.1, L10.1.2 or T10.2.1)
+
+\section*{Definition and Some Properties}
+\begin{itemize}
+\item $\mb A$ is said to be idempotent if $\mb A^2 = A$
+\item The only $n\times n$ idempotent matrix is $\mb I_n$ (L10.1.1)
+\item $\mb A'$ is idempotent $\iff$ $\mb A$ is idempotent (L10.1.2)
+\item $\mb A$ is idempotent $\iff$ $\mb{I-A}$ is idempotent (L10.1.2)
+\end{itemize}
+
+\section*{Notes}
+\begin{itemize}
+\item One of the most non-intuitive relations is through the following theorem (and its corollary):
+	\begin{itemize}
+	\item \textbf{T10.2.1}: For any square matrix $\mb A$ such that $\mb A^2=k \mb A$, $\tr(\mb A) = k\, \rank(\mb A)$
+	\item \textbf{C10.2.2}: For any idempotent matrix $\mb A$, $\rank(\mb A) = \tr(\mb A)$ (I guess I find this non-intuitive because the rank \---an integer\--- is computed with $\tr$ which does not in general yield an integer!)
+	\item \textbf{T10.2.7}: $\mb B$ is GI of $\mb A$ iff $\mb{BA}$ is idempotent and $\rank(\mb {BA}) = \rank(\mb A)$ (This also is non-intuitive b/c idempotent matrices seem like they are rare but yet so easy to obtain from a matrix and its inverse!)
+	\end{itemize}
+\end{itemize}
+
+
+\section*{Redo}
+\begin{itemize}
+\item Prove T10.2.1
+\item Prove T10.2.7
+\item Solve Exercise 3
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{../bibliography}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
