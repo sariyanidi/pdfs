@@ -1,7 +1,7 @@
 \documentclass[a4paper]{book}
 
 \input{../preliminaries}
-
+\usepackage{pstricks, pst-node}
 \begin{document}
 
 \chapter*{Introduction}
@@ -128,10 +128,176 @@ This book made me realize that a good technical book is not necessarily one that
 
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{Statistics}
+
+\section{Definitions}
+\begin{itemize}
+\item \textit{Statistic.} Any function of the sample RV vector, $\mb{X}=[\mb{x}_1,\hdots,\mb{x}_n]$, is called a \textit{statistic}. (This definition applies only for this chapter! See footnote in p306)
+\item \textit{Unbiased estimator.} An estimator $T(\mb{X})$ is an unbiased estimator for $\theta$ if $E\{T(\mb{X})\}=\theta$.
+\item \textit{Point estimator} is an RV $\bs{\hat{\theta}}=g(\mb{X})$  that estimates a parameter $\theta$.
+\item \textit{Point estimate} $\hat{\theta}$ is a function of the \textit{observation vector} $X=[x_1, \hdots, x_n]$ and the corresponding RV; \ie $\hat{\theta}=g(X)$
+\item \textit{Consistent estimator.} Let $\bs{\hat{\theta}}_n=g_n(\mb{X})$ be estimator of parameter $\theta$ based on a sample $\mb{X}$ with $n$ observations. $\bs{\hat{\theta}}$ is a consistent estimator if its error, $E\{(\bs{\hat{\theta}}_n-\theta)^2\}$, tends to zero as $n\to \infty$.
+\item \textit{Best estimator.} Let $\bs{\hat{\theta}}=g_n(\mb{X})$ be estimator of parameter $\theta$. $\bs{\hat{\theta}}$ is best estimator if it minimizes the error $E\{(\bs{\hat{\theta}}_n-\theta)^2\}$.
+\item \textit{Sufficient statistic.} A function $T(\mb{X})$ is a sufficient statistic for a parameter $\theta$, if $T(\mb{X})$ contains all information about $\theta$ in the data set $\mb{X}$. That is, given the PDF $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta\}$, if $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta | T(\mb{X}\}$ \textit{does not} depend on $\theta$, then $T(\mb{X})$ is sufficient statistic for $\theta$. (p322-323)
+\item \textit{Efficient estimator.} An estimator is called efficient if it has the lowest possible variance. More specifically, we have first-order efficiency and second-order efficiency. The former means that an estimator is efficient w.r.t. the Cramer-Rao bound (see below), because the CR bound uses only first-order derivatives; the latter means that an estimator is efficient w.r.t. Bhattacharya bound, which is computed using the second-order derivative.
+\end{itemize}
+
+
+\section{Parameter Estimation}
+Very important section with concepts directly applicable to machine learning. Specifically, it is shown why the Maximum Likelihood (ML) is so important, and from which mathematical framework it comes from. How can one obtain an unbiased estimator \textit{with minimum variance}, or how one can measure the variance of a given unbiased estimator. It looks like, if one wants to use non-Gaussian RVs for machine learning, the tools presented in this section are fundamental to show how to find their parameters. 
+
+The concepts of Sufficient Statistic and Uniformly Minimum Variance Unbiased Estimator (UMVUE) are introduced. The latter is a desirable and most used estimator type, and the former leads to finding it. The most important theorems along the way are: \textit{Factorization theorem} (helps finding sufficient statistic), the \textit{Cramer-Rao Bound} (finds lower bound for variance of unbiased estimator), the \textit{Bhattacharya Bound} (improves Cramer-Rao), and the \textit{Rao-Blackwell theorem} (the finale: finds the UMVUE from sufficient statistic).
+
+\begin{figure}[!h]
+\begin{center}
+\begin{pspicture}[shift=*](-2,-0.5)(6,2)
+\psmatrix[colsep=0.7cm, rowsep=0.4cm]
+ &  & [mnode=r,name=AUE,colsep=2cm] \small \stc{\textit{Any} unbiased}{Estimator} &\\
+[mnode=oval,name=LF]  {\stc{Likelihood}{Function}} & [name=FT]\psframebox{\stc{Factorization}{Theorem}} & [name=RBT,colsep=2cm]\psframebox{\stc{Rao-Blackwell}{Theorem}} & [mnode=oval,name=UMVUE] UMVUE
+\endpsmatrix
+\psset{arrows=->}
+\ncline{LF}{FT}
+\ncline{FT}{RBT} \taput{\rnode{C}{\small \stc{Sufficient}{Statistic}}}
+\ncline{RBT}{UMVUE}
+\ncline{AUE}{RBT}
+\end{pspicture}
+\end{center}
+\caption{The relationship between the major concepts and theorems of this section (parameter estimation).}
+\end{figure}
+
+
+\section{Notes}
+
+
+\begin{itemize}
+\item \textbf{The Factorization Theorem} allows us to find suff. statistic (see also Examples 8-14, 8-15). Let $\mb{x}_1,\hdots,\mb{x}_n$ be a set of discrete RVs with PMF $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta \}$. Then, $T(\mb{x}_1, \hdots, \mb{x}_n)$ is sufficient for $\theta$ iff 
+\begin{equation}
+P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta | T(\mb{X})\}=h(x_1,\dots,x_n)g_\theta(T\mb{x}=t)
+\end{equation}	
+where $h(\cdot)$ is a nonnegative function of $\mb{x}_1, \hdots, \mb{x}_n$ that does not depend on $\theta$, and $g(\cdot)$ is a nonnegative function of $\theta$ and $T$ only (and \textit{not} of $\mb{x}_1, \hdots, \mb{x}_n$ in any other manner.)
+\item \textbf{Cramer-Rao (CR) Lower Bound} gives us the lower bound for the variance of an estimator $T(\mb{x})$. Let $T(\mb{x})$ be any unbiased estimator for $\theta$ under the joint PDF $f(\mb{x}_1=x_1,\hdots,\mb{x}_n; \theta)$, denoted by $f(\mb{x};\theta)$. Then,
+\begin{equation}
+\text{Var}(T\{\mb{x}\}) \ge \frac{1}{E\left\{ \left( \frac{\partial}{\partial \theta}\log f(\mb{x}; \theta) \right)^2 \right\}} = -\frac{1}{E\left\{ \frac{\partial^2}{\partial \theta^2}\log f(\mb{x}; \theta)  \right\}} := \sigma_{\text{CR}}^2
+\end{equation}
+provided that the following regularity conditions are satisfied
+\begin{align}
+\frac{\partial}{\partial \theta} \int f(\mb{x}; \theta) dx = \int \frac{\partial f(\mb{x};\theta)}{\partial \theta} dx = 0 \\
+\frac{\partial}{\partial \theta} \int T(\mb{x}) f(\mb{x};\theta)dx = \int T(\mb{x}) \frac{\partial f(\mb{x;\theta})}{\partial \theta} dx.
+\end{align}
+If $\mb{x}_1, \hdots, \mb{x}_n$ are independent, then 
+\begin{equation}
+\sigma_{\text{CR}}^2 = \frac{1}{n E \left\{  \left( \frac{\partial \log f(\mb{x}_i; \theta) }{\partial \theta} \right)^2   \right\}    } = \frac{1}{n E \left\{  \frac{\partial^2 \log f(\mb{x}_i; \theta) }{\partial \theta^2}    \right\}    }
+\end{equation}
+\item \textbf{Cramer-Rao for Multiparameter Case}. Let $\underline{\theta} = (\theta_1, \hdots, \theta_m)$ be the parameter vector, and the corresponding estimator $\underline{T}(\mb{x})=[T_1(\mb{x}), \hdots, T_m(\mb{x})]$. Then, it holds\footnote{$A\ge B$ in the sense that $A-B$ is a nonnegative-definite matrix} $\text{Cov}\{\underline{T}(\mb{x})\}\ge J^{-1}(\underline{\theta})$, where $J(\underline{\theta})$ represents the $m\times m$ Fisher matrix; i.e., 
+\begin{equation}
+J_{ij} = E\left\{ \frac{\partial \log f(\mb{x}; \underline{\theta})}{\partial \theta_i}\frac{\partial \log f(\mb{x}; \underline{\theta})}{\partial \theta_j} \right\}
+\end{equation}
+The regularity conditions are similar\----the $\partial \theta$ is replaced with $\partial \theta_i$.
+\item \textbf{First-order efficient}. An estimator whose variance is equal to $\sigma_{\text{CR}}^2$ is called \textit{first-order efficient} as the Cramer-Rao bound makes use of the first-order derivative.
+\item The pdf of an efficient estimator is from the \textit{exponential family}.  (p330)
+\item \textbf{Improvement on CR Bound: The Bhattacharya Bound}: The Bhattacharya Bound makes use of second order derivative. An estimator that attains this bound is called \textbf{second-order efficient}.
+\item \textbf{UMVUE}. The unbiased estimator for a parameter $\theta$ that has the lowest possible variance is called uniformly minimum variance unbiased estimator (UMVUE); the "the" in the former sentence is justified as the UMVUE is unique (p334). UMVUEs depend only on the sufficient statistic, and no other information about $\theta$ contained in the data set $\mb{X}$. 
+\item The \textbf{Maximum-Likelihood Estimator (MLE)} $\bs{\hat{\theta}}_{ML}$ has very interesting properties, particularly for large $n$ (p354).
+	\begin{itemize}
+	\item If an efficient estimator exists, then \textit{it is the MLE} (p330). 
+	\item If MLE exists, then it is only a function of the sufficient statistic (see 8-283 and 8-284).
+	\item Assume that $\psi(\theta)$ is an unknown parameter depending on $\theta$. Then, the MLE of $\psi$ is given by $\psi(\bs{\hat{\theta}}_{ML}$).
+	\item If MLE is the unique solution to the likelihood equation, then under some additional restrictions and regularity conditions (see p354), we also have as $n\to \infty$: (i) $\bs{\hat{\theta}}_{ML}$ tends to a normal RV (ii) $\text{Var}{\bs{\hat{\theta}}} \to \sigma^2_{\text{CR}}$ (iii) $E(\bs{\hat{\theta}}_{ML}) \to \theta$; therefore $\frac{\bs{\hat{\theta}}_{ML}-\theta}{\sigma^2_{\text{CR}}}\to N(0,1)$. 
+	\end{itemize}
+\end{itemize}
+
+
+\section{Confidence Interval Estimation}
+This section (p.307-317) is more like for evaluating the reliability of a particular parameter choice. E.g., what is the probability that the mean $\mu$ is within a certain interval? Or what is the interval $(c_1, c_2)$ that contains $\mu$ with 95\% confidence? Therefore I find it less applicable to signal processing and machine learning applications, but more appropriate like for testing hypotheses etc. In short: it's less interesting for me.
+
+\begin{itemize}
+\item General property: The minimum-length CI is such that $f(c_1)=f(c_2)$ (see p305 and Prob. 8-6), but finding this may not be easy (p314) therefore we may settle for a larger interval.
+\item \textbf{Mean}, $\eta$. The goal is estimating confidence interval (CI) for the mean $\eta$ of $\mb{x}$ from \textit{noisy} observations $x_1, ..., x_n$ drawn from RVs $\mb{x}_1, ..., \mb{x}_n$. The overall strategy is based on using the sample mean $\mb{\bar{x}}$ to find an \textit{interval estimator} which is a pair of RVs which are functions of $\mb{\bar{x}}$, $\left(g_1(\mb{\bar{x}}), g_2(\mb{\bar{x}})\right)$, s.t. $P\{g_1(\mb{\bar{x}}) < \eta < g_2(\mb{\bar{x}})\}=\gamma$, where $\gamma$ is \textit{confidence coefficient}. We get the \textit{interval estimation} by using the computed sample mean $\bar{x}$: $\left(g_1(\bar{x}), g_2(\bar{x})\right)$. This task is simplified when we assume the sample mean $\mb{\bar{x}}$ is Normal (which is true if $\mb{x}$ is Normal or approx true if $n$ is large).
+	\begin{itemize}
+	\item \textbf{Known Variance}, $\sigma^2$. $\mb{\bar{x}}$ is $\sim N(\eta,\sigma/\sqrt{n})$ in this case, therefore say that $\eta$ is in the range $\bar{x}\pm z_{1-\delta/2} \sigma/\sqrt{n}$  with confidence $\gamma$, where $\delta = 1-\gamma$ and $z_u$ is the standard Normal distro's $u$-percentile.
+	\item \textbf{Unknown Variance}. We now use the (unbiased) sample variance estimator, $\mb{s}^2=\frac{1}{n-1}\sum_{i=1}^{n}\left(\mb{x}_i-\mb{\bar{x}}\right)^2$. We can be lazy and compute CI using the formula just above with $s$, \ie $\bar{x}\pm z_{1-\delta/2} s/\sqrt{n}$ (which is OK for large $n$). Or, we can do things more properly. The RV $\frac{\mb{\bar{x}}-\eta}{\mb{s}/\sqrt{n}}$ has Student $t$ distro with $n-1$ DoF. Denoting by $t_u$ its percentiles, the CI that we are after is $\bar{x}\pm t_{1-\delta/2} \sigma/\sqrt{n}$.
+	\item \textbf{Nothing is known}. We use the elegant Tchebycheff Inequality, and our CI is $\bar{x}\pm \sigma/\sqrt{n\delta}$. (I assume that $\sigma$ is sample variance? Not clear from book).
+	\end{itemize}
+\item \textbf{Zero-one event probability}, $P(A)$. A zero-one event (e.g. coin tossing or Republicans winning) is $\sim\text{Bernoulli}(p)$ and we aim to find CI for $p$. Since the mean of Bernoulli is $p$, we are effectively trying to estimate the mean of the distro, therefore we can use the stuff listed above. Specifically, for large $n$, our Bernoulli is approximated by $N(p, \sqrt{pq/n})$, therefore our CI is $\bar{x}\pm z_{1-\delta/2} \sqrt{pq}/\sqrt{n}$ with $p=\bar{x}$ and $q=1-p$.
+\item \textbf{Variance}, $\sigma^2$.
+	\begin{itemize}
+	\item \textbf{Known mean}, $\eta$. The RV $\mb{\hat{v}}=\frac{1}{n}\sum_{i=1}^n(\mb{x}_i-\eta)^2$ is an unbiased and consistent estimator of variance (p313), and $n\mb{\hat{v}}/\sigma^2$ is $\sim\sim\chi^2(n)$. We can then either build a CI by excluding equal tail prob. masses of $1-\delta/2$, \ie $\frac{n\hat{v}}{\chi^2_{1-\delta/2}(n)}<\sigma^2<\frac{n\hat{v}}{\chi^2_{1-\delta/2}(n)}$. This interval \textit{does not} have minimum length; but the determination of the latter is not simple (p313-314).
+	\item \textbf{Unknown mean}. Very similar to the case above (p314). We use $\sigma^2$'s point estimator, $\mb{s}^2$, which is $\sim\chi^2(n-1)$. The CI is $\frac{(n-1)\hat{s}^2}{\chi^2_{1-\delta/2}(n-1)}<\sigma^2<\frac{(n-1)\hat{s}^2}{\chi^2_{1-\delta/2}(n-1)}$.
+	\end{itemize}
+	\item See p315-317 for estimating \textbf{Percentiles} (\ie, $x_u$ s.t. $F(x_u)=u$), \textbf{Distributions} ($\hat{F}(x)$) and interval estimates for a specific $x$ value of Distributions. 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \chapter*{Towards a motivation guide}
 \section{Why transformations are useful}
 \begin{itemize}
 \item By applying an orthonormal transformation (\aka whitening) to a set of RVs we can easily compute the optimal 
+\item How to optimally estimate: We do all our calculations in the space of the RVs; there we find an optimal (in some sense) estimators that are based on the hypothetical observation RVs (typically iid), and once we have the estimator, we apply our observations to this estimator (\ie replace the RVs $\mb{x}_i$'s with the observed $x_i$'s). Doing the estimation in the space of RVs gives us some theoretical guarantees under certain assumptions.
 \end{itemize}
 
 \chapter*{Towards a cheatsheet}
@@ -141,6 +307,12 @@ This book made me realize that a good technical book is not necessarily one that
 \item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is $\chi^2(n)$ (\#259)
 \item If $\mb{x}$ is $\chi^2(n)$ and $\mb{y}$ is $\chi^2(m)$ and $\mb{x,y}$ independent, then $\mb{z} = \mb{x+y}$ is $\chi^2(n+m)$ (\#260)
 \end{itemize}
+
+\section{Useful Identities}
+\begin{itemize}
+\item $\text{Var}(\mb{x}) = E\{\text{Var}(\mb{x|y})\} + \text{Var}(E\{\mb{x|y}\})$ (p337)
+\end{itemize}
+
 
 
 \chapter*{Sketches to solutions}
@@ -199,7 +371,10 @@ The second integral in \eqref{eq:int2} equals zero because $H_1(x)\propto x$ and
 m_3 = 3! \sigma^3 C_3.
 \end{equation}
 
-\newpage
+
+
+
+
 
 \bibliographystyle{IEEEtran}
 \bibliography{../bibliography}

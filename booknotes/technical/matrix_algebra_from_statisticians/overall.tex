@@ -1,5 +1,12 @@
 \documentclass[a4paper]{book}
 
+%\topmargin=-0.95in    % Make letterhead sftart about 1 inch from top of page
+%\textheight=9.60in    % text height can be bigger for a longer letter
+%\oddsidemargin=-0.5in % leftmargin is 1 inch
+%\textwidth=8.7in   % textwidth of 6.5in leaves 1 inch for right margin
+
+
+
 \input{../preliminaries.tex}
 
 \begin{document}
@@ -283,7 +290,17 @@ The chapter introduces the (left, right) inverses and their basic properties. Or
 	\end{matrix}\right) = m + \rank(\mb{W-VT^{-1}U})$
 \item \textbf{T8.5.11}: Inverse of non-block-triangular part. m. $\begin{bmatrix}
 \mb W & \mb V \\ \mb U & \mb T
-\end{bmatrix}$, given that $\mb T$ is non-singular, is computed using the results for block-triangular matrices and the Schur complement.
+\end{bmatrix}$, given that $\mb T$ is non-singular, is computed using the results for block-triangular matrices and the Schur complement, $\mb{Q}$ (see def of $\mb{Q}$ above):
+	\begin{equation}
+	\begin{bmatrix}
+	\mb{T} &  \mb{U} \\
+	\mb{V} & \mb{W}
+	\end{bmatrix}^{-1} = 
+	\begin{bmatrix}
+	\mb{T}^{-1} + \mb{T}^{-1}\mb{UQ}^{-1}\mb{VT}^{-1} & -\mb{T}^{-1}\mb{UQ}^{-1} \\
+	-\mb{Q}^{-1}\mb{VT}^{-1} 	&  	\mb{Q}^{-1}
+	\end{bmatrix}
+	\end{equation}
 \item The same theorem is used to establish the non-singularity of the part. m.
 \item Summary on how to compute (i) the rank or (ii) the inverse of a part. m. $\begin{bmatrix}
 \mb{A}_{11} & \mb{A}_{12} \\ \mb{A}_{21} & \mb{A}_{22}
@@ -331,7 +348,7 @@ The chapter introduces the (left, right) inverses and their basic properties. Or
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Generalized Inverses}
 
-This chapter is about the finding inverses for matrices that are not square or nonsingular. Those so-called generalized inverses apparently become ubiquitous in statistical analysis and possibly other disciplines.
+This chapter is about the finding inverses for matrices that are not square or nonsingular. Those so-called generalized inverses apparently become ubiquitous in statistical analysis and possibly other disciplines. The results here are used heavily in Chapter 11 where solutions to linear systems are discussed.
 
 
 \section*{Important Concepts}
@@ -345,7 +362,7 @@ This chapter is about the finding inverses for matrices that are not square or n
 \item $(\mb A^-)'$ is a GI of $\mb A'$ (L.9.3.3)
 \item If $\mb A$ is symmetric, then $(A^-)'$ is a GI of $\mb A$ (a weaker prop compared to nonsingular $(\mb A^{-1})' = \mb A^{-1} $)
 \item $\rank(\mb{A^-A}) = \rank(\mb{AA^-}) = \rank(\mb A)$ (C9.3.8)
-\item \textbf{L9.3.5}: $\mathcal{C}(\mb B)\subset \mathcal{C}( \mb A) \iff \mb{B=AA^-B}$ and $\mathcal{R}(\mb C)\subset \mathcal{C}( \mb A) \iff \mb{C=CA^-A}$ \\ (A weaker prop compared to nonsingular $\mb{AA^{-1}=I}$ or, equivalently, $\mb{AA^{-1}-I=0}$)
+\item \textbf{L9.3.5}: $\mathcal{C}(\mb B)\subset \mathcal{C}( \mb A) \iff \mb{B=AA^-B}$ and $\mathcal{R}(\mb C)\subset \mathcal{R}( \mb A) \iff \mb{C=CA^-A}$ \\ (A weaker prop compared to nonsingular $\mb{AA^{-1}=I}$ or, equivalently, $\mb{AA^{-1}-I=0}$)
 	\begin{itemize}
 	\item This lemma immediately relates to the consistency of a linear system:
 	\item \textbf{L9.5.1}: A linear system $\mb{AX=B}$ is consistent iff $\mb{AA^-B=B}$
@@ -409,6 +426,7 @@ This chapter is about the finding inverses for matrices that are not square or n
 
 \section*{Redo}
 \begin{itemize}
+\item Prove T9.1.2
 \item Prove T9.2.7
 \item Prove T9.4.1
 \item Prove T9.6.4
@@ -475,13 +493,79 @@ Apparently the class of idempotent matrices is very important in statistics and 
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Linear Systems: Solutions}
 
 
 
-
-
-
-
+\section*{Notes}
+\begin{itemize}
+\item Relationships between $\mathcal{N}(\mb{A})$ and $\mathcal{C}(\mb{A})$ and $\mathcal{C}(\mb{X})$
+	\begin{itemize}
+	\item $\mathcal{N}(\mb{A}) \subset \mathcal{C}(\mb{I-A})$
+	\item $\mathcal{N}(\mb{I-A}) \subset \mathcal{C}(\mb{A})$ (p140)
+	\item \textbf{C11.2.2}: $\mathcal{N}(\mb{A})=\mathcal{C}(\mb{I-A^-A})$ 
+	\item (1) If $\mb{AX=0}$, then $\mathcal{C}(\mb{X})\subset \mathcal{N}(\mb{A})$. (2) If also $\rank(\mb{X})=n-\rank(\mb{A})$, then $\mathcal{C}(\mb{X})=\mathcal{N}(\mb{A})$
+	\item \textbf{T11.7.1} Let $\mb{A}$ be $n\times n$.  Then, $\mathcal{N}(\mb{A})=\mathcal{C}(\mb{I-A}) \iff \mb{A}$ is idempotent.
+	\end{itemize}
+\item General forms of solutions (useful for finding/checking alternative solutions etc.)
+	\begin{itemize}
+	\item \textbf{T11.2.1} (Homogeneous): $\mb{X}^*$ is solution to homogeneous LS $\mb{AX=0} \iff \mb{X}^{*}=(\mb{I-A^- A})\mb{Y}$ for some $\mb{Y}$ 
+	\item \textbf{T11.2.3} (Nonhom.): $\mb{X}_0$ is solution to $\mb{AX=B}$. $\mb{X}^{*}$ is sol. $\iff \mb{X}^*=\mb{X}_0+\mb{Z}^*$ for some $\mb{Z}^*$ sol. to $\mb{AZ=0}$
+	\item \textbf{T11.2.4} (Nonhom.): $\mb{X}^{*}$ is solution to $\mb{AX=B} \iff \mb{X}^*=\mb{A^-B}+(\mb{I-A^-A})\mb{Y}$ for some $\mb{Y}$
+	\item \textbf{T11.5.1}: Let $\rank(\mb{A})=n$, $\rank(\mb{B})=p$. Then, $\mb{X}^*$ is solution to $\mb{AX=B} \iff \mb{X}^*=\mb{A^-B}$ for some GI $\mb{A^-}$
+	\end{itemize}
+\item Number of solutions
+	\begin{itemize}
+	\item \textbf{L11.3.1} (homogeneous, vec.): $\mb{A}$ is $m\times n$. Then, $\dim\left[\mathcal{N}(\mb{A})\right]=n-\rank(\mb{A})$. Note: system is $\mb{Ax=0}$
+	\item \textbf{L11.3.2} (homogeneous, mat.) The dimension of solution space for $\mb{AX=0}$ (in $n\times p$ matrix $\mb{X}$) is $p[n-\rank(\mb{A})]$
+	\item Summary based on p142-143:
+		\begin{itemize}
+		\item (homog.) If $\mb{A}$ has full col. rank, $\mb{AX}=\mb{0}$ has \textit{one} solution (\ie the null mat. $\mb{0}$)
+		\item (homog.) If $\mb{A}$ is col. rank deficient, then $\mb{AX}=0$ has infinite solutions
+		\item (nonhom.) Since there is one-to-one correspondence between solutions to $\mb{AX=0}$ and sol.s to $\mb{AX=B}$, the two above apply to nonhomogeneous case too given that the nonhom. system is consistent
+		\end{itemize}
+	\end{itemize}
+\item Equivalence of linear systems: When are the solution sets of two linear systems the same?
+	\begin{itemize}
+	\item \textbf{L11.6.1.} If $\mb{C}$ is of full col. rank, then the systems $\mb{AX=B}$ and $\mb{CAX=B}$ are equivalent
+	\item \textbf{L11.6.2.} For any $\mb{A}$, the linear systems $\mb{A'AX=A'AF}$ and $\mb{AX=AF}$ are equivalent
+	\item \textbf{Exercise 6.} If $\rank(\mb{CD})=\rank(\mb{D})$, then system $\mb{CDAX}=\mb{CDB}$ is equivalent to the system $\mb{DAX}=\mb{DB}$
+	\item \textbf{Exercise 7.} If $\rank[\mb{C(A,B)}]=\rank(\mb{A,B})$, then the systems $\mb{AX=B}$ and $\mb{CAX=B}$ are equivalent
+	\end{itemize}
+\item Can we derive a vector/matrix $\mb{K'X}$ invariant to the choice of solution $\mb{X}$?
+	\begin{itemize}
+	\item \textbf{T11.10.1}. Let $\mb{K}$ be $n\times q$. Then, $\mb{K'X}$ is invariant to solution $\mb{X} \iff$ $\mathcal{R}(\mb{K}') \subset \mathcal{R}(\mb{A})$
+	\item \textbf{T11.10.3}. Let $\mb{X,Y}$ be solutions to $\mb{AX=B}$ and $\mb{A'Y=K}$. Then, $\mb{K'X}_0=\mb{Y'}_0\mb{B}$ for any solutions $\mb{X}_0,\mb{Y}_0$.
+	\end{itemize}
+\item Approaches to solve linear systems
+	\begin{itemize}
+	\item If $\mb{A}$ is upper block-triangular such that the diagonal blocks $\mb{A}_{ii}$ are non-singular, then back-substitution (Section 11.8)
+	\item If $\mb{A}$ is lower block-triangular such that the diagonal blocks $\mb{A}_{ii}$ are non-singular, then forward elimination
+	\item Find a decomposition $\mb{A=KT}$ such that solving becomes easier. More on Ch. 14 and 21 (p.149)
+	\item \textbf{T11.11.1}. Absorption: see Section p.152 and 4-step summary in p. 153
+	\end{itemize}
+\end{itemize}
 
 
 \bibliographystyle{IEEEtran}
