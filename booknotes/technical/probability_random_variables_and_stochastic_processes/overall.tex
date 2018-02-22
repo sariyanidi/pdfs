@@ -1,7 +1,7 @@
 \documentclass[a4paper]{book}
 
 \input{../preliminaries}
-\usepackage{pstricks, pst-node}
+\usepackage{pstricks, pst-node, pst-tree}
 \begin{document}
 
 \chapter*{Introduction}
@@ -183,7 +183,7 @@ The concepts of Sufficient Statistic and Uniformly Minimum Variance Unbiased Est
 \end{figure}
 
 
-\section{Notes}
+\subsection{Notes}
 
 
 \begin{itemize}
@@ -239,7 +239,7 @@ This section (p.307-317) is more like for evaluating the reliability of a partic
 \item \textbf{Variance}, $\sigma^2$.
 	\begin{itemize}
 	\item \textbf{Known mean}, $\eta$. The RV $\mb{\hat{v}}=\frac{1}{n}\sum_{i=1}^n(\mb{x}_i-\eta)^2$ is an unbiased and consistent estimator of variance (p313), and $n\mb{\hat{v}}/\sigma^2$ is $\sim\sim\chi^2(n)$. We can then either build a CI by excluding equal tail prob. masses of $1-\delta/2$, \ie $\frac{n\hat{v}}{\chi^2_{1-\delta/2}(n)}<\sigma^2<\frac{n\hat{v}}{\chi^2_{1-\delta/2}(n)}$. This interval \textit{does not} have minimum length; but the determination of the latter is not simple (p313-314).
-	\item \textbf{Unknown mean}. Very similar to the case above (p314). We use $\sigma^2$'s point estimator, $\mb{s}^2$, which is $\sim\chi^2(n-1)$. The CI is $\frac{(n-1)\hat{s}^2}{\chi^2_{1-\delta/2}(n-1)}<\sigma^2<\frac{(n-1)\hat{s}^2}{\chi^2_{1-\delta/2}(n-1)}$.
+	\item \textbf{Unknown mean}. Very similar to the case above (p314). We use $\sigma^2$'s point estimator, $\mb{s}^2$, which is $\sim\chi^2(n-1)$. The CI is $\frac{(n-1)\hat{s}^2}{\chi^2_{1-\delta/2}(n-1)}<\sigma^2<\frac{(n-1)\hat{s}^2}{\chi^2_{\delta/2}(n-1)}$.
 	\end{itemize}
 	\item See p315-317 for estimating \textbf{Percentiles} (\ie, $x_u$ s.t. $F(x_u)=u$), \textbf{Distributions} ($\hat{F}(x)$) and interval estimates for a specific $x$ value of Distributions. 
 \end{itemize}
@@ -247,18 +247,66 @@ This section (p.307-317) is more like for evaluating the reliability of a partic
 
 
 
+\section{Hypothesis Testing}
+Let $H_0$ be the null hypothesis that a parameter $\theta$ of a distribution equals $\theta_0$, \ie $H_0 : \theta = \theta_0$. The alternative hypothesis can be $H_1:\theta \neq \theta_0$, or (more specifically) $H_1:\theta > \theta_0$ or $H_1:\theta < \theta_0$. Hypothesis testing aims to establish whether there is sufficient evidence to reject $H_0$. The idea is to compute some quantity from the sample and test whether this quantity falls into the critical region, $D_c$. 
+
+Testing is based on the allowed errors; specifically, the probability \textit{masses} $\alpha, \beta(\theta)$ (defs below) 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l | c | c|} \hline
+				& $H_0$ is really true 			& $H_0$ is really false \\ \hline	
+We reject $H_0$	& Type I error (prob: $\alpha = P\{ \mb{X} \in D_c | H_0 \}$) & ;)) \\\hline
+We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D_c | H_1 \}$)  \\\hline
+\end{tabular} 
+\end{table}
+
+\noindent \textbf{Overall strategy} to hypothesis testing is: 
+\begin{enumerate}
+\setlength\itemsep{0.05em}
+\item Select a test statistic $\mb{q} = g(\mb{X})$ (e.g. )
+\item Find the critical region $R_c$ where the density of $\mb{q}$ is negligible according to an $\alpha$ value.
+\item Compute the value $q$ using the observation vector $X=[x_1,x_2,\hdots,x_n]$
+\item Reject $H_0$ if $q \in R_c$ 
+\end{enumerate}
+
+\noindent \textbf{Example}. We want to test if the mean of $\mb{x}$ is $\eta_0$. The sample mean is $\mb{\bar{x}}$ and, under familiar assumptions, $\mb{\bar{x}}\sim N(\eta, \sigma/\sqrt{n})$
+\begin{enumerate}
+\setlength\itemsep{0.05em}
+\item Select $\mb{q}$ as the standard (under $H_0$ assumption) NV: $\mb{q}=\frac{\mb{\bar{x}}-\eta_0}{\sigma/\sqrt{n}}$. Note that $\mb{q}\sim N(\eta_q, 1)$ where $\eta_q=\frac{\eta-\eta_0}{\sigma/\sqrt{n}}$
+\item We set $\alpha=0.05$, in which case the critical region for $R_c = \{q : z_{0.05} < q < z_{1-0.05}\}$
+\item We compute $q(X)$ using the observation vector $X$
+\item We reject $H_0:\eta=\eta_0$ iff $q\in R_c$
+\end{enumerate}
+
+\noindent The general formula above works across a variety of scenarios and tests. The example was for testing mean but the same strategy works for testing variance, (event) probability, distribution fit
 
 
 
-
-
-
-
-
-
-
-
-
+\begin{figure}[h!]
+\SpecialCoor
+\def\edgeCyan#1#2{\ncdiagg[angleA=180, arm=0pt,nodesep=2pt, linecolor=cyan]{#2}{#1}}
+\def\edgeBlue#1#2{\ncdiagg[angleA=180, arm=0pt,nodesep=2pt, linecolor=cyan]{#2}{#1}}
+\psset{nodesep=5pt}
+\pstree[treemode=R,levelsep=*1cm]{\Tr{Hypothesis Testing}}{
+\pstree[treemode=R,levelsep=*1cm]{\Tr{Mean\rnode{A}{}}}{%
+	\Tr{Known Variance (Gaussian RV)}
+	\Tr{Unknown Variance (Student $t$ RV)}
+}
+\pstree[treemode=R,levelsep=*1cm]{\Tr{Variance\rnode{B}{}}}{%
+	\Tr{Known Mean ($\chi^2(n)$ RV)}
+	\Tr{Unknown Mean ($\chi^2(n-1)$ RV)}
+}
+\pstree[treemode=R,levelsep=*1.2cm]{\Tr{Discrete variables\rnode{C}{}}}{%
+	\Tr{Binary probability (Gaussian for large $n$)}
+	\Tr{Multiple($m$)-event probability ($\chi^2(m-1)$)}
+	\Tr{Test of statistical independence (also $\chi^2$\----p362)}
+}
+\pstree[treemode=R,levelsep=*1.2cm]{\Tr{Distribution $F(x)$\rnode{C}{}}}{%
+	\Tr{Entire  $F(x)$ (Kolmogorov-Smirnov test p361)}
+	\Tr{For specific $x$'s ($\chi^2$\----p363)}
+}}
+\caption{Summary (p358-364) of which tests are appropriate for the test of various quantities}
+\end{figure}
 
 
 

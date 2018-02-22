@@ -1,4 +1,4 @@
-\documentclass[a4paper]{book}
+\documentclass[a4paper, oneside]{book}
 
 %\topmargin=-0.95in    % Make letterhead sftart about 1 inch from top of page
 %\textheight=9.60in    % text height can be bigger for a longer letter
@@ -107,6 +107,7 @@ Very useful chapter, it's title doesn't do justice. Fundamental concepts of rank
 \item Lemma 4.5.4
 \item Lemma 4.5.7
 \item Corollary 4.5.9
+\item Theorem 4.4.10
 \end{itemize}
 
 
@@ -182,7 +183,7 @@ Geometry is very important because it allows for an intuitive understanding of m
 
 \section*{Notes}
 \begin{itemize}
-\item Schwarz Inequality: $|\mb{A\cdot B}|\leq ||\mb{A}||\,||\mb{C}||$
+\item Schwarz Inequality: $|\mb{A\cdot B}|\leq ||\mb{A}||\,||\mb{B}||$
 \item Gram-Schmidt Orthogonalization: $x_{ij}=\frac{\mb{A}_j\cdot \mb{B}_i}{\mb{B}_i \cdot \mb{B}_i}$
 \item Any linear space has an orthonormal basis (T6.4.3): Follows from T4.3.9 and the fact that we can apply Gram-Schmidt Orthogonalization to any set of bases 
 \item QR decomposition for (full-column matrix): $\mb{A=BX=(BD)(EX)=QR}$, where cols of $\mb Q$ are orthonormal and $\mb{R}$ is upper triangular; cols of $\mb B$ are only orthogonal and $\mb{D,E}$ are diagonal matrices such that (clearly) $\mb D^{-1} = \mb E$ (See Exercise 5 for generalization of QR decomposition to column rank deficient matrices.)
@@ -243,7 +244,7 @@ The chapter introduces the (left, right) inverses and their basic properties. Or
 	\end{itemize}
 \item The following assume that $\mb Q, \mb Q_i$ are \textit{orthogonal}
 	\begin{itemize}
-	\item $\mb{Q}\mb{Q}'=\mb I$
+	\item $\mb{Q}\mb{Q}'=\mb{Q}'\mb{Q}=\mb I$
 	\item $\mb{Q}^{-1}=\mb{Q}'$
 	\item $\mb{Q}_1\mb{Q}_2\hdots\mb{Q}_k$ is orthogonal
 	\end{itemize}
@@ -360,7 +361,7 @@ This chapter is about the finding inverses for matrices that are not square or n
 \begin{itemize}
 \item $(1/k)\mb{A}^-$ is a GI of $k\mb A$ (L9.3.1)
 \item $(\mb A^-)'$ is a GI of $\mb A'$ (L.9.3.3)
-\item If $\mb A$ is symmetric, then $(A^-)'$ is a GI of $\mb A$ (a weaker prop compared to nonsingular $(\mb A^{-1})' = \mb A^{-1} $)
+\item If $\mb A$ is symmetric, then $(\mb{A}^-)'$ is a GI of $\mb A$ (a weaker prop compared to nonsingular $(\mb A^{-1})' = \mb A^{-1} $)
 \item $\rank(\mb{A^-A}) = \rank(\mb{AA^-}) = \rank(\mb A)$ (C9.3.8)
 \item \textbf{L9.3.5}: $\mathcal{C}(\mb B)\subset \mathcal{C}( \mb A) \iff \mb{B=AA^-B}$ and $\mathcal{R}(\mb C)\subset \mathcal{R}( \mb A) \iff \mb{C=CA^-A}$ \\ (A weaker prop compared to nonsingular $\mb{AA^{-1}=I}$ or, equivalently, $\mb{AA^{-1}-I=0}$)
 	\begin{itemize}
@@ -493,6 +494,13 @@ Apparently the class of idempotent matrices is very important in statistics and 
 
 
 
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -566,6 +574,208 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item \textbf{T11.11.1}. Absorption: see Section p.152 and 4-step summary in p. 153
 	\end{itemize}
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Projections and Projection Matrices}
+
+
+\section*{Definitions and some properties}
+
+\begin{itemize}
+\item \textit{Orthogonality}: If matrix $\mb{Y}$ is orthogonal to every matrix in a subspace $\mathcal{U}$, then $\mb{Y}$ is orthogonal to $\mathcal{U}$: $\mb{Y} \perp \mathcal{U}$.
+\item \textit{Projection}: Let $\mb{Y} \in \mathcal{V}$, $\mb{Z}\in\mathcal{V}$ and $\mathcal{U} \subset \mathcal{V}$. $\mb{Z}$ is the projection of $\mb{Y}$ on $\mathcal{U}$ if $(\mb{Y-Z}) \perp \mathcal{U}$\\\hspace*{1.75cm} For any $\mb{Y} \in \mathcal{U}$, $\mb{Y}$ itself is the projection of $\mb{Y}$ on $\mathcal{U}$
+\item \textit{Projection matrix}: $\mb{P_{X}}:=\mb{X(X'X)^-X'}$. That is, $\mb{P}_{\mb{X}}\mb{y}$ is the projection of any $\mb{y} \in \mathcal{R}^n$ on $\mathcal{C}(\mb{X})$
+	\begin{itemize}
+	\item $\mb{P}_\mb{X}\mb{X}=\mb{X}$ (T12.3.4)
+	\item $\mb{P}_\mb{X}' = \mb{P}_\mb{X}$ (\ie symmetric, T12.3.4)
+	\item $\mb{P}_\mb{X}^2 = \mb{P}_\mb{X}$ (\ie idempotent, T12.3.4)
+	\item $(\mb{I-P}_\mb{X})$ is also idempotent and symmetric
+	\end{itemize}
+\item The \textit{orthogonal complement} $\mathcal{U}^\perp$ of $\mathcal{U} \subset \mathcal{V}$ is the set of all matrices in $\mathcal{V}$ that are orthogonal to $\mathcal{U}$ 
+	\begin{itemize}
+	\item $\mathcal{U} = (\mathcal{U}^\perp)^\perp$ (T12.5.4)
+	\item $\mathcal{W}\subset \mathcal{U} \iff \mathcal{U}^\perp \subset \mathcal{W}^\perp$ (C12.5.6)
+	\item $\dim(\mathcal{V})=\dim(\mathcal{U})+\dim(\mathcal{U}^\perp)$ for $\mathcal{U}\subset \mathcal{U}^\perp$ (T12.5.12)
+	\end{itemize}
+\end{itemize}
+
+\section*{Notes}
+\begin{itemize}
+\item Orthogonality conditions
+	\begin{itemize}
+	\item \textbf{L12.1.1}. $\mb{Y}\perp\mathcal{U}=\text{sp}(\mb{X}_1,\hdots,\mb{X}_k) \iff \mb{Y\cdot X}_i$ for $i=1,...,k$. $\mathcal{U\perp V}=\text{sp}(\mb{Z}_1,\hdots,\mb{Z}_t) \iff \mb{X}_i \perp \mb{Z}_j \,\,\forall i,j$.
+	\item \textbf{C12.1.2}. $\mb{y}\, (\in \mathcal{R}^m) \perp \mathcal{C}(\mb{X}) \iff \mb{X}'\mb{y}=0$
+	\item \textbf{T12.1.3}. Let $\mb{Y} \in \mathcal{V}$, $\mathcal{U}\subset \mathcal{V}$ and $\text{dim}(\mathcal{U})=r$. Then, there is \textit{unique} $\mb{Z} \in \mathcal{U}$ s.t. $(\mb{Y-Z})\perp \mathcal{U}$. Let $\{\mb{X}_1,\hdots,\mb{X}_r\}$ be an orthonormal basis for $\mathcal{U}$. Then, $\mb{Z}=c_1\mb{X}_1+\hdots+c_r\mb{X}_r$ where $c_i=\mb{X\cdot Y}_i$. Moreover, $\mb{Z=Y} \iff \mb{Y}\in\mathcal{U}$. 
+	\end{itemize}
+\item Projection of column vector and Projection Matrix
+	\begin{itemize}
+	\item \textbf{T12.2.1}. $\mb{z}$ is the projection of $\mb{y}\in\mathcal{R}^n$ on $\mathcal{U} \subset \mathcal{R}^n \implies \mb{z}=\mb{Xb}^*$ for any solution $\mb{b}^*$ to $\mb{X}'\mb{Xb}=\mb{X}'\mb{y}$ \\\hspace*{1.455cm} Also (C12.2.2), $\mb{z}=\mb{X}(\mb{X}'\mb{X})^-\mb{X}'\mb{y}$ 
+	\item \textbf{T12.3.1} (uniqueness). Let $\mathcal{U} \subset \mathcal{R}^n$. There is \textit{unique} $n\times n$ matrix $\mb{A}$ s.t. $\mb{Ay}$ is the projection of any $\mb{y} \in \mathcal{R}^n$ on $\mathcal{U}$. For any $\mb{X}$ s.t. $\mathcal{C}(\mb{X})=\mathcal{U}$, $\mb{A}=\mb{P}_\mb{X}$. (see def. of $\mb{P}_\mb{X}$ above)
+	\item \textbf{T12.3.4} (other outcomes of this theorem are properties above). $\mb{P}_\mb{X}=\mb{X}\mb{B}^*$ for any solution to $\mb{X}'\mb{XB}=\mb{X}'$
+	\item \textbf{T12.5.8} (orth. compl). Let $\mb{Y}\in\mathcal{V},\, \mathcal{U}\subset\mathcal{V}$. Projection of $\mb{Y}$ on $\mathcal{U}^\perp$ is $\mb{Y-Z}$ where $\mb{Z}$ is proj. of $\mb{Y}$ on $\mathcal{U}$
+	\item \textbf{12.5.11}. Let $\mb{Y} \in \mathcal{V},\,\mathcal{U}\subset\mathcal{V}$. $\exists$ \textit{unique} $\mb{Z}\in \mathcal{U},\,\mb{W}\in\mathcal{U}^\perp$ s.t. $\mb{Y}=\mb{Z+W}$. Also $\mb{Z}$ ($\mb{W}$) is proj. of $\mb{Y}$ on $\mathcal{U}$ ($\mathcal{U}^\perp$).
+	\end{itemize}
+\item Least squares connection
+	\begin{itemize}
+	\item \textbf{T12.4.1}. Let $\mb{Y} \in \mathcal{V}$ and $\mathcal{U}\subset V$. Then, for $\mb{W}\in\mathcal{U}$, $||\mb{Y-W}||$ is minimized by $\mb{W}=\mb{Z}$ where $\mb{Z}$ is $\mb{Y}$'s projection on $\mathcal{U}$. Moreover, $||\mb{Y-Z}||^2=\mb{Y\cdot(Y-Z)}$.
+	\item \textbf{T12.4.2} (Residue). For a column vector projection $\mb{z}$, the residue $||\mb{y}-\mb{z}||^2$ is $\mathbf{y}'(\mb{I-\mb{P}_\mb{X}})\mb{y}$
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Determinant}
+
+
+\section{Definitions and some properties}
+
+\begin{itemize}
+\item \textit{Determinant} of $\mb{A}$: $\det(\mb{A})=|\mb{A}| = \sum\limits_{\mb{j}\in \mathcal{J}} (-1)^{\phi_n(j_1,\hdots,j_n)} a_{1j_1}\hdots a_{nj_n}$ where $\mb{j}=(j_1,\hdots,j_n)$ and $\mathcal{J}$ is the set that contains all permutations of first $n$ positive integers, and $\phi(\cdot)$ is, \eg $\phi_5(3,7,2,1,4) = 2+3+1+0=6$ (p178)
+	\begin{itemize}
+	\item $|\mb{A}'|=|\mb{A}|$ (L13.2.1)
+	\item If $\mb{B}$ is same with $\mb{A}$ except that one of its rows/columns is multiplied with $k$, then $|\mb{B}|=k|\mb{A}|$ (L13.2.1)
+	\item $|k\mb{A}|=k^n |\mb{A}|$ (C13.2.4)
+	\item $|-\mb{A}|=(-1)^n |\mb{A}|$
+	\item If $\mb{B}$ is formed from $\mb{A}$ by interchanging 2 of its columns or rows, then $|\mb{B}|=-|\mb{A}|$ (T13.2.6)
+	\item If $\mb{B}$ is $n\times p$ and $\mb{C}$ is $n\times q$, then $|\mb{B,C}|=(-1)^{pq}|\mb{B,C}|$ (T13.2.7)
+	\item $\mb{|AB|=|A||B|}$, and more generally $|\mb{A}_{11}\mb{A}_{22}\hdots \mb{A}_{rr}|=|\mb{A}_{11}||\mb{A}_{22}|\hdots |\mb{A}_{rr}|$ (T13.3.4)
+	\item $|\mb{A}^k|=|\mb{A}|^k$
+	\item $|\mb{A'A}|=|\mb{A}|^2$
+	\item $\mb{A}$ is nonsingular $\iff |\mb{A}|\neq 0$ (T13.3.7)
+	\item If $\mb{A}$ is nonsingular, then $|\mb{A}^{-1}|=1/|\mb{A}|$
+\end{itemize}
+\item Cofactor, minor and adjoint
+	\begin{itemize}
+	\item \textit{Minor}. Let $\mb{A}_{ij}$ be the submatrix of $\mb{A}$ obtained by striking out its $i$th row and $j$th column. Then, $|\mb{A}_{ij}|$ is called the minor of the element $a_{ij}$ of $\mb{A}$.
+	\item \textit{Cofactor}, $\alpha_{ij}$ is the signed minor: $\alpha_{ij}=(-1)^{i+j} |\mb{A}_{ij}|$	
+	\item The \textit{adjoint} of $\mb{A}$ is the (transposed) matrix of cofactors: $\adj(\mb{A})=\begin{bmatrix}
+	\alpha_{11} & \hdots & \alpha_{n1} \\ \vdots & \ddots & \vdots \\ \alpha_{1n} & \hdots & \alpha_{nn} \end{bmatrix}$
+	\end{itemize}
+\item Important properties of adjoint
+	\begin{itemize}
+	\item $\mb{A} \,\adj(\mb{A})=|\mb{A}|\mb{I}_n$ (T13.5.3)
+	\item If $\mb{A}$ is nonsingular, then $\mb{A}^{-1}=(1/|\mb{A}|)\,\adj(\mb{A})$
+	\item $\adj(\mb{AB})=\adj(\mb{B})\adj(\mb{A})$ (Exercise 14)
+	\end{itemize}
+\end{itemize}
+
+\section{Notes}
+\begin{itemize}
+\item Computation in special cases
+	\begin{itemize}
+	\item If $\mb{A}$ is (upper or lower) triangular, then $|\mb{A}|=a_{11}a_{22}\hdots a_{nn}$
+	\item \textbf{T13.1.1}. $\left|\begin{matrix} \mb{T}  & \mb{0} \\\mb{V} & \mb{W} \end{matrix}\right|=\mb{|T||W|}$. Repeated application $\implies$ For any block triangular $\mb{A}$, $|\mb{A}|=|\mb{A}_{11}||\mb{A}_{22}|\hdots |\mb{A}_{rr}|.$
+	\item \textbf{C13.3.2}. $\left|\begin{matrix} \mb{T}  & \mb{T} \\\mb{W} & \mb{V} \end{matrix}\right|=\left|\begin{matrix} \mb{V}  & \mb{W} \\\mb{T} & \mb{0} \end{matrix}\right|=(-1)^{mn}\mb{|T||W|}$ 
+	\item If $\mb{T}$ is nonsingular, then $\left|\begin{matrix} \mb{T}  & \mb{U} \\\mb{V} & \mb{W} \end{matrix}\right|=\mb{|T||W-VT^{-1}U|}$	\end{itemize}
+\item Some cases where determinants are the same
+	\begin{itemize}
+	\item \textbf{T13.2.10}. If $\mb{B}$ is formed from $\mb{A}$ by adding to any one row or column of $\mb{A}$, scalar multiples of one or more other rows, then $|\mb{B}|=|\mb{A}|$.
+	\item \textbf{T13.2.11}. For any upper/lower \textit{unit} triangular $\mb{T}$, $\mb{|AT|=|TA|=|A|}$
+	\end{itemize}
+\item Some cases where determinant is $0$ or $\pm 1$
+	\begin{itemize}
+	\item \textbf{L13.2.9}. If a row or column of $\mb{A}$ is multiple of another row or column, then $|\mb{A}|=0$
+	\item \textbf{T13.3.7}. $|\mb{A}|=0 \iff \mb{A}$ is nonsingular (see also properties above)
+	\item \textbf{C13.3.6} For any orthogonal matrix $\mb{P}$, $|\mb{P}|=\pm 1$
+	\end{itemize}
+\end{itemize}
+
+
+\clearpage
+\section{Redo:}
+\subsection*{Chapter 4}
+\begin{itemize}
+\item Theorem 4.4.10
+\end{itemize}
+\subsection*{Chapter 11}
+\begin{itemize}
+\item Exercise 3
+\end{itemize}
+\subsection*{Chapter 13}
+\begin{itemize}
+\item Exercise 12.a
+\end{itemize}
+
+
+
+
+
 
 
 \bibliographystyle{IEEEtran}
