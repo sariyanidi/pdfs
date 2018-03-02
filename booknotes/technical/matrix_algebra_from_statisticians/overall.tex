@@ -757,6 +757,227 @@ Apparently the class of idempotent matrices is very important in statistics and 
 \end{itemize}
 
 
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Linear, Bilinear and Quadratic Forms}
+
+\section{Definitions and some properties}
+\begin{itemize}
+\item Linear, bilinear, quadratic forms
+	\begin{itemize}
+	\item Linear form:  $\mb{ax}$, linear function: $f(\mb{x})$. $\mb{a}$: coefficient vector of linear form
+	\item Bilinear form:  $\mb{x'Ay}$, bilinear function: $f(\mb{x,y})$. $\mb{A}$: matrix of the linear form
+	\item Symmetric bilinear form is when $\mb{x'Ay} = \mb{y'Ax}$ for all $\mb{x,y}$.  
+	\item Quadratic form: $\mb{x'Ax}$. $\mb{A}$: matrix of the quadratic form.
+	\end{itemize}
+\item Nonnegative definite quadratic forms
+	\begin{itemize}
+	\item A quadratic form $\mb{x'Ax}$ (or its matrix $\mb{A}$) is called \textit{nonnegative definite} if $\mb{x'Ax}\ge 0$ for all $\mb{x} \in \mathcal{R}^n$
+	\item A quadratic form $\mb{x'Ax}$ (or its matrix $\mb{A}$) is called \textit{positive definite} if $\mb{x'Ax}> 0$ for all $\mb{x} \in \mathcal{R}^n$
+	\item A nonnegative quadratic form $\mb{x'Ax}$ (or its matrix $\mb{A}$) is called \textit{positive semidefinite} if there exist nonnull $\mb{x}\in \mathcal{R}^n$ such that $\mb{x'Ax}=0$.
+	\item A quadratic form  $\mb{x'Ax}$ (or its matrix $\mb{A}$) is called \textit{nonpositive definite}, \textit{negative definite} or \textit{negative semidefinite} if $-\mb{x'Ax}$ is nonnegative definite, positive definite or positive semidefinite.
+	\item A quadratic form that is neither nonnegative nor nonpositive definite is called \textit{indefinite}.
+	\end{itemize}
+\item Some properties of nonnegative matrices/forms
+	\begin{itemize}
+	\item If $\mb{A}$ is nonnegative and $k$ is a scalar such that $k>0$, then $k\mb{A}$ is also nonnegative (L14.2.3).
+	\item If $\mb{A},\mb{B}$ are nonnegative, then $\mb{A+B}$ is nonnegative. If one of them is positive, then $\mb{A+B}$ is positive. (L14.2.4)
+	\item Any positive definite matrix is nonsingular (L14.2.8).
+	\item The inverse of a positive definite (semidefinite nonsingular) matrix is positive definite (semidefinite). (C13.2.11)
+	\item Every symmetric idempotent matrix is nonnegative definite (L14.2.7).
+	\item A symmetric nonnegative definite $\mb{A}$ is positive definite $\iff$ it $\mb{A}$ is nonsingular (C14.3.12).
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+\section{Notes}
+\begin{itemize}
+\item Equivalence/symmetry of bilinear/quadratic forms
+	\begin{itemize}
+	\item A bilinear form $\mb{x'Ay}$ is symmetric $\iff$ $\mb{A}$ is a symmetric matrix (p209).
+	\item \textbf{L14.1.1}. Two quadratic forms $\mb{x'Ax}$  $\mb{x'Bx}$ are identically equal $\iff$ $\mb{A+A'=B+B'}$ 
+	\item \textbf{C14.1.2} For any quadratic form $\mb{x'Ax}$, there is a \textit{unique} symmetric matrix $\mb{B}$ such as $\mb{x'Ax=x'Bx}$, namely $\mb{B}=(1/2)\mb{(A+A')}$
+ 	\end{itemize}
+\item On nonnegative and positive definiteness
+	\begin{itemize}
+	\item \textbf{T14.2.9}. Let $\mb{A}$ be $n\times n$ and $\mb{P}$ any $n\times m$. (1) If $\mb{A}$ is nonnegative, then $\mb{P'AP}$ is nonnegative. (2) If $\mb{A}$ nonnegative and $\rank(\mb{P})<m$, then $\mb{P'AP}$ is positive semidefinite. (3) If $\mb{A}$ is positive, then $\mb{P'AP}$ is positive.
+	\item \textbf{C14.2.10}. If $\mb{P}$ is nonsingular and $\mb{A}$ pos. definite (semidefinite), then $\mb{P'AP}$ is pos. definite (semidefinite).
+	\item \textbf{C14.2.12}. Any principal submatrix of a positive definite (semidefinite) matrix is positive (nonnegative) definite.
+	\item \textbf{C14.2.13}. The diagonal elements of a positive (nonnegative) definite matrix are positive (nonnegative).
+	\item \textbf{C13.2.14}. Let $\textbf{P}$ be any $n\times m$. If $\rank(\mb{P})=m$, $\mb{P'P}$ is positive definite, otherwise, it's positive semidefinite. 
+	\item \textbf{C14.2.14}. Let, $\textbf{P}$ be nonsingular and $\mb{D}$ diagonal. Then, (1) $\mb{P'DP}$ is nonnegative (positive) $\iff$ $\mb{D}$'s elements are nonnegative (positive). (2) $\mb{P'DP}$ is positive definite if $\mb D$'s elements are nonnegative and include some zeros.
+	\end{itemize}
+\item Decomposition of symmetric matrices
+	\begin{itemize}
+	\item \textbf{T14.3.4}. For any $n\times n$ symmetric $\mb{A}$, $\exists$ nonsingular $\mb{Q}$ such that $\mb{Q'AQ}$ is a diagonal matrix.
+	\item \textbf{T14.3.4}. For any $n\times n$ symmetric $\mb{A}$, $\exists$ nonsingular $\mb{P}$ and diagonal $\mb{D}$ such that $\mb{A}=\mb{P'DP}$.
+	\item \textbf{C14.3.6}. For any $n\times n$ $\mb{A}$, $\exists$ nonsingular $\mb{P}$ and scalars $d_1, \hdots, d_n$ s.t. the quadratic form $\mb{x'Ax}$ is expressible as a linear combination $\sum_{i=1}^n d_i y_i^2$ of the squares of the elements $y_1, \hdots, y_n$ of the transformed vector $\mb{y=Px}$
+	\end{itemize}
+\item Decomposition of symmetric nonnegative matrices
+	\begin{itemize}
+	\item \textbf{T14.3.7}. A non-null $n\times n$ $\mb{A}$ is symmetric nonnegative of rank $r$ $\iff$ $\exists$ $r\times n$ $\mb{A}$ s.t. $\mb{A}=\mb{P'P}$.
+	\item \textbf{C14.3.13}. An $n\times n$  symmetric $\mb A$ is positive definite $\iff$ $\exists$ nonsingular $\mb{P}$ s.t. $\mb{A=P'P}$
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%x
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \clearpage
 \section{Redo:}
 \subsection*{Chapter 4}
