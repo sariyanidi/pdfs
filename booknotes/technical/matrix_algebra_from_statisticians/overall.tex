@@ -33,6 +33,11 @@ Some interesting notes:
 \chapter{Submatrices and Partitioned Matrices}
 A basic topic that I wasn't sufficiently familiar is covered in this chapter (see title). 
 
+\section{Definitions and some properties}
+\begin{itemize}
+\item \textit{Principle submatrix} is a submatrix of $\mb A$ that is obtained by striking out the rows and columns with the same indices.
+\end{itemize}
+
 \section*{Notes}
 \begin{itemize}
 \item A partitioning of a matrix is obtained by putting horizontal/vertical lines between its various columns or rows. The only requirement is that the lines shouldn't be \textit{staggered} (see \#15). 
@@ -40,6 +45,7 @@ A basic topic that I wasn't sufficiently familiar is covered in this chapter (se
 \end{itemize}
 
 \section*{Interesting identities/lemmas/theorems}
+
 \begin{itemize}
 \item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $A$ and $B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}'_i\mb{b}_i$.
 \end{itemize}
@@ -59,6 +65,14 @@ A basic topic that I wasn't sufficiently familiar is covered in this chapter (se
 Very short chapter, but its lemmas are very useful, they can be used extensively in proofs that come later in the chapters. Lemma 3.2.1 and 3.2.2 are fundamental and they should be practically memorized. Lemma 3.2.4 is an elegant one, it seems like it can be the key to some complicated proofs. 
 
 \section{Redo in future}
+
+
+\section*{Notes}
+\begin{itemize}
+\item Given $\mb{A}_1,\hdots,\mb{A}_k$. Let $\mb{C}_j=x_{1j}\mb{A}_1+\hdots x_{kj}\mb{A}_k$ for $j=1,\hdots,r$ and $\mb{x}_j=(x_{1j}, \hdots, x_{kj})$. If  $\mb{A}_1,\hdots,\mb{A}_k$ are linearly independent and $\mb{x}_1, \hdots, \mb{x}_r$ are linearly independent, then $\mb{C}_1,\hdots,\mb{C}_r$ are linearly independent. If $\mb{x}_1, \hdots, \mb{x}_r$ are linearly dependent, then $\mb{C}_1,\hdots,\mb{C}_r$ are linearly dependent.
+\end{itemize}
+
+
 \begin{itemize}
 \item Lemma 3.2.1
 \item Lemma 3.2.2
@@ -90,6 +104,14 @@ Very short chapter, but its lemmas are very useful, they can be used extensively
 \chapter{Linear Space: Row and Column Spaces}
 
 Very useful chapter, it's title doesn't do justice. Fundamental concepts of rank, dimension, basis, linear space, subspace, column/row space are introduced and they are made concrete with many lemmas and theorems.
+
+
+\section{Notes}
+\begin{itemize}
+\item \textbf{C4.4.5}. For any $\mb{A}, \mb{B}$, $\rank(\mb{AB})\le \rank(\mb A)$ and $\rank(\mb{AF})\le \rank(\mb F)$.
+\item \textbf{T4.4.6}. Given $\mb{A,B}$. If $\mathcal{C}(\mb B) \subset \mathcal{C}(\mb A)$ and $\rank(\mb B) = \rank(\mb A)$, then $\mathcal{C}(\mb B)=\mathcal{C}(\mb A)$. Similar for row space.
+\item \textbf{L4.4.11}. Any symmetric matrix of rank $r$ contains an $r\times r$ nonsingular principal submatrix.
+\end{itemize}
 
 \section{Important Lemmas/Theorems/Equations}
 \begin{itemize}
@@ -187,6 +209,13 @@ Geometry is very important because it allows for an intuitive understanding of m
 \item Gram-Schmidt Orthogonalization: $x_{ij}=\frac{\mb{A}_j\cdot \mb{B}_i}{\mb{B}_i \cdot \mb{B}_i}$
 \item Any linear space has an orthonormal basis (T6.4.3): Follows from T4.3.9 and the fact that we can apply Gram-Schmidt Orthogonalization to any set of bases 
 \item QR decomposition for (full-column matrix): $\mb{A=BX=(BD)(EX)=QR}$, where cols of $\mb Q$ are orthonormal and $\mb{R}$ is upper triangular; cols of $\mb B$ are only orthogonal and $\mb{D,E}$ are diagonal matrices such that (clearly) $\mb D^{-1} = \mb E$ (See Exercise 5 for generalization of QR decomposition to column rank deficient matrices.)
+\item The four necessary properties for qualifying as inner product:
+	\begin{enumerate}
+	\item $\mb{A \cdot B = B \cdot A}$
+	\item $\mb{A \cdot A}\ge 0$  with equality holding iff $\mb{A}=0$
+	\item $(k\mb{A})\cdot \mb{B} = k(\mb{A\cdot B})$
+	\item $(\mb{A+B})\cdot \mb{C} = \mb{(A \cdot C) + (B \cdot C)}$
+	\end{enumerate}
 \end{itemize}
 
 \section*{Redo}
@@ -213,6 +242,7 @@ This chapter is about the two important concepts in the title that relate to whe
 \item A linear system is \textit{compatible} if $\mb{k'B=0}$ for every $\mb k'$ such that $\mb{k'A=0}$
 \item \textbf{T7.3.1} is the the chapter's main theorem that connects the two main concepts: A linear system is compatible iff it is consistent
 \item \textbf{T7.4.1} connects the chapter with the Trace chapter; specifically with C5.3.3. This leads to important equivalences between $\mb{A'A}$ and $\mb A$ in terms of column/row spaces and ranks (see Section 7.4.b).
+\item \textbf{L7.4.5}. For any $\mb{A}$, $\mathcal{C}(\mb{A'A})=\mathcal{C}(\mb{A}')$, $\mathcal{R}(\mb{A'A})=\mathcal{R}(\mb{A})$ and $\rank(\mb{A'A})=\rank(\mb{A})$.
 \end{itemize}
 
 
@@ -264,6 +294,7 @@ The chapter introduces the (left, right) inverses and their basic properties. Or
 \section*{Notes}
 \begin{itemize}
 \item \textbf{L8.1.1} is used very widely: (i) $\mb A$ has RI $\iff$ $\mb A$ has full row rank, and (ii) $\mb A$ has LI $\iff$ $\mb A$ has full col rank. (Remember: \textbf{R}ight inverse if full \textbf{r}ow rank.)
+\item \textbf{L8.3.2} If $\mb A$ is of full column rank, then $\mathcal{R}(\mb{AB})=\mathcal{R}(\mb B)$ and $\rank(\mb{AB})=\rank(\mb B)$. If $\mb{B}$ is of full row rank, then $\mathcal{C}(\mb{AB})=\mathcal{C}(\mb A)$ and $\rank(\mb{AB})=\rank(\mb{A})$.
 \item \textbf{C8.3.3} If $\mb A$ non-singular, then $\rank(\mb{AB})=\rank(\mb B)$ (i.e. rank limited by $\mb B$). 
 \item Helmert matrix computes an orthogonal matrix from one vector whose none element is $0$.
 \item Permutation matrices can become very convenient for computing rank (see L8.5.1 and S8.5.f)
@@ -386,6 +417,7 @@ This chapter is about the finding inverses for matrices that are not square or n
 	\mb Y & \mb Z
 	\end{bmatrix}$ for some $\mb{X, Y}$ and $\mb Z$ (of appropriate dimensions)
 	\item The theorem above becomes particularly powerful when combined with T9.2.3
+	\item \textbf{L9.2.2}: Let $\mb{A}$ be $m\times n$ partitioned as $\mb{A} = \begin{bmatrix} \mb{A}_{11} & \mb A_{12} \\ \mb{A}_{21} & \mb{A}_{22} \end{bmatrix}$ such that $\rank(\mb{A}_{11})=r$. Then, $\mb{A}_{22}=\mb{A}_{21}\mb{A}_11^{-1}\mb{A}_{12}$.
 	\item \textbf{T9.2.3}: Let $\mb A$ be $m\times n$ with rank $r$. Let $\mb B$ be obtained from $\mb A$ by permuting its rows/columns, \ie $\mb{B=PAQ}$, so that $\mb{B}_{11}$, the principal leading $r\times r$ submatrix of $\mb{B}$, is of rank $r$. Then, $\mb G$ is GI of $\mb B$ iff 
 	$\mb{G}=\mb Q \begin{bmatrix}
 	\mb B^{-1}_{11}-\mb{X}\mb B_{21} \mb B^{-1}_{11}-\mb B^{-1}_{11} \mb B_{12} \mb Y - \mb B^{-1}_{11} \mb B_{12} \mb{ZB}_{21}\mb B^{-1}_{11} & \mb X \\
@@ -479,6 +511,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item \textbf{T10.2.1}: For any square matrix $\mb A$ such that $\mb A^2=k \mb A$, $\tr(\mb A) = k\, \rank(\mb A)$
 	\item \textbf{C10.2.2}: For any idempotent matrix $\mb A$, $\rank(\mb A) = \tr(\mb A)$ (I guess I find this non-intuitive because the rank \---an integer\--- is computed with $\tr$ which does not in general yield an integer!)
 	\item \textbf{T10.2.7}: $\mb B$ is GI of $\mb A$ iff $\mb{BA}$ is idempotent and $\rank(\mb {BA}) = \rank(\mb A)$ (This also is non-intuitive b/c idempotent matrices seem like they are rare but yet so easy to obtain from a matrix and its inverse!)
+	\item \textbf{L10.2.4}: For any idempotent matrix, $\rank(\mb{I-A})=\tr(\mb{I-A})=n-\rank(\mb{A})$.
 	\end{itemize}
 \end{itemize}
 
@@ -556,10 +589,10 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\end{itemize}
 \item Equivalence of linear systems: When are the solution sets of two linear systems the same?
 	\begin{itemize}
-	\item \textbf{L11.6.1.} If $\mb{C}$ is of full col. rank, then the systems $\mb{AX=B}$ and $\mb{CAX=B}$ are equivalent
+	\item \textbf{L11.6.1.} If $\mb{C}$ is of full col. rank, then the systems $\mb{AX=B}$ and $\mb{CAX=CB}$ are equivalent
 	\item \textbf{L11.6.2.} For any $\mb{A}$, the linear systems $\mb{A'AX=A'AF}$ and $\mb{AX=AF}$ are equivalent
 	\item \textbf{Exercise 6.} If $\rank(\mb{CD})=\rank(\mb{D})$, then system $\mb{CDAX}=\mb{CDB}$ is equivalent to the system $\mb{DAX}=\mb{DB}$
-	\item \textbf{Exercise 7.} If $\rank[\mb{C(A,B)}]=\rank(\mb{A,B})$, then the systems $\mb{AX=B}$ and $\mb{CAX=B}$ are equivalent
+	\item \textbf{Exercise 7.} If $\rank[\mb{C(A,B)}]=\rank(\mb{A,B})$, then the systems $\mb{AX=B}$ and $\mb{CAX=CB}$ are equivalent
 	\end{itemize}
 \item Can we derive a vector/matrix $\mb{K'X}$ invariant to the choice of solution $\mb{X}$?
 	\begin{itemize}
@@ -623,18 +656,19 @@ Apparently the class of idempotent matrices is very important in statistics and 
 \begin{itemize}
 \item \textit{Orthogonality}: If matrix $\mb{Y}$ is orthogonal to every matrix in a subspace $\mathcal{U}$, then $\mb{Y}$ is orthogonal to $\mathcal{U}$: $\mb{Y} \perp \mathcal{U}$.
 \item \textit{Projection}: Let $\mb{Y} \in \mathcal{V}$, $\mb{Z}\in\mathcal{V}$ and $\mathcal{U} \subset \mathcal{V}$. $\mb{Z}$ is the projection of $\mb{Y}$ on $\mathcal{U}$ if $(\mb{Y-Z}) \perp \mathcal{U}$\\\hspace*{1.75cm} For any $\mb{Y} \in \mathcal{U}$, $\mb{Y}$ itself is the projection of $\mb{Y}$ on $\mathcal{U}$
-\item \textit{Projection matrix}: $\mb{P_{X}}:=\mb{X(X'X)^-X'}$. That is, $\mb{P}_{\mb{X}}\mb{y}$ is the projection of any $\mb{y} \in \mathcal{R}^n$ on $\mathcal{C}(\mb{X})$
-	\begin{itemize}
-	\item $\mb{P}_\mb{X}\mb{X}=\mb{X}$ (T12.3.4)
-	\item $\mb{P}_\mb{X}' = \mb{P}_\mb{X}$ (\ie symmetric, T12.3.4)
-	\item $\mb{P}_\mb{X}^2 = \mb{P}_\mb{X}$ (\ie idempotent, T12.3.4)
-	\item $(\mb{I-P}_\mb{X})$ is also idempotent and symmetric
-	\end{itemize}
 \item The \textit{orthogonal complement} $\mathcal{U}^\perp$ of $\mathcal{U} \subset \mathcal{V}$ is the set of all matrices in $\mathcal{V}$ that are orthogonal to $\mathcal{U}$ 
 	\begin{itemize}
 	\item $\mathcal{U} = (\mathcal{U}^\perp)^\perp$ (T12.5.4)
 	\item $\mathcal{W}\subset \mathcal{U} \iff \mathcal{U}^\perp \subset \mathcal{W}^\perp$ (C12.5.6)
 	\item $\dim(\mathcal{V})=\dim(\mathcal{U})+\dim(\mathcal{U}^\perp)$ for $\mathcal{U}\subset \mathcal{U}^\perp$ (T12.5.12)
+	\end{itemize}
+	\item \textit{Projection matrix}: $\mb{P_{X}}:=\mb{X(X'X)^-X'}$. That is, $\mb{P}_{\mb{X}}\mb{y}$ is the projection of any $\mb{y} \in \mathcal{R}^n$ on $\mathcal{C}(\mb{X})$
+	\begin{itemize}
+	\item $\mb{P}_\mb{X}\mb{X}=\mb{X}$ (T12.3.4)
+	\item $\mb{P}_\mb{X}' = \mb{P}_\mb{X}$ (\ie symmetric, T12.3.4)
+	\item $\mb{P}_\mb{X}^2 = \mb{P}_\mb{X}$ (\ie idempotent, T12.3.4)
+	\item $(\mb{I-P}_\mb{X})$ is also idempotent and symmetric
+	\item $(\mb{I-P}_\mb{X})$ is the projection matrix for $\mathcal{C}^\perp(\mb{X})$ (C12.5.10)
 	\end{itemize}
 \end{itemize}
 
@@ -652,7 +686,8 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item \textbf{T12.3.1} (uniqueness). Let $\mathcal{U} \subset \mathcal{R}^n$. There is \textit{unique} $n\times n$ matrix $\mb{A}$ s.t. $\mb{Ay}$ is the projection of any $\mb{y} \in \mathcal{R}^n$ on $\mathcal{U}$. For any $\mb{X}$ s.t. $\mathcal{C}(\mb{X})=\mathcal{U}$, $\mb{A}=\mb{P}_\mb{X}$. (see def. of $\mb{P}_\mb{X}$ above)
 	\item \textbf{T12.3.4} (other outcomes of this theorem are properties above). $\mb{P}_\mb{X}=\mb{X}\mb{B}^*$ for any solution to $\mb{X}'\mb{XB}=\mb{X}'$
 	\item \textbf{T12.5.8} (orth. compl). Let $\mb{Y}\in\mathcal{V},\, \mathcal{U}\subset\mathcal{V}$. Projection of $\mb{Y}$ on $\mathcal{U}^\perp$ is $\mb{Y-Z}$ where $\mb{Z}$ is proj. of $\mb{Y}$ on $\mathcal{U}$
-	\item \textbf{12.5.11}. Let $\mb{Y} \in \mathcal{V},\,\mathcal{U}\subset\mathcal{V}$. $\exists$ \textit{unique} $\mb{Z}\in \mathcal{U},\,\mb{W}\in\mathcal{U}^\perp$ s.t. $\mb{Y}=\mb{Z+W}$. Also $\mb{Z}$ ($\mb{W}$) is proj. of $\mb{Y}$ on $\mathcal{U}$ ($\mathcal{U}^\perp$).
+	\item \textbf{C12.5.10}. $(\mb{I-P}_\mb{X})$ is the projection matrix for $\mathcal{C}^\perp(\mb{X})$
+	\item \textbf{T12.5.11}. Let $\mb{Y} \in \mathcal{V},\,\mathcal{U}\subset\mathcal{V}$. $\exists$ \textit{unique} $\mb{Z}\in \mathcal{U},\,\mb{W}\in\mathcal{U}^\perp$ s.t. $\mb{Y}=\mb{Z+W}$. Also $\mb{Z}$ ($\mb{W}$) is proj. of $\mb{Y}$ on $\mathcal{U}$ ($\mathcal{U}^\perp$).
 	\end{itemize}
 \item Least squares connection
 	\begin{itemize}
@@ -741,7 +776,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\begin{itemize}
 	\item If $\mb{A}$ is (upper or lower) triangular, then $|\mb{A}|=a_{11}a_{22}\hdots a_{nn}$
 	\item \textbf{T13.1.1}. $\left|\begin{matrix} \mb{T}  & \mb{0} \\\mb{V} & \mb{W} \end{matrix}\right|=\mb{|T||W|}$. Repeated application $\implies$ For any block triangular $\mb{A}$, $|\mb{A}|=|\mb{A}_{11}||\mb{A}_{22}|\hdots |\mb{A}_{rr}|.$
-	\item \textbf{C13.3.2}. $\left|\begin{matrix} \mb{T}  & \mb{T} \\\mb{W} & \mb{V} \end{matrix}\right|=\left|\begin{matrix} \mb{V}  & \mb{W} \\\mb{T} & \mb{0} \end{matrix}\right|=(-1)^{mn}\mb{|T||W|}$ 
+	\item \textbf{C13.3.2}. $\left|\begin{matrix} \mb{0}  & \mb{T} \\\mb{W} & \mb{V} \end{matrix}\right|=\left|\begin{matrix} \mb{V}  & \mb{W} \\\mb{T} & \mb{0} \end{matrix}\right|=(-1)^{mn}\mb{|T||W|}$ 
 	\item If $\mb{T}$ is nonsingular, then $\left|\begin{matrix} \mb{T}  & \mb{U} \\\mb{V} & \mb{W} \end{matrix}\right|=\mb{|T||W-VT^{-1}U|}$	\end{itemize}
 \item Some cases where determinants are the same
 	\begin{itemize}
@@ -795,6 +830,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item Bilinear form:  $\mb{x'Ay}$, bilinear function: $f(\mb{x,y})$. $\mb{A}$: matrix of the linear form
 	\item Symmetric bilinear form is when $\mb{x'Ay} = \mb{y'Ax}$ for all $\mb{x,y}$.  
 	\item Quadratic form: $\mb{x'Ax}$. $\mb{A}$: matrix of the quadratic form.
+	\item An $n\times n$ matrix is skew-symmetrix if $\mb{A}'=-\mb{A}$ (which implies $a_{ii}=0$ for $i=1,\hdots,n$).
 	\end{itemize}
 \item Nonnegative definite quadratic forms
 	\begin{itemize}
@@ -812,9 +848,74 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item The inverse of a positive definite (semidefinite nonsingular) matrix is positive definite (semidefinite). (C13.2.11)
 	\item Every symmetric idempotent matrix is nonnegative definite (L14.2.7).
 	\item A symmetric nonnegative definite $\mb{A}$ is positive definite $\iff$ it $\mb{A}$ is nonsingular (C14.3.12).
+\end{itemize}
+\item Properties regarding traces of nonnegative matrices
+\begin{itemize}
+	\item $\tr(\mb{A})>0$ for any positive definite $\mb{A}$. (T14.7.1)
+	\item $\tr(\mb{A})\ge 0$ for any nonnegative matrix, with equality holding iff $\mb{A}$ is skew-symmetric. (T14.7.2)
+	\item For any positive $\mb{A}$ and nonnull symmetric nonnegative $\mb{B}$, $\tr(\mb{AB})>0$. (T14.7.4)
+	\item For any positive $\mb{A}$ and symmetric nonnegative $\mb{B}$, $\tr(\mb{AB})\ge 0$ with equality holding iff $\mb{B}=\mb{0}$. (C14.7.5)
+	\item For any nonnegative $\mb{A}$ and symmetric nonneg. $\mb{B}$, $\tr(\mb{AB})\ge 0$; equality holds iff $\mb{BAB}$ is skew-symm. (T14.7.6)
+	\end{itemize}
+\item Properties of determinants of nonnegative matrices
+\begin{itemize} 
+\item For any symmetric positive $\mb{A}$, $|\mb{A}|>0$; for any symmetric positive semidefinite $\mb{A}$, $|\mb{A}|=0$ (T14.9.1)
+\item For nonnegative $\mb{A}$, $|\mb{A}|\ge 0$. For positive definite or nonsingular nonsymmetric positive semidefinite $\mb A$, $|\mb{A}|>0$. For symmetric positive semidefinite or singular nonsymmetric positive semidefinite $\mb A$, $|\mb{A}|=0$ (T14.9.3, C14.9.4)
+\end{itemize}
+\item Inner products, orthogonality, projections, orthogonal complements
+	\begin{itemize}
+	\item \textit{Inner product} bw $\mb{x,y}$ wrt a spd. (symmetric and positive definite) matrix $\mb{W}$ is $\mb{x'Wy}$. (see also below)
+	\item \textit{Orthogonality}. $\mb{x}\perp_{\mb{W}}\mb{y} \iff \mb{x'Wy}=0 $ for spd. $\mb{W}$.
+	\item $\mb{x}\perp_{\mb{W}}\mathcal{U} \iff  \mb{x'Wy}=0 \,\, \forall \mb{y} \in \mathcal{U}$ 
+	\item $\mathcal{U}\perp_{\mb{W}}\mathcal{V} \iff  \mb{x'Wy}=0 \,\, \forall \mb{x} \in \mathcal{U}, \mb{y} \in \mathcal{V}$ 
+	\item \textit{Projection matrix} wrt spd. $\mb{W}$ is $\mb{P_{X,W}=X(X'WX)^-X'W}$
+	\item \textit{Projection} of $\mb{y}\in\mathcal{R}^n$ to $\mathcal{U} \subset \mathcal{R}^n$ wrt spd. $\mb{W}$ is $\mb{z}\in\mathcal{U}$ such that $\mb{y-z}\perp_{\mb{W}}\mathcal{U}$.
+	\item \textit{Generalized or weighted least squares problem} is minimizing $\mb{(y-u)'W(y-u)}$ for $\mb{u}$ wrt spd. $\mb{W}$.
+	\item \textit{Orthogonal complement} of $\mathcal{C}(\mb{X})$ is $\mathcal{C}^\perp_\mb{W}(\mb{X})=\{\mb{y}\in\mathcal{R}^n : \mb{X'Wy}=0\}=\mathcal{N}(X'W)=\mathcal{C}(\mb{I-P_{X,W}})$
+	\item \textit{Gram matrix} (or \textit{Gramian}). Let $\mb{X}_1, \hdots, \mb{X}_r \in \mathcal{V}$. Gramian is the matrix whose $ij$th element is $\mb{X}_{i} \cdot \mb{X}_{j}$ (\ie inner product).
 	\end{itemize}
 \end{itemize}
 
+
+\section{Decompositions of matrices and quadratic forms}
+This section presents some fundamental decompositions. There is a specific focus on the decomposition of symmetric matrices and positive or nonnegative definite matrices, but there are generic decompositions as well.\\
+
+\noindent\textbf{Any square matrices}. Let $\mb{A}$ be a square matrix.
+\begin{itemize}
+\item $\exists$ nonsingular $\mb{P}$ and $n$ scalars $d_1, \hdots, d_n$ such that $\mb{x'Ax}=\sum_{i=1}^n d_i y_i^2$ for $\mb{y=Px}$ (C14.3.6)
+\item $\mb{LDU}$ decomposition ($\mb{L}$ $(\mb{U})$: lower (upper) unit triangular, $\mb{D}$: diagonal). Let $\mb{A}_i$ be the $i$th order leading principal submatrix of $\mb{A}$, and partition it as $$\mb{A}_i=\begin{bmatrix}
+\mb{A}_{i-1} & \mb{a}_i \\ \mb{b}_i' & a_{ii}
+\end{bmatrix}.$$ $\mb{A}$ can be expressed as $\mb{A=LDU}$ if for $i=2,\hdots,n$, $\mb{a}_i \in \mathcal{C}(\mb{A}_{i-1})$ and $\mb{b}'_i \in \mathcal{R}(\mb{A}_{i-1})$. (T14.5.4)
+\end{itemize}
+
+
+\noindent\textbf{For symmetric matrices}. Let $\mb{A}$ be a symmetric matrix. 
+\begin{itemize}
+\item $\exists$ nonsingular $\mb{Q}$ s.t. $\mb{Q'AQ}$ is a diagonal matrix. (T14.3.4)
+\item $\exists$ nonsingular $\mb{P}$ and diagonal $\mb{D}$  s.t. $\mb{A}=\mb{P'DP}$. (C14.3.5)
+\item $\mb{A}$ has $\mb{U'DU}$ decomposition if $\mb{a}_i \in \mathcal{C}(\mb{A}_{i-1})$ (see LDU decomposition above for notation) (T14.5.4) 
+\end{itemize}
+
+\noindent\textbf{For symmetric nonnegative matrices}. Let $\mb{A}$ be an $n\times n$ symmetric nonnegative matrix.
+\begin{itemize}
+\item $\exists$  $\mb{P}$ s.t. $\mb{A}=\mb{P'P}$. (T14.3.7, C14.3.8 and C14.3.10)
+\item $\mb A$ has a U'DU decomposition (with nonnegative diagonal elements). (C14.5.15)
+\item Let $r=\rank(\mb{A})$. There is unique upper triangular $\mb{T}$ with $n-r$ null rows s.t. $\mb{A=T'T}$.
+\item Let $\mb{A}=\begin{bmatrix}
+\mb{T} & \mb U \\ \mb V & \mb W
+\end{bmatrix}$. Then, $\exists$ $\mb{R,S}$ such that $\mb{T}=\mb{R'R}$, $\mb{U=R'S}$, $\mb{V=S'R}$, $\mb{W=S'S}$. 
+\end{itemize}
+
+
+\noindent\textbf{For positive definite matrices}. Let $\mb{A}$ be a positive definite matrix.\begin{itemize}
+\item $\mb{A}$ has a unique LDU decomposition (T14.5.9).
+\end{itemize}
+
+\noindent\textbf{For positive and symmetric matrices}. Let $\mb{A}$ be a positive definite and symmetric matrix.\begin{itemize}
+\item $\exists$ nonsingular $\mb{P}$ such that $\mb{A=P'P}$ (C14.3.13).
+\item $\mb{A}$ has a unique U'DU decomposition (C14.5.10).
+\item \textit{Cholesky decomposition}. $\exists$ unique upper triangular $\mb{T}$ s.t. $\mb{A}=\mb{T'T}$. (T14.5.11)
+\end{itemize}
 
 
 
@@ -836,7 +937,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item \textbf{C14.2.10}. If $\mb{P}$ is nonsingular and $\mb{A}$ pos. definite (semidefinite), then $\mb{P'AP}$ is pos. definite (semidefinite).
 	\item \textbf{C14.2.12}. Any principal submatrix of a positive definite (semidefinite) matrix is positive (nonnegative) definite.
 	\item \textbf{C14.2.13}. The diagonal elements of a positive (nonnegative) definite matrix are positive (nonnegative).
-	\item \textbf{C13.2.14}. Let $\textbf{P}$ be any $n\times m$. If $\rank(\mb{P})=m$, $\mb{P'P}$ is positive definite, otherwise, it's positive semidefinite. 
+	\item \textbf{C14.2.14}. Let $\textbf{P}$ be any $n\times m$. If $\rank(\mb{P})=m$, $\mb{P'P}$ is positive definite, otherwise, it's positive semidefinite. 
 	\item \textbf{C14.2.14}. Let, $\textbf{P}$ be nonsingular and $\mb{D}$ diagonal. Then, (1) $\mb{P'DP}$ is nonnegative (positive) $\iff$ $\mb{D}$'s elements are nonnegative (positive). (2) $\mb{P'DP}$ is positive definite if $\mb D$'s elements are nonnegative and include some zeros.
 	\end{itemize}
 \item Decomposition of symmetric matrices
@@ -848,8 +949,71 @@ Apparently the class of idempotent matrices is very important in statistics and 
 \item Decomposition of symmetric nonnegative matrices
 	\begin{itemize}
 	\item \textbf{T14.3.7}. A non-null $n\times n$ $\mb{A}$ is symmetric nonnegative of rank $r$ $\iff$ $\exists$ $r\times n$ $\mb{A}$ s.t. $\mb{A}=\mb{P'P}$.
-	\item \textbf{C14.3.13}. An $n\times n$  symmetric $\mb A$ is positive definite $\iff$ $\exists$ nonsingular $\mb{P}$ s.t. $\mb{A=P'P}$
+	\item \textbf{C14.3.9} (and \textbf{C14.3.13}). Let $\rank(\mb{A+A'}) = r$. The quadratic form $\mb{x'Ax}$ is nonnegative (or positive assuming $r=n$) $\iff$ $\exists$ $r\times n$ $\mb{P}$ s.t. $\mb{x'Ax}=\mb{Px}'\mb{Px}\, \forall \mb{x}$. 
+	\item \textbf{C14.3.13}. An $n\times n$  symmetric $\mb A$ is positive definite $\iff$ $\exists$ nonsingular $\mb{P}$ s.t. $\mb{A=P'P}$.
+	\item \textbf{L14.4.1}. Every symmetric nonnegative matrix has a symmetric positive definite generalized inverse.
 	\end{itemize}
+\item Some results regarding the uniqueness of LDU decomposition
+	\begin{itemize}
+	\item (\textbf{T14.5.6}) \textit{If} $\mb{A}$ has an LDU decomposition and if $\mb{A}$'s $n-1$ order principal submatrix is nonsingular, then the LDU decomposition is unique.
+	\item (\textbf{C14.5.7}) $\mb{A}$ has unique LDU decomposition if its $i$th order principal submatrix is nonsingular for $i=1,\hdots, n-1$
+	\item (\textbf{L14.5.8}) If a symmetric $\mb A$ has a unique LDU decomposition, then it's actually an U'DU decomposition.
+	\end{itemize}
+\item Obtaining generalized inverse from LDU or U'DU decomposition.
+	\begin{itemize}
+	\item (p236). If $\mb{A}$ has LDU (U'DU) decomposition, then $\mb G=\mb{U}^{-1}\mb{D}^{-}\mb{L}^{-1}$ [$\mb G=\mb{U}^{-1}\mb{D}^{-}(\mb{U}^{-1})'$] is a GI.
+	\item (p236). Assume $\mb A$ has Cholesky dec. $\mb{A=T'T}$ and let $T_1$ be the submatrix of $\mb{T}$ obtained by striking out its null rows, and let $R$ be the right inverse of $\mb T_1$. Then, $\mb{RR'}$ is a GI of $\mb{A}$.
+	\end{itemize}
+\item On block-diagonal and partitioned matrices
+	\begin{itemize}
+	\item \textbf{C14.8.2}. If $\mb{A}=\begin{bmatrix}
+\mb{T} & \mb U \\ \mb V & \mb W
+\end{bmatrix}$ is sym. nonneg., then, $\mathcal{C}(\mb U) \subset \mathcal{C}(\mb{T})$, $\mathcal{R}(\mb V) \subset \mathcal{R}(\mb{T})$, $\mathcal{C}(\mb V) \subset \mathcal{C}(\mb{W})$, $\mathcal{R}(\mb U) \subset \mathcal{R}(\mb{W})$.
+	\item \textbf{L14.8.3}. Let $\mb{A}=\diag(\mb{A}_1, \hdots, \mb{A}_k)$. Then, $\mb{A}$ is nonneg (positive) $\iff$ $\mb{A}_1,\hdots,\mb{A}_k$ are nonneg (positive). 
+	\item \textbf{T14.8.4}. Let $\mb{A}=\begin{bmatrix}
+\mb{T} & \mb U \\ \mb V & \mb W
+\end{bmatrix}$. (1) $\mb{A}$ is positive definite $\implies$ Schur complements $\mb{W-V\mb{T}^{-1}\mb{U}}$ and $\mb{T-U\mb{W}^{-1}\mb{V}}$ are positive. (2) $\mb{A}$ is symmetric positive semidefinite $\implies$ Schur complements $\mb{W-V\mb{T}^{-}\mb{U}}$ and $\mb{T-U\mb{W}^{-}\mb{V}}$ are nonnegative. (3) $\mb{A}$ is positive semidefinite and $\mathcal{C}(\mb U) \subset \mathcal{C}(\mb{T})$ or $\mathcal{R}(\mb V) \subset \mathcal{R}(\mb{T})$ $\implies$ Schur complement $\mb{W-V\mb{T}^{-}\mb{U}}$ is nonnegative. (Similar applies to Schur complement of relative to $\mb{W}^-$.)
+	\item \textbf{T14.8.5}. Partial converse of T14.8.4.
+	\end{itemize}
+\item Necessary and/or sufficient conditions for positive/nonnegative definiteness of symmetric matrices
+	\begin{itemize}
+	\item \textbf{T14.9.5}. Let $\mb{A}$ be symmetric. $\mb A$ is positive definite $\iff$ the determinants of all of its leading principal submatrices are positive.
+	\item \textbf{T14.9.7}. Let $\mb{A}$ be symmetic.  $\mb A$ is positive definite $\iff$ (1) is nonsingular (2) the determinants of all its principal submatrices are nonnegative.
+	\item \textbf{L14.9.10}. Let $\mb{A}$ be symmetric of rank $r$ with a non-singular $r\times r$ principal submatrix $\mb{A}_*$. $\mb{A}$ is nonnegative $\iff$ $\mb{A}_*$ is positive definite.
+	\item \textbf{T14.9.1}. Let $\mb{A}$ be symmetric. $\mb{A}$ is nonnegative definite $\iff$ Every principal submatrix of $\mb{A}$ is nonnegative.
+	\end{itemize}
+\item Geomatrical considerations.
+	\begin{itemize}
+	\item p253. For any symmetric positive $\mb{A}$, $\mb{x'Ay}$ is an inner product for $\mathcal{R}^{n\times 1}$ as it satisfies all 4 properties (in p59).
+	\item p253. Any inner product for $\mathcal{R}^{n\times 1}$ is expressible as a bilinear form.
+	\end{itemize}
+\item Some connections with linear spaces and row/colummn spaces
+	\begin{itemize}
+	\item \textbf{T14.11.1}. Let $\mb{W}$ be $m\times m$ symmetric nonnegative. Then, for any $m\times n$ $\mb{A}$ and $m\times p$ $\mb{B}$, the linear system $\mb{A'WAX=A'WB}$ is consistent.
+	\item \textbf{L14.11.2}. For any $m\times n$ $\mb{A}$ and any $m\times m$ symmetric nonnegative $\mb{W}$, $\mathcal{C}(\mb{A'WA})=\mathcal{C}(\mb{A'W})$, $\mathcal{R}(\mb{A'WA})=\mathcal{C}(\mb{WA})$ and $\rank(\mb{A'WA})=\rank(\mb{WA})$.
+  	\end{itemize}
+\item Projection, Inner product, Generalized Least Squares
+	\begin{itemize}
+	\item \textbf{T14.2.8}. Let $\mathcal{U}\subset \mathcal{R}^n$, $\mb{X}$ be s.t. $\mathcal{C}(\mb{X})=\mathcal{U}$, $\mb{W}$ be any spd. Then, $\exists$ A s.t. $\mb{Ay}$ is the projection of any $\mb{y}\in\mathcal{R}^n$ on $\mathcal{U}$. Moreover, $\mb{A}=\mb{P_{X,W}}$. 
+	\item \textbf{T14.12.11}. Properties of the projection matrix wrt spd $\mb{W}$ (more on p261)
+		\begin{itemize}
+		\item $\mb{P_{X,W}X=X}$ and also $\mb{WP_{X,W}X=WX}$
+		\item $\mb{WP_{X,W}}$ and $\mb{P_{X,W}W^{-1}}$ are symmetric
+		\item $\mb{P_{X,W}}$ and $(\mb{I}-\mb{P_{X,W}})$ are idempotent
+		\item $\mathcal{C}(\mb{P_{X,W}})=\mathcal{C}(\mb{X})$ and $\mathcal{R}(\mb{P_{X,W}})=\mathcal{R}(\mb{X'W})$
+		\item $\mb{P'_{X,W}WP_{X,W}}=\mb{WP_{X,W}}$
+		\end{itemize}
+	\item \textbf{T14.12.16}. A matrix $\mb{A}$ is a projection matrix wrt spd $\mb{W} \iff \mb{A'WA=WA}$. 
+	\item \textbf{T14.12.18}. Any of the following are necessary and sufficient conditions for $\mb{P_{X,V}}=\mb{P_{X,W}}$
+		\begin{enumerate}
+		\item $\mb{X'VP_{X,W}}=\mb{X'V}$ 
+		\item $\mb{P'_{X,W}VP_{X,W}} = \mb{VP_{X,W}}$
+		\item $\mb{VP_{X,W}}$ is symmetric
+		\item $\exists$ matrix $\mb{Q}$ s.t. $\mb{VX=WXQ}$ or, equivalently, $\mathcal{C}(\mb{VX})\subset\mathcal{C}(\mb{WX})$
+		\end{enumerate}
+	\item \textbf{T14.12.23}. If $\mb{z}$ is a projection on orthogonal complement of $\mb{y}$ on $\mathcal{C}(\mb{X})^\perp_{\mb{W}}$, then $\mb{z}=\mb{y-Xb^*}$ for any solution to $\mb{X'WXb=X'Wy}$. In particular, $\mb{z=y-\mb{P}_{X,W}y}=(\mb{I-P_{X,W}})\mb{y}$
+	\end{itemize}
+
 \end{itemize}
 
 
@@ -991,6 +1155,17 @@ Apparently the class of idempotent matrices is very important in statistics and 
 \subsection*{Chapter 13}
 \begin{itemize}
 \item Exercise 12.a
+\item Re-prove T13.3.4
+\end{itemize}
+
+
+
+\clearpage
+\chapter*{Towards a cheatsheet}
+\section*{Non-singularity}
+\begin{itemize}
+\item Any positive definite matrix is nonsingular (L14.2.8)
+\item 
 \end{itemize}
 
 
