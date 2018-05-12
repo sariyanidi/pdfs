@@ -1026,6 +1026,202 @@ This section presents some fundamental decompositions. There is a specific focus
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Matrix Differentiation}
+
+\section{Notations}
+
+Differentiation of \textit{scalar-valued} functions: Let $f(\mb{x})$ be a scalar-valued function of an $m$-dimensional vector $\mb{x}$.
+\begin{itemize}
+\item $\partial f(\mb{x})/\partial x_j$ or $D_jf(\mb{x})$ are the first order partial derivatives of $f$ wrt $x_j$.
+\item $\partial f(\mb{x})/\mb{x}'$ or $\mb{D}f({\mb{x}})$ are row vectors $\partial f(\mb{x})\mb{x}' = \mb{D}f({\mb{x}})=(\partial f(\mb{x})/\partial x_1, \partial f(\mb{x})/\partial x_2, \hdots, \partial f(\mb{x})/\partial x_m)$
+\item $\partial f(\mb{x})/\mb{x} = [\partial f(\mb{x})/\mb{x}']'$ 
+\end{itemize}
+%
+%
+Differentiation of \textit{vector of functions}: Let $\mb{f}$ be a column vector with $p$ functions $\mb{f}=(f_1, \hdots, f_p)'$.
+\begin{itemize}
+\item $D_j\mb{f(c)}$ is the column vector $D_j\mb{f(c)}=[D_jf_1(\mb{c}), \hdots, D_jf_p(\mb{c})]'$.
+\end{itemize}
+%
+%
+Differentiation of matrix of functions: Let $\mb{F}$ be a $p\times q$ matrix of $pq$ functions,  $\mb{F}=\{f_{st}\}$.
+\begin{itemize}
+\item $\partial \mb{F(x)}/x_j$ is the $p\times q$ matrix whose $st$th element $\partial f_{st}\mb{(x)}/x_j$.
+\end{itemize}
+
+
+\section{Definitions}
+\begin{itemize}
+\item \textit{Neighborhood} of an $m$-dimensional vector $\mb{c}$ with the usual norm for $\mathcal{R}^{m\times 1}$ is $B_r(\mb{c})=\{\mb{x}\in \mathcal{R}^{m\times 1} : ||\mb{x-c}||<r\}$.
+\item \textit{Interior point}. If there is a neighborhood of $\mb{x}$ that is contained entirely in a set $S$, then $\mb{x}$ is an interior point of $S$.
+\end{itemize}
+%
+Let $f(\mb{x})$ be a scalar-valued function of an $m$-dimensional vector $\mb{x}$.
+\begin{itemize}
+\item \textit{Open set} is a set whose all points are interior points.
+\item \textit{Continuity}: A function $f(\mb{x})$ is continuous at an interior point $\mb{c}$ if $\lim_{\mb{x}\to\mb{c}} f(\mb{x})=f(\mb{c})$.
+\item \textit{Continuously differentiable function} is a function whose all first-order derivatives exists and are continuous (p288).
+\item \textit{Continuously differentiable matrix} is an $\mb{F}$ whose all $pq$ elements (\ie functions) are continuously differentiable.
+\item \textit{Gradient vector} of $f$ is $[\mb{D}f(\mb{x})]' = \partial f(\mb{x})/\mb{x}$
+\item \textit{Hessian}, notated with $\mb{H}f$, is the $m\times m$ matrix whose $ij$th element is $\partial^2 f(\mb{x})/\partial x_i \partial x_j$
+\end{itemize}
+%
+Let $\mb{f}$ be a column vector with $p$ functions $\mb{f}=(f_1, \hdots, f_p)'$.
+\begin{itemize}
+\item \textit{Jacobian matrix} is the $p\times m$ matrix $\mb{Df(c)}=[D_1\mb{f}(c), \hdots, D_m\mb{f}(c)]$  (see above for $D_j\mb{f}(c)$).
+\item \textit{Jacobian} is $\det[\mb{Df(c)}]$
+\item \textit{Gradient vector} is the $m\times p$ matrix $[\mb{Df(c)}]'$
+\end{itemize}
+Some basic results:
+\begin{itemize}
+\item $\frac{\partial \mb{F}'}{x_j}=\left(\frac{\partial \mb{F}}{x_j}\right)'$
+\end{itemize}
+
+
+\section{Results on matrix/vector differentiation}
+
+\subsection*{On linear and quadratic forms}
+\begin{itemize}
+\item Let $\mathbf{a}=(a_1,\hdots,a_m)$ be constant (or fn of $\mb{x}$ that is invariant wrt $x_j$), and $\mb{A}$ be an $m\times m$ constant matrix (or matrix of functions invariant wrt $x_j$). Then:
+\begin{itemize}\textsf{•}
+\item $\frac{\partial  \mb{a'x}}{\partial x_j}=a_j$ (see p294). The core idea is to see that $\frac{\partial x_i}{\partial x_j}=\begin{cases}1 &\text{ if }i=j\\0& \text{ else}\end{cases}$
+\item $\frac{\partial  \mb{a'x}}{\partial \mathbf{x}}=\mb{a}$ or $\frac{\partial  \mb{a'x}}{\partial \mathbf{x}'}=\mb{a}'$
+\item $\frac{\partial \mb{x'Ax}}{\partial x_j} = \sum\limits_{i=1}^m a_{ij}x_i+\sum\limits_{k=1}^{m} a_{jk}x_k$ (see \#295)\\ 
+\item $\frac{\partial \mb{x'Ax}}{\partial \mb{x}} = (\mathbf{A+A'})\mathbf{x}$ \---- unless $\mb{A}$ is symmetric, in which case $\frac{\partial \mb{x'Ax}}{\partial \mb{x}} = 2\mathbf{Ax}$
+\item $\frac{\partial^2 \mb{x'Ax}}{\partial x_s x_j} = a_{sj}+a_{js}$ (see \#295)
+\item $\frac{\partial^2 \mb{x'Ax}}{\partial \mb{x}\partial\mb{x}'} = (\mathbf{A+A'})$ \---- unless $\mb{A}$ is symmetric, in which case  $\frac{\partial^2 \mb{x'Ax}}{\partial \mb{x}\partial\mb{x}'} = 2\mathbf{A}$
+\end{itemize}
+\end{itemize}
+%
+\subsection*{Differentiation of vector/matrix forms}
+\begin{itemize}
+\item Let $\mb{x}=(x_1,\hdots,x_m)$ and $\mb{X}$ a matrix.
+\begin{itemize}
+\item $\frac{\partial \mathbf{x}}{\partial x_i} = \mb{u}_j$
+\item if $\mb{X}$ matrix of `independent' variables $x_{ij}$:\\
+$\frac{\partial \mathbf{X}}{\partial x_{ij}} = 	\mathbf{u}_i\mb{u}_j'$
+\item if $\mb{X}$ symmetric matrix: \\
+$\frac{\partial \mb{X}}{\partial x_{ij}} = \mb{u}_i\mb{u}_j'+\mb{u}_j	\mb{u}_i'$
+%
+\end{itemize}
+\end{itemize}
+\subsection*{Differentiation of matrix of functions}
+\begin{itemize}
+\item Let $\mb{F, G}$ be matrices of functions
+\begin{itemize}
+\item $\frac{\partial \mb{FG}}{\partial x_j} = \mb{F}\frac{\partial \mb{G}}{\partial x_j}+\frac{\partial \mb{F}}{\partial x_j}\mb{G}$
+\item $\frac{\partial \mb{FGH}}{\partial x_j} = \mb{FG}\frac{\partial \mb{H}}{\partial x_j}+\mb{F}\frac{\partial \mb{G}}{\partial x_j}\mb{H}+\mb{FG}\frac{\partial \mb{H}}{\partial x_j}$
+\item if $g$ is fn of $\mathbf{x}: \frac{\partial g\mb{F}}{\partial x_i} = \frac{\partial g}{\partial x_i}\mb{F}+g\frac{\partial \mb{F}}{\partial x_i}$
+\end{itemize}
+\end{itemize}
+%
+%
+\subsection*{Trace and differentiation}
+\begin{itemize}
+\item Let $\mb{F}$ be a matrix of functions of $\mb{x}$, $\mb{A}$ matrix of constants and $\mb{X}$ a matrix of variables $\mb{X}=\{x_{ij}\}$ 
+	\begin{itemize}
+	\item  $\frac{\partial \tr(\mb{F})}{\partial x_j} = \tr\left(\frac{\partial \mb{F}}{\partial x_j}\right)$ 
+	\item if $\mb{X}$ is matrix of `independent' variables: $\frac{\partial \mathbf{X}}{\partial x_{ij}} = 	\mathbf{u}_i\mb{u}_j'$
+	\item if $\mb{X}$ symmetric matrix: $\frac{\partial \mb{X}}{\partial x_{ij}} = \mb{u}_i\mb{u}_j'+\mb{u}_j	\mb{u}_i'$	
+	\end{itemize}
+\end{itemize}
+
+\subsection*{Derivatives of determinants}
+\begin{itemize}
+\item $\mb{X}, \mb F, \mb A$ defined just as above
+	\begin{itemize}
+	\item $\frac{\p\det(\mb{X})}{\p x_{ij}} = \xi_{ij}$ where $\xi_{ij}$ is the cofactor of $x_{ij}$
+	\item If $\mb X$ is matrix of `independent' variables
+		\begin{itemize}	
+		\item $\frac{\p\det(\mb{X})}{\p \mb{X}} = [\adj(\mb{X})]'$
+		\item $\frac{\p \log\det \mb X}{\p \mb X} = (\mb{X}^{-1})'$
+		\end{itemize}
+	\item If $\mb X$ is symmetric matrix
+		\begin{itemize}
+		\item $\frac{\p\det(\mb{X})}{\p \mb{X}} = 2 \adj(\mb{X}) - \diag(\xi_{11}, \hdots, {\xi_{mm}})$
+		\item $\frac{\p \log\det \mb X}{\p \mb X} = 2\mb{X}^{-1} - \diag(y_{11}, \hdots, y_{mm}) $		
+		\end{itemize}
+
+	\item $\frac{\p\det(\mb{F})}{\p x_j} = \tr\left[\adj(\mb{F})\frac{\p\mb F}{\p x_j}\right]' = $ (if $\mb F$ nonsingular) $ = |\mb F| \tr\left( \mb{F}^{-1} \frac{p \mb F}{\mb x_j} \right) $
+	\item $\frac{\p \log\det \mb F}{\p x_j} = \tr\left(\mb F^{-1}\frac{\p \mb F}{\p x_j}\right)$
+	\end{itemize}
+\end{itemize}
+
+\subsection*{Derivatives of inverses and generalized inverses}
+\begin{itemize}
+\item $\mb F $ defined as above
+	\begin{itemize}
+	\item If $\mb F$ nonsingular: $\frac{\p \mb{F}^{-1}}{\p x_j} = \mb F^{-1} \frac{\p \mb F}{\p x_j} \mb F^{-1} $
+	\item For any $\mb F$, $\exists$ a generalized inverse $\mb {G}$ such that $\frac{\p \mb{G}}{\p x_j} = \mb G \frac{\p \mb F}{\p x_j} \mb G $ (T15.10.1)
+	\item For any $\mb F$ and any of its GIs $\mb G$, $\mb F \frac{\p \mb{G}}{\p x_j} \mb F  = \mb F \mb G \frac{\p \mb F}{\p x_j} \mb G \mb F $ (L15.10.5)
+	\end{itemize}
+
+\end{itemize}
+
+
+%Basic rules/results on matrix/vector differentiation.
+
+
+
+
+
+\section{Notes}
+ \begin{itemize}
+	\item \textbf{T15.7.1} (The Chain Rule). Let $\mb{h} = \{h_i\}$ be an $n\times 1$ vector of functions of variables $\mb{x}=(x_1,\hdots,x_m)$. Let $g$ be a scalar-valued function of a vector of $\mb{y}=(y_1,\hdots,y_n)$. Define $f(\mb{x}) = g[\mb{h(x)}]$. Then, the $j$th partial derivative of $f$: $$D_j f(\mb{c}) = \sum_{i=1}^n D_i g[\mb{h}(c)]D_j h_i(\mb{c}) = \mb{D}g[\mb{h(c)}]D_j\mb{h(c)}$$\\
+	%
+	%
+	Alternative notation: $$\frac{\partial f}{\partial x_j} = \sum_{i=1}^n \frac{\partial g}{\partial y_i }\frac{\partial h_i}{\partial  x_j} = \frac{\partial g}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial x_j}.$$\\
+	%
+	%
+	Differentiation wrt. vector: $$\frac{\partial f}{\partial \mb{x}'} = \sum_{i=i}^n \frac{\partial g}{\partial y_i }\frac{\partial h_i}{\partial  \mb{x}'} = \frac{\partial g}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial \mb{x}'}.$$\\
+	%
+	%
+	Differentiation of vector of functions $\mb f(\mb{x}) = \mb g[\mb{h(x)}]$ wrt. single variable: 
+	$$\frac{\partial \mb{f}}{\partial x_j} = \sum_{i=1}^n \frac{\partial \mb g}{\partial y_i }\frac{\partial h_i}{\partial  x_j} = \frac{\partial \mb g}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial x_j}.$$\\
+	%
+	%
+	Differentiation of vector of functions wrt. vector: 
+	$$\frac{\partial \mb{f}}{\partial \mb{x}'} = \sum_{i=1}^n \frac{\partial \mb g}{\partial y_i }\frac{\partial h_i}{\partial  \mb{x}'} = \frac{\partial \mb g}{\partial \mb{y}'}\frac{\partial \mb{h}}{\partial \mb{x}'}.$$\\
+	%
+	%
+	Differentiation of an $n\times r$ matrix $\mb H = \{h_{ij}\}$ of functions $f(\mb x) = g[\mb H(\mb x)]$ wrt. single variable: 
+	$$\frac{\partial \mb{f}}{\partial x_j} = \sum_{i=1}^n \sum_{s=1}^r \frac{\partial \mb g}{\partial y_i }\frac{\partial h_{is}}{\partial  x_j} = \tr\left[ \left( \frac{\partial g}{\partial \mb Y} \right)' \frac{\partial \mb{H}}{\p x_j} \right]$$
+\end{itemize}
+
+
+\section{Some multiple integrals}
+Let $\mb W$ be $n\times n$ symmetric positive definite matrix, $\mb A$ an $n\times n$ matrix and $\mb{k,c}$ be $n\times 1$ vectors. From C14.3.13 (see above), we know that $\exists$ nonsingular $\mb P$ s.t. $\mb{W=P'P}$. Using the variable transformation $\mb{z=P(x-c)}$, the following integrals are evaluated as:
+%
+$$\int_{\mathcal{R}^n}\exp[-(1/2)\mb{(x-c)'W(x-c)}]d\mb{x} = (2\pi)^{n/2} |\mb{W}|^{-1/2}$$
+%
+$$\int_{\mathcal{R}^n}(\mb{k'x})\exp [-(1/2)\mb{(x-c)'W(x-c)}] d\mb{x} = (\mb{k'c})(2\pi)^{n/2} |\mb{W}|^{-1/2}$$
+$$\int_{\mathcal{R}^n}\mb{(x-c)'W(x-c)} \exp [-(1/2)\mb{(x-c)'W(x-c)}]  d\mb{x}  = (2\pi)^{n/2} |\mb{W}|^{-1/2}\tr(\mb{AW^{-1}}) $$
+
+
+
+
+
+
+
 
 
 

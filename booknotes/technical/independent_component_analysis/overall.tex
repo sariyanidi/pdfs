@@ -1,0 +1,284 @@
+\documentclass[a4paper]{book}
+
+\input{../preliminaries}
+\usepackage{pstricks, pst-node, pst-tree}
+\begin{document}
+
+\chapter*{Introduction}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Estimation Theory}
+
+This chapter deals with how to estimate model parameters. 
+
+\section{Desirable properties of estimators}
+\begin{itemize}
+\item Unbiasedness 
+\item Consistency
+\item Efficiency
+\item Robustness
+\end{itemize}
+
+\section{Methods}
+\begin{itemize}
+\item \textbf{Method of moments}. This is an old method that is justified theoretically only partly. The basic idea is to use sample estimates of the (higher-order) moments; \eg, to estimate the $j$th order moment $\alpha_j:=E\{x^j|\bs{\theta}\}$ with the corresponding sample moment:%
+$$ d_j=\frac{1}{T}\sum\limits_{i=1}^T (x_i)^j  .$$
+\item \textbf{Least squares.}  The most standard approach to deterministic parameter estimator. Let $\mb{x}_T=(x_1,\hdots,x_T)$ be the target values to estimate and $\mb{H}$ the matrix of ``features'' such that $\mb{x}_T = \mb{H}\bs{\theta} + \mb{v}_T $, where $\mb{v}_T$ represents measurement errors. Least-squares aims to find the optimal model parameters $\bs \theta$ for reducing the squared error $\mathcal{E}_{LS}=\frac{1}{2}(\mb{x}_T-\mb H \bs \theta)^T(\mb{x}_T-\mb H \bs \theta)$, which turn out to be:%
+ $$\bs{\hat{\theta}}_{LS}=\left(\mb{H}^T\mb H\right)^{-1}\mb{H}^T\mb{x}_T$$ 
+\item \textbf{Generalized least squares}. Very similar to least squares, but allows a weighting matrix $\mb{W}$ such that $\mathcal{E}_{WLS} = (\mb{x}_T-\mb H \bs \theta)^T\mb W (\mb{x}_T-\mb H \bs \theta)$. The resulting estimator is $$\hat{\bs \theta}_{WLS}=(\mb H^T\mb{C}_v^{-1}\mb H)^{-1} \mb{H}^T \mb{C}_v^{-1} \mb{x}_T.$$
+
+The estimator above is often referred to as \textit{best linear unbiased estimator (BLUE)} or \textit{Gauss-Markov estimator}.
+\item \textbf{Maximum Likelihood method}. This method is applied by treating the data as if it comes from probability distributions. The ML method has many plausible properties (see my notes from Papoulis). The ML estimate is obtained by setting the derivatives of the log-likelihood equation to zero: %
+$$\left.\frac{\p}{\p \theta_i}\ln p(\mb{x}_T | \bs{\theta})\right|_{\bs{\theta}=\hat{\bs{\theta}}_{ML}}=0$$
+\end{itemize}
+
+\section{Bayesian methods}
+\begin{itemize}
+\item \textbf{Minimum mean-square error estimator.} Since it is Bayesian, this method assumes a prior distribution over the model parameters and therefore a joint distribution $p_{\bs{\theta},\mb{x}}(\bs{\theta},\mb{x}_T)$. The goal is to find estimation of parameters $\bs{\theta}$.%
+$$ \hat{\bs{\theta}}_{MSE} = E\{\bs{\theta}|\mb{x}_T\} .$$
+%
+This estimator is theoretically very significant due to its conceptual simplicity and generality; the result above holds for all distributions for which $p_{\bs{\theta},\mb{x}}(\bs{\theta},\mb{x}_T)$ exists. However, computing it is difficult due to the integrals inside the expectation operator.
+%
+The computations are simplified tremendously when the estimator is constrained to be linear. If the densities are gaussian, linear is optimal anyway. (see p.96)
+%
+\item \textbf{Maximum a posteriori estimator}. Similar to ML estimator but the prior distro about the parameters to estimate acts like a regularizer. \textit{The MAP estimator is a compromise between the general minimum mean-square error estimator and the ML estimator (p98).} The MAP has the advantage over ML that it takes into account (possibly available) information about the parameters $\bs{\theta}$, but it is computationally somewhat more difficult. Both ML and MAP estimators have the advantage over the minimum mean-square estimator that they avoid some difficult integration operations. 
+\end{itemize}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Information Theory}
+
+\section{Entropy}
+\begin{itemize}
+\item \textbf{Standard entropy} (\ie on discrete-valued RV, $X$ taking values $\{a_i\}_i$): $H(X)=-\sum_i P(X=a_i)\log P(X=a_i)$.
+
+This entropy is never negative.
+\item \textbf{Differential entropy} (for continuous RVs, $x$): $H(x) = -\int p(\xi) \log p(\xi) d\xi$. This can be negative.
+
+\item \textbf{Entropy of a transformation}. The entropy of a transformed RV, \eg $\mb{y}=\mb{f(x)}$, is larger than that of the original RV, $\mb{x}$. \textit{Entropy is not scale-invariant}; the entropy of a linearly scaled RV, $\mb{y}=\mb{Mx}$, is $H(\mb y) = H(\mb x) + \log |\det \mb M|$.
+
+\item \textbf{Gaussian has maximal entropy} (within a subset of distros). Among the RVs that can take all real values and have zero mean and fixed variance, \textit{gaussian is the one that has the maximal entropy}. This is very significant as leads to using entropy as a measure of non-gaussianity. 
+
+\item \textbf{Negentropy}. The property above leads to the definition of \textit{negentropy}: $J(\mb{x})=H(\mb x_{\text{gauss}})-H(\mb x)$. This type of entropy is useful for measuring non-gaussianity, and it has additional properties not shared by the differential (\ie continuous) entropy:  It is (i) always non-negative (ii) zero iff $\mb x$ is gaussian (iii) \textit{invariant to linear transformations}.
+
+\item \textbf{Approximating entropy}. Negentropy is nice but difficult to compute as we don't have access to the pdf of $\mb x$ and simple estimations of it would lead to undesirable results (\eg sensitivity to outliers). Instead, we approximate negentropy. 
+	\begin{itemize}
+	\item \textit{Polynomial density expansions.} A Taylor-like expansion of the pdf via the Chebyshev-Hermite polynomials $H_i$: $$p_x(\xi)\approx \hat{p}_x(\xi)=\phi(\xi)\left(1+\kappa_3(\xi) \frac{H_3(\xi)}{3!} + \kappa_4(x)\frac{H_4(\xi)}{4!}\right)$$
+	leads to the following approximation of the negentropy of a standardized RV: $$J(x) \approx \frac{1}{12}E\{x^3\}^2 + \frac{1}{48}\text{kurt}(x)^2$$ 
+	\item \textit{Approximating the \underline{maximum} entropy}. This approach has the theoretical appeal of approximating the maximum (\ie upper bound) of entropy. The idea is that the finite observations we have may stem from infinite distributions; we transform this ill-posed problem to a well-defined one by constraining the distro to be the one that has maximal entropy. We compute the approximate the maximum entropy density $\hat{p}(\xi)$ as: $$ \hat{p}(\xi) = \phi(\xi)\left( 1+ \sum\limits_{i=1}^n  c_i F^i (\xi) \right)$$
+	
+	where $F^i$ are some (non-polynomial) functions.
+	\end{itemize}
+
+\end{itemize}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Principal Component Analysis and Whitening}
+
+\section{PCA and some variants}
+
+\begin{itemize}
+\item \textbf{PCA}. The standard PCA is a distribution free technique. It was originally formulated as the problem of minimizing the squared reconstruction error by Pearson, although later it was also formulated as the problem of  variance maximization. 
+\item \textbf{Online PCA}. It is possible to compute PCA in an online fashion too. It was shown that the online solution converges to the true eigenvectors (\ie the batch solution). An advantage of online PCA is that it can be used in the presence of incoming data stream and is particularly useful if the data is nonstationary. In the latter case, a constant learning would be preferred over an adaptive one (p133).
+\item \textbf{Factor Analysis.} PCA can be derived from a generative model too. Assume $$\mb{x = Ay + n}$$ 
+where $\mb y$ is standardized gaussian RV. The maximum likelihood solution to the rows of $\mb A$ is scaled eigenvectors of $\mb{C_x}$ in the limiting case when noise $\mb n$ tends to zero.
+
+The formulation above can be used to derive an FA model too. Unlike PCA, FA was developed mainly for explaining observed results. The major difference is that $\mb n$ is not assumed white or infinitely small, leading to the major differences between PCA and FA (see below). Let the noise covariance be $\mb{Q}=E\mb\{\mb{nn}^T\}$. Assuming $\mb{Q}$ is known or can be estimated, one can solve $\mb A$ from $\mb{AA}^T=\mb{C_x-Q}$. However, there is no unique solution in this case. Various solution techniques that impose various criterion exist, such as varimax, quartimax and oblimin (see p139).
+\item \textbf{PCA vs. Factor Analysis}. In PCA observations can be recovered simply with a linear transformation; this is not the case with FA as the term $\mb n$ (called noise in PCA but specific factor in FA) can have a significant contribution in FA. Solutions in FA do not in general correspond to (scaled) eigenvectors of $\mb{C_x}$. 
+
+\item \textbf{Whitening.} PCA  can be used for whitening. Essentially, whitening aims to find a linar transformation $\mb{z=Vx}$ such that $\mb z$ is white (or, equivalently, sphered). The diagonal matrix of eigenvalues $\mb{D}=\diag(d_1,\hdots,d_n)$ and the matrix of eigenvectors $\mb{E}=(\mb{e}_1,\hdots,\mb{e}_n)$ can be used to obtain $\mb V$ as (p140): $$\mb{V=D}^{-1/2}\mb{E}^T.$$
+
+\item \textbf{Orthogonalization}. While in practice PCA and ICA yields orthogonal/orthonormal bassi vectors, in practice the iterative algorithms may be unable to produce orthogonality. In this case, we may need to manually orthogonalize after each iteration or at specific intervals (p141). Orthogonalization can be performed via the Gram-Schmidt or symmetric orthonormalization methods (Householder transformation?); see p142.
+\end{itemize}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\chapter{What is Independent Component Analysis?}
+
+\begin{itemize}
+\item \textbf{Restrictions in ICA}.
+	\begin{itemize}
+	\item Independent components are assumed to be statistically \textit{independent}.
+	\item Independent components must have \textit{nongaussian} distributions.
+	\item For simplicity, we assume that the unknown mixing matrix is square (although this assumption can be relaxed).
+	\end{itemize}
+	\item \textbf{We always center the variables}. Without loss of generality, we always assume that both the mixture variables and the independent components have zero mean.
+\item \textbf{Ambiguities in ICA}
+	\begin{itemize}
+	\item We cannot determine the variances (energies) of the independent components; the mixing can be shown as $$\mb{x} = \sum\limits_i \left( \frac{1}{\alpha_1}\mb{a}_i \right)(s_i\alpha_i)$$
+	and we clearly cannot distinguish if the variance would be $E\{s_i^2\}$ or $E\{(s_i\alpha_i)^2\}$. (Variables are zero-mean \---- see above.) It is typical to fix the variances to be $E\{s_i^2\}=1$. But the \textit{ambiguity of sign} of the component remains \---- we don't know if it's -1 or 1.
+	\item We cannot determine the order of independent components (differently from, say, PCA).
+	\end{itemize}
+\item \textbf{Whitening for pre-processing}. Whitening simplifies the problem of ICA considerably. Part of the reason is that, after whitening, the new mixing matrix is \textit{orthogonal}. Knowing this, we can restrict the search of the mixing matrix to orthogonal matrices. Whitening involves a linear transformation of the RV:%
+$$\mb{z=VAs=\tilde{A}s}.$$
+The whitening matrix, $\mb V$, can be obtained via PCA or via \textit{eigenvalue decomposition} (p159. The latter is: $$\mb{V=ED}^{-1/2}\mb{E}^T,$$ 
+where $\mb D^{-1/2} = \diag\left(d_1^{-1/2},\hdots,d_n^{-1/2}\right)$
+
+Whitening has other advantages too; see, \eg
+	\begin{itemize}
+	\item The notes under \textit{Method 1: Maximizing nongaussianity via kurtosis} below.
+	\item Estimating multiple components becomes easy through the orthogonality constraint (see Notes on \textit{Estimating multiple components} below).
+	\end{itemize}
+\end{itemize}
+
+
+\chapter{ICA by Maximization of Nongaussianity}
+
+
+\begin{quotation}
+\em It is usually argued that the gaussian distribution is the least interesting one, and that the most interesting directions are those that show the least gaussian distribution. [p197]
+\end{quotation}
+
+\begin{itemize}
+\item \textbf{How does nongaussianity lead to independence?} The elegant conclusion is reached via the \textit{Central limit theorem} (CLM). According to CLM, the sum of two \iid RVs is more gaussian than the RVs themselves. In other words, the original RVs are less gaussian. Therefore, by finding the least gaussian linear combination we can recover the independent components. Below the idea is elaborated a bit further.
+
+Let us assume that we try to recover one component. Assume that $$\mb{x=As},$$ where $\mb{s}=(s_1,\hdots,s_n)$ are the sources. If we find the mixing matrix $\mb A$, then we can invert it to get the ICs: $$\mb{s=A}^{-1/2}\mb{x}.$$
+Put differently, each IC is a linear combination of $\mb{x}$. Let us denote this with $y=\mb b^T \mb x$, where $\mb b$ is one row of $\mb A^{-1}$. The question is, how can we use the CLM to find $\mb b$? Note that, $y$ is an IC, so that it can be denoted as $y =\mb{q}^T \mb s$ where $\mb q$ is a vector with only one nonzero element. The latter condition is satisfied with the maximization of nongaussianity, as described above. Therefore, our problem of finding the ICs becomes equivalent to maximizing the nongaussianity in $\mb{q}^T \mb s$ or, equivalently, in $\mb b ^T \mb x$. (We have to operate over $\mb b^T \mb x$ since we don't have access to $\mb s$.)
+
+The rest of the chapter shows two ways to maximize nongaussianity.
+
+\begin{itemize}
+
+\item \textbf{Method 1: Maximizing nongaussianity via kurtosis.} One idea is to maximize $\text{kurt}(y).$ Assume that there are 2 ICs, then $$\text{kurt}(y)=\text{kurt}(q_1 s_1)+\text{kurt}(q_2 s_2) = q_1^4\text{kurt}( s_1)+q_2 ^4\text{kurt}(s_2). $$ 
+(the latter follows from property of kurtosis). Since we assume that the ICs are of unit variance (see notes on Chapter 7), we are effectively constraining $\mb q$ to lie on the 2D unit circle: $E\{y^2\}=q_1^2+q_2^2=||\mb q||^2=1$.
+
+The equality above can also be expressed in terms of the RV $\mb x$:%
+$$\text{kurt}(y)=\text{kurt}(b_1 x_1)+\text{kurt}(b_2 x_2) = b_1^4\text{kurt}(x_1)+b_2 ^4\text{kurt}(x_2).$$
+
+Note that, we can operate the optimization only on this latter equality as we have no access to $s_i$, whereas our constraint is defined in terms of the $q_i$'s. Here whitening provides an elegant bridge between the two. For the whitened data, $\mb{z=VAs}$, we seek a linear combination $\mb w^T \mb z$ that maximizes nongaussianity. Since we have $\mb{q=(VA)}^T \mb{w}$, $||q||^2$ can be expressed as 
+$$||\mb q||^2 = (\mb w^T \mb{VA})(\mb A^T \mb V^T \mb w)=||\mb w||^2.$$ Thus, the constraint $||\mb q||^2=1$ becomes equivalent to constraint $||\mb w||^2=1$.
+
+The method above can be implemented via the gradient algorithm (p175) or a fixed-point algorithm (p178).
+
+\item \textbf{Method 2: Maximizing nongaussianity via negentropy}. Kurtosis has the drawback of outlier sensitivity.
+
+In Chapter 5 negentropy, $J(y)$,  was presented as another measure of nongaussianity. $J(y)$ needs to be approximated. But if the simple, polynomial based approximation 
+$$J(y)\approx \frac{1}{12}E\{y^3\}^2+\frac{1}{48}\text{kurt}(y)^2$$
+is adopted, we can't gain much more than kurtosis as the first term above is zero in (approx.) symmetric distributions and the second term is ... kurtosis. 
+
+Another and more robust approximation was presented in Section 5.6. This approximation is like a generalization of one above:
+$$J(y)\approx k_1(E\{G^1(y)\})^2 + k_2(E\{G^2(y)\}-E\{G^2(v)\})^2$$
+where $v$ is a standard gaussian RV.
+The main difference is that the functions $G^i$ are not polynomials. If $y$ has symmetric distribution, this approximation is simplified as 
+$$J(y) \propto (E\{G(y)\}-E\{G(v)\})^2.$$
+Wise choices of $G$ make this expression robust to outliers. Two such choices are:
+
+$$G_1(y) = \frac{1}{a_1}\log\cosh a_1 y$$
+$$G_2(y) = -\exp (-y^2/2)$$
+
+where $1\le a_1 \le 2$ is some suitable constant, often taken as 1.
+The method above can be implemented via the gradient algorithm (p185) or a fixed-point algorithm (p188).
+\end{itemize}
+
+\item \textbf{Estimating multiple components}. The summary above deals with a single component. The algorithms (gradient or fixed-point) described for the material above are called ``one-unit''*** algorithms as they consider a single component. Thanks to whitening, estimating multiple components becomes quite easy. There are two ways to do it:
+	\begin{itemize}
+	\item \textbf{Deflationary orthogonalization}. We first estimate the first IC, $\mb w_1$, and then one by one determine $p-1$ more components with the criterion of being orthogonal to the existing components. The drawback is that errors in the first IC can be accumulated.
+	\item \textbf{Symmetric orthogonalization}. Contrary to the one above, this approach is parallel estimation of all $p$ components. We initialize all components $\mb{w}_1,\hdots, \mb{w}_p$ randomly and then iteratively converge to the solution. At each iteration, we (i) do \textit{one} iteration of the one-unit algorithms, (ii) form the matrix $\mb W$ by concatenating horizontally the vectors $\mb w_i$ and (iii) do a symmetric orthogonalization of $\mb W$ (see p195). Symmetric orthogonalization discussed in Chapter 6 (Section 6.5). 
+	\end{itemize}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\end{itemize}
+
+
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{../bibliography}
+
+\printindex
+
+\end{document}

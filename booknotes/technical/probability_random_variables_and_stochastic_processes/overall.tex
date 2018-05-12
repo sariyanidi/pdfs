@@ -1,4 +1,4 @@
-\documentclass[a4paper]{book}
+\documentclass[a4paper, oneside]{book}
 
 \input{../preliminaries}
 \usepackage{pstricks, pst-node, pst-tree}
@@ -9,6 +9,355 @@
 My notes from the legendary book of Papoulis and Pillai \cite{papoulis02}. The book assumes that the reader does already have fairly strong background in calculus and linear algebra. I used two books \cite{Gradshteyn80, Abramowitz70} as assistant for evaluating some of the mathematical identities or integrals. 
 
 This book made me realize that a good technical book is not necessarily one that's easy to follow -- one that shows you very easily how each identity or result is arrived at. Some of the results in the book are presented without much explanation, and this required me to show a lot of effort to understand them; this effort seems to lead to a staying power. 
+
+
+\chapter{The meaning of probability}
+\begin{center}
+\textit{Probabilistic interpretations are [...] necessary because of our ignorance.}
+\end{center}
+
+\section{Notations and basic definitions}
+\begin{itemize}
+\item The \textit{certain event} $S$ is the event that occurs in every trial.
+\item The union of two events $A,B$ is denoted with $A\cup B $ or $A+B$.
+\item The intersection of two events $A,B$ is denoted with $A \cap B = AB$. 
+\item Two sets $A,B$ are \textit{mutually exclusive} if they have no common elements, \ie $AB = \emptyset$.
+\item \textit{Partition\index{Partition}} is a collection mutually exclusive subsets $A_1,\hdots,A_n$ whose union equals $S$, \ie $\bigcup\limits_{i=1}^n A_i = S$.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{The Axioms of Probability}
+\section{The Axioms}
+We assign to each event $A$ a number $P(A)$, which we call \textit{the probability of the event $A$}. This number is so chosen to satisfy three conditions:
+\begin{enumerate}[I.]
+\item $P(A)\ge 0$
+\item $P(S) = 1$
+\item if $AB = \emptyset $, then $P(A\cup B)=P(A)+P(B)$.
+\end{enumerate}
+
+\section{Definitions and some basic laws}
+\begin{itemize}
+\item De Morgan's Law: For two sets $A$ and $B$, $$\overline{A\cup B}=\overline{A}\,\,\overline{B}$$
+$$\overline{AB}=\overline{A}\cup\overline{B}$$
+\item Two events $A,B$ are \textit{equal with probability 1} (\ie both contain the same elements) iff $P(A)=P(B)=P(AB)$
+\item \textit{Events} are subsets of $S$ to which we have assigned probabilities.
+\item The class $\mb{F}$ of events is a nonempty class of sets such that if $A,B$ are events, then $A+B$ and $AB$ are also events:
+\begin{center}If $A\in \mb{F}$ then $\overline{A}\in\mb{F}$\end{center}
+\begin{center}If $A\in \mb{F}$ and $B\in \mb{F}$ then $A+B\in\mb{F}$ \end{center}
+\item \textit{Field}. The two properties above give a minimum set of conditions for $\mb{F}$ to be a field. 
+\item \textit{\index{Borel fields}Borel fields}. Suppose $A_1, \hdots, A_n, \hdots$ is an infinite sequence of sets in $\mb{F}$. If the union and intersection of these sets also belongs to $\mb{F}$ then $\mb{F}$ is called a Borel field.  
+\item \textit{Axiomatic definition of an experiment.} In theory of probability, an experiment is specified in terms of the following concepts:
+\begin{enumerate}[1.]
+\item The set $S$ of all experimental outcomes
+\item The Borel field of all events of $S$.
+\item The probabilities of these events.
+\end{enumerate}
+%
+\textbf{Example.} The (fair) die experiment has 6 experimental outcomes. Two of the events are \textit{even, odd}; each of those events is a subset of three experimental outcomes with probability $0.5$.
+\item \textit{Conditional probability} of an event $A$ conditioned on another event $M$ is $$P(A|M)=\frac{P(AM)}{P(M)}$$
+\item \textbf{Fundamental remark.} Conditional probabilities satisfy the three probability axioms: 
+	\begin{enumerate}[I.]
+	\item $P(A|M) = \frac{P(AM)}{P(M)}$
+	\item $P(S|M)=1$
+	\item If $A,B$ are mutually exclusive, then $P(A\cup B | M) = P(A|M)+P(B|M)$
+	\end{enumerate}
+\item \textit{Total probability theorem}. If $\mb U = [ A_1, \hdots, A_n]$ is a partition of $S$ and $B$ is an arbitrary event, then $$P(B)=P(B|A_1)P(A_1)+\hdots+P(B|A_n)P(A_n)$$.
+\item \textit{Bayes' theorem} follows from the theorem above and the fact that $P(BA_i)=P(B|A_i)P(A_i)=P(A_i|B)P(B)$: $$P(A_i|B) = \frac{P(B|A_i)P(A_i)}{P(B|A_1)P(A_1) + \hdots P(B|A_n)P(A_n)}$$
+\item \textit{\index{Independence}Independence}. The events $A,B$ are independent if $P(AB) = P(A)P(B)$
+\item \textit{\index{Mutual independence}Mutual independence}. The events $A_k$ for $k\in K$ are independent iff $P(\bigcap_{m\in M})=\bigcap_{m\in M}P(A_m)$ for any $M\subset K$.
+
+\textbf{Example}. For the four events $A,B,C,D$ to be independent, we must have:\\%
+$P(ABCD)=P(A)P(B)P(C)P(D)$,  \\
+$P(ABC)=P(A)P(B)P(C)$,  $P(ABD)=P(A)P(B)P(D)$, \\
+$P(ACD)=P(A)P(C)P(D)$,  $P(BCD)=P(B)P(C)P(D)$, \\
+$P(AB)=P(A)P(B)$, $P(AC)=P(A)P(C)$, $P(AD)=P(A)P(D)$, \\
+$P(BC)=P(B)P(C)$, $P(BD)=P(B)P(D)$, $P(CD)=P(C)P(D)$.
+
+\textbf{Example}. It is possible for events to be pairwise independent but not mutually independent.
+
+\end{itemize}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{Repeated Trials}
+Combining two experiments, such as tossing a coin and rolling a die, requires the definition of a new set $S$ of all experimental outcomes. This set is constructed via Cartesian product:
+$$S=S_1\times S_,2$$
+where $S_1$ ($S_2$) is set of experimental outcomes the first (second) experiment.
+
+The same can be applied for repeated experiments. If we toss a coin $n$ times, the set of experimental outcomes becomes $$S = S_1\times \hdots \times S_n.$$
+
+\section{Bernoulli Trials}
+
+\begin{itemize}
+\item \textit{Permutation} is a distinct arrangement of $n$ objects; \eg \textit{bac} is a permutation of \textit{a,b,c}.
+
+Permutation applies also to $k<n$ objects. For example, \textit{ba} is a permutation of $k=2$ objects in \textit{a,b,c}.
+
+\item The total number of permutations of $n$ objects taken $k$ at a time is $\frac{n!}{(n-k)!}$; \eg, \textit{ab, ac, bc, ba, ca, cb} are the permutations of \textit{a,b,c} for $k=1$.
+
+\item The number above pays attention to distinct orderings; \ie two permutations that have the same objects in different orders count as two.
+
+\item \textit{Combination} does not pay attention to the number of orderings. So the total combinations of $n$ objects taken $k$ at a time is $\binom nk:=\frac{n!}{(n-k)!k!}$. \textit{E.g.,} \textit{ab, ac, bc} are the combinations of \textit{a,b,c} for $k=2$.
+
+\item \textbf{Fundamental theorem. } Let us repeat a binary experiment $n$ times. Then, %
+$$p_n(k):=P\{\text{$A$ occurs $k$ times in any order}\}=\binom n k p^k q^{n-k}$$
+
+\item \textbf{Bernoulli's Theorem} is fundamental as it serves as a bridge between the axiomatic and frequency definitions of probability. In other words, it provides justification for the relative frequency interpretation.
+
+Let $A$ be an event whose probability of occurrence in a single trial is $p$. If $k$ denotes the number of occurrences of $A$ in $n$ independent trials, then% 
+$$P\left(\left| \frac{k}{n}-p\right|>\epsilon\right)<\frac{pq}{n\epsilon^2}.$$
+
+In other words, the probability that the frequency interpretation is \textit{not} justified can be made arbitrarily small [\ie $P(|k/n-p|>\epsilon)$ for any $\epsilon>0$] provided that the number of trial is above a certain limit. 
+  
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\chapter{The Concept of a Random Variable}
+
+
+\section{Definitions and some basic properties}
+
+\begin{itemize}
+\item \textbf{Definition of Random Variable.} An RV $\mb x$ is a process of assigning a \underline{number} $\mb x(\zeta)$ to every outcome $\zeta$. 
+
+\textit{Example 1.} In the coin tossing experiment,  if $\zeta_1 = head $ and $\zeta_2 = tails$, one may construct the RV $\mb x$ such that $\mb x(\zeta_1) = 0$ and $\mb x(\zeta_2) = 1$.
+
+\textit{Example 2.} Suppose that our RV $\mb x$ will measure temperature. Then, one can construct the RV $\mb x$ simply as  $\mb x(\zeta_i) = \zeta_i$ (\eg when $\zeta$ is a continuous quantity such as temperature). In this case, the variable $\zeta$ has a double meaning (see p77): It is the outcome of the experiment and the corresponding value $\mb x(t)$ of the RV $\mb x$.
+
+The construction of RV is important for accurately constructing the intended probability distribution. For example, in the experiment of tossing a coin twice, if we don't care about the order of the outcomes, one can construct the RV $\mb x$ as: $$\mb x(HH) = 0, \,\,\,\mb x(HT)=1, \,\,\,\mb x(TT)=2.$$
+But if we do care about the order, then we can construct $\mb x$ as:
+$$\mb x(HH) = 0, \,\,\,\mb x(HT)=1, \,\,\,\mb x(TH)=2, \,\,\,\mb x(TT)=3.$$
+
+\item \textbf{Probability distribution function.} The probability $P\{\mb x \le x \}$ of the event $\{\mb x\le x\}$ is function of $x$, called the \textit{(cumulative) distribution function} of the RV $\mb x$. Some properties of distribution functions are:
+	\begin{itemize}
+	\item $F(+\infty) =1$ and $F(-\infty) = 0$.
+	\item It is a nondecreasing function of $x$; \ie $x_1 < x_2 \implies F(x_1) \le F(x_2)$.
+	\item If $F(x_0)=0$, then $F(x)=0$ for every $x\le x_0$.
+	\item $P\{\mb x>x\} = 1-F(x)$.
+	\item The function $F(x)$ is \underline{continuous from the right} $F(x^+)=\lim_{\epsilon\to 0}F(x+\epsilon)=F(x)$
+	\item $P\{x_1 < \mb x \le x_2\} = F(x_2) - F(x_1)$.
+	\item $P\{\mb{x}=x\} = F(x)-F(x^-)$ where $F(x^-) = \lim_{\epsilon\to 0} F(x-\epsilon)$
+	
+	\item $P\{x_1 \le \mb x \le x_2\} = F(x_2) - F(x_1)$.
+	\end{itemize}
+\item \textbf{Probability density function.} The derivative of the probability distribution function $F_x(x)$ is called the probability density function of $\mb x$. Thus $$f_x(x) := \frac{dF_x (x)}{dx}=\lim_{\Delta x \to 0} \frac{F_x(x+\Delta x) - F_x(x)}{\Delta x} \ge 0 .$$
+
+\item \textbf{Conditional Distributions}. The conditional distribution $F(x|M)$ of an RV $\mb x$ assuming $M$ is: 
+$$F(x|M)=P\{\mb x \le x |M \} = \frac{P\{\mb x \le x, M\}}{P(M)},$$
+where $P\{\mb x \le x, M\}$ is the intersection of the events $\{\mb x \le x\}$ and $M$; that is, the event consisting of all outcomes $\zeta$ such that $\mb x(\zeta)\le x$ and $\zeta \in M$. 
+	\begin{itemize}
+	\item Suppose that $M = \{\mb x \le a\}$. Then, 
+	$$F (x | M) = \begin{cases}1& \text{if}\,\, x\ge a \\
+	 \frac{F(x)}{F(a)} & \text{if}\,\, x< a\end{cases}$$
+	 
+	 Moreover, $$f(x|M) = \begin{cases}\frac{f(x)}{F(a)} & \text{if}\,\, x<a \\ 0 & \text{otherwise}\end{cases}$$
+	\item Suppose that $M = \{b < \mb x \le a\}$. In this case,
+	$$
+	F(x|M) = \begin{cases}
+	1  & x>a  \\ 
+	\frac{F(x)-F(b)}{F(a)-F(b)} & b\le x < a \\
+	0 & x < b
+	\end{cases}
+	$$
+	
+	The corresponding Density is: $$f(x|M) = \begin{cases}\frac{f(x)}{F(a)-F(b)} & \text{if}\,\, x<a \\ 0 & \text{otherwise}\end{cases}$$
+	\end{itemize}
+
+\end{itemize}
+
+
+\section{Some Continuous Random Variables}
+\begin{itemize}
+\item \textbf{Normal (Gaussian) Distribution}. Its density function is$$f_x(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}e^{-(x-\mu)^2)/2\sigma^2}.$$
+Its distribution function is $F_x(x) = \int\limits_{-\infty}^x  f_x(x) := G(\frac{x-\mu}{\sigma})$ where the function $G(x)$%
+$$G(x) := \int\limits_{-\infty}^x e^{-y^2/2}dy$$  is often available in tabulated form and is directly related to the $\text{erf}$ function; $\int\limits_{0}^x e^{-y^2/2}dy  = G(x) - \frac{1}{2}.$
+
+\item \textbf{Exponential distribution.} $$f(x) = \begin{cases} \lambda e^{-\lambda x}  & x\ge 0 \\ 0 \text{otherwise} \end{cases}$$.
+The exponential distribution has the \textit{memoryless} propert; that is, for $s,t\ge 0$, $P\{\mb x> t+s | \mb x >s\} =P \{\mb x >t\} $. In other words, the time that passed, $s$, doesn't change anything for the exponential distro. 
+\end{itemize}
+
+\section{Some Discrete Random Variables}
+\begin{itemize}
+\item \textbf{Binomial distribution.} $\mb y$ is said to be a Binomial RV with parameters $n$ and $p$ if $\mb y$ takes values $0,1,\hdots, n$ with %
+$$ P\{\mb y = k\} = \binom nk p^k q^{n-k}\,\,\,\,\,\,\,\,\,\,\, p+q=1\,\,\,\,\,\,\,\,\,\,\,k=0,1,\hdots,n $$
+\item \textbf{Poisson distribution} is similar to Binomial; it represents the number of occurrences of a \textit{rare} events in a large number of trials.  $$P\{\mb x = k\} = \lambda^k \frac{e^{-\lambda}}{k!}\,\,\,\,\,\, k=0,1,2,\hdots,\infty$$
+\item \textbf{Geometric distribution} represents the probability of first success against the number of trials. $$P\{\mb x = k\} = P(\underbrace{\overline{A}\overline{A}\hdots\overline{A}}_{k-1}A) = P(\overline{A})P(\overline{A})\hdots P(\overline{A}) P(A) = (1-p)^{k-1}p =  pq^{k-1} $$
+\item \textbf{Negative binomial distribution} generalizes geometric distribution; it's used to answer the question ``how many trials are needed for $r$'' successes. $$P\{y=k\} = \binom{k-1}{r-1}p^r q^{k-r}.$$
+\end{itemize}
+
+\section{Approximations to Binomial Distribution}
+Despite its enormous importance, computing the binomial distribution can be involved particularly for large $n$. There are two widespread approximations of the binomial for two different situations.
+\begin{itemize}
+\item \textbf{The Normal Approximation (DeMoivre-Laplace Theorem)}. This is used when $k$ is in the $\sqrt{npq}$ neighbourhood of $np$; that is, when $k$ is near the peak of the distribution and $p$ is not too close to $0$ or $1$. In such cases; $$\binom nk p^k q^{n-k} \approx \frac{1}{\sqrt{2\pi npq}} e^{-(k-np)^2/2npq}\,\,\,\,\,\,\,\, p+q=1$$
+%
+and (with error correction \---- see p108) $$P\{k_1\le \mb x \le k_2\} \approx G\left(\frac{k_2+0.5-np}{\sqrt{npq}}\right)-G\left(\frac{k_1-0.5-np}{\sqrt{npq}}\right).$$ 
+
+\textit{Generalization to $m$ events.}
+$$\frac{n!}{k_1!\hdots k_{m}!}p_1^{k_1}\hdots p^{k_{m}}_{m} \approx \frac{\exp \{-\frac{1}{2}\left[ \frac{(k_1-np_1)^2}{np_1} +  \hdots \frac{(k_r-np_r)^2}{np_r} \right]\}}{\sqrt{(2\pi n)^{r-1}p_1\hdots p_r}} $$
+
+\item \textbf{The Poisson Approximation.} The Gaussian approximation deteriorates one of the two events happens very rarely; \ie as $p\to 0$ or $p\to 1$. However, there are many events that fall in this category (\eg number of calls on a telephone line, claims in an insurance company etc). In this case, $$\binom nk p^k q^{n-k} \approx e^{-\lambda} \frac{\lambda^k}{k!}$$ and $$P\{k_1\le \mb x \le k_2\} \approx  e^{-np} \sum\limits_{k=k_1}^{k_2} \frac{(np)^k}{k!}$$.
+
+\textit{Generalization to $m+1$ events.} Suppose that $A_1,\hdots,A_{m+1}$ are the $m+1$ events of a partition with $P{A_i}=p_i$. If $np_i\to a_i$ for $i\le m$ (note that the $(m+1)$th event is excluded), then 
+$$\frac{n!}{k_1!\hdots k_{m+1}!}p_1^{k_1}\hdots p^{k_{m+1}}_{m+1} \approx \frac{e^{-a_1}a_1^{k_1}}{k_1!} \hdots \frac{e^{-a_m}a_m^{k_m}}{k_m!}$$
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
 
 
 \chapter{Sequences of Random Variables}
@@ -424,8 +773,20 @@ m_3 = 3! \sigma^3 C_3.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 \bibliographystyle{IEEEtran}
 \bibliography{../bibliography}
 
+\printindex
 
 \end{document}
