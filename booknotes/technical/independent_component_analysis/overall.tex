@@ -180,8 +180,8 @@ The formulation above can be used to derive an FA model too. Unlike PCA, FA was 
 	\end{itemize}
 \item \textbf{Whitening for pre-processing}. Whitening simplifies the problem of ICA considerably. Part of the reason is that, after whitening, the new mixing matrix is \textit{orthogonal}. Knowing this, we can restrict the search of the mixing matrix to orthogonal matrices. Whitening involves a linear transformation of the RV:%
 $$\mb{z=VAs=\tilde{A}s}.$$
-The whitening matrix, $\mb V$, can be obtained via PCA or via \textit{eigenvalue decomposition} (p159. The latter is: $$\mb{V=ED}^{-1/2}\mb{E}^T,$$ 
-where $\mb D^{-1/2} = \diag\left(d_1^{-1/2},\hdots,d_n^{-1/2}\right)$
+The whitening matrix, $\mb V$, can be obtained via PCA or via \textit{eigenvalue decomposition} (p159). The latter is: $$\mb{V=ED}^{-1/2}\mb{E}^T,$$ 
+where $\mb E$ is the orthogonal matrix of eigenvectors of $E\{\mb{xx}^T\}$ and $\mb D^{-1/2} = \diag\left(d_1^{-1/2},\hdots,d_n^{-1/2}\right)$ where $d_i$ are the eigenvalues.
 
 Whitening has other advantages too; see, \eg
 	\begin{itemize}
