@@ -194,6 +194,13 @@ In other words, the probability that the frequency interpretation is \textit{not
 
 
 
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -271,7 +278,7 @@ where $P\{\mb x \le x, M\}$ is the intersection of the events $\{\mb x \le x\}$ 
 
 \section{Some Continuous Random Variables}
 \begin{itemize}
-\item \textbf{Normal (Gaussian) Distribution}. Its density function is$$f_x(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}e^{-(x-\mu)^2)/2\sigma^2}.$$
+\item \textbf{Normal (Gaussian) Distribution}, $N(\mu, \sigma^2)$. Its density function is$$f_x(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}e^{-(x-\mu)^2)/2\sigma^2}.$$
 Its distribution function is $F_x(x) = \int\limits_{-\infty}^x  f_x(x) := G(\frac{x-\mu}{\sigma})$ where the function $G(x)$%
 $$G(x) := \int\limits_{-\infty}^x e^{-y^2/2}dy$$  is often available in tabulated form and is directly related to the $\text{erf}$ function; $\int\limits_{0}^x e^{-y^2/2}dy  = G(x) - \frac{1}{2}.$
 
@@ -303,6 +310,127 @@ $$\frac{n!}{k_1!\hdots k_{m}!}p_1^{k_1}\hdots p^{k_{m}}_{m} \approx \frac{\exp \
 \textit{Generalization to $m+1$ events.} Suppose that $A_1,\hdots,A_{m+1}$ are the $m+1$ events of a partition with $P{A_i}=p_i$. If $np_i\to a_i$ for $i\le m$ (note that the $(m+1)$th event is excluded), then 
 $$\frac{n!}{k_1!\hdots k_{m+1}!}p_1^{k_1}\hdots p^{k_{m+1}}_{m+1} \approx \frac{e^{-a_1}a_1^{k_1}}{k_1!} \hdots \frac{e^{-a_m}a_m^{k_m}}{k_m!}$$
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\chapter{Functions of one Random Variable}
+
+This section is interested in computing the statistics of a transformed RV, namely $\mb y = g(\mb x)$ where $\mb x$ is the original RV and $g(\cdot)$ is the transformation function. The key idea is that $$F_y(y) = P\{\mb{y} \le y\} = P\{g(\mb{x}) \le y\} $$
+%
+\textbf{Fundamental Theorem.} To determine $f_y(y)$ for a \textit{specific} $y$, we solve the equation $y=g(x)$. Denoting its real roots by $x_n$, \ie $y=g(x_1) = g(x_2) = \hdots = g(x_n) = \hdots$, we can compute the pdf of the transformed variable as: %
+$$f_y(y) = \frac{f_x(x_1)}{|g'(x_1)|} + \hdots + \frac{f_x(x_n)}{|g'(x_n)|} + \hdots$$
+%
+The equation above is valid for conditional densities too; all we need to do is replace the densities $f_y(y), f_x(x)$ with the conditional densities $f_y(y|M), f_x(x|M)$.
+
+
+\section{Mean, variance and other moments}
+\begin{itemize}
+\item \textbf{Mean (or expected value):} $E\{x\} = \int\limits_{-\infty}^{\infty} x f(x) dx$
+	\begin{itemize}
+	\item The mean is linear, $E\{a g(x) + b h(x) \}$ = $a E\{g(x)\} + b E\{h(x)\}$.
+	\item \textbf{Important property}: $E\{g(\mb x)\} = \int\limits_{-\infty}^\infty g(x) f(x) dx $. In other words, to compute the mean of the transformed variable \textit{we don't need} to obtain the pdf of the transformed RV (p142).
+	\item \textbf{Approximating the mean.} If $\mb x$ is concentrated near its mean, then $E\{g(\mb x)\} \approx g(\mu) \int\limits_{\mu-\epsilon}^{\mu+\epsilon} f(x) d x \approx g(\mu)$. The estimate can be improved if $g(x)$ is approximated by a polynomial: $E\{g(\mb x)\} \approx g(\mu) + g''(\mu) \frac{\sigma^2}{2} + \hdots  + g^{(n)}(\mu) \frac{\mu_n}{n!}$
+
+	\end{itemize}
+\item \textbf{Variance:} $\sigma_x = E\{(x-\mu_x)^2\} = \int\limits_{-\infty}^{\infty} (x-\mu_x)^2 f(x) dx$
+\item \textbf{Moments}
+	\begin{itemize}
+	\item \textit{Moments}: $\mu_n = E\{\mu^n\}$
+	\item \textit{Central moments}: $\mu_n = E\{(x-\mu)^n\}$
+	\item \textit{Absolute moments}: $E\{|x-\mu|^n\} \hspace{1truecm} E\{|x|^n\}$
+	\item \textit{Generalized moments}: $E\{(x-a)^n\} \hspace{1truecm} E\{|x-a|^n\}$
+	\end{itemize}
+	
+Special case: Normal Random Variables. All the moments of the standard RV can be specified from the mean and the standard deviation. I.e. Normal RVs have no unique information beyond the second order moment!
+\end{itemize}
+
+
+\section{Important inequalities}
+\begin{itemize}
+\item \textbf{Chebyshev (Tchebycheff) inequality}: For any $\epsilon >0$, $P\{|x-\mu| \ge \epsilon\} = \frac{\sigma^2}{\epsilon^2}$.
+\item \textbf{Markov inequality} If $f(x)=0$ for $x<0$, then, for any $\alpha > 0$: $P\{ \mb x \ge \alpha \} \le \frac{\mu}{\alpha}$
+\item \textbf{Bienayme inequality}. $P\{ |\mb x - a| \ge \epsilon\} \le \frac{E\{ |\mb x - a|^n \}}{\epsilon^n}$
+\item \textbf{Lyapunov inequality}. Let $\beta_k = E\{|\mb x|^k\} < \infty$ represent the absolute moments of $\mb x$. Then, for any $k$, $\beta^{1/(k-1)}_{k-1} \le \beta_k^{1/k}$
+\end{itemize}
+
+
+\section{Characteristic Functions, moment generating functions and cumulants}
+\begin{itemize}
+\item For continuous RVs.
+	\begin{itemize}
+	\item \textbf{(First) characteristic function.} $\Phi_x(\omega) := E\{e^{j\omega x}\} = \int_{-\infty}^{\infty} f(x) e^{j \omega x}dx$
+	
+	The characteristic function sometimes simplifies greatly the computation of a transformed RV, mainly thanks to the important property of the mean mentioned also above: %
+	 $$\Phi_y(\omega) = E\{e^{j\omega \mb y}\} = E\{e^{j\omega g(\mb x)}\} = \int\limits_{-\infty}^{\infty} e^{j\omega g(x)} f(x) dx.$$
+	Computation can be simplified because sometimes we compute $\Phi_y(\omega)$ for the transformed RV above and then try to match it with existing characteristing functions (\eg those in Table 5-2, p162).
+	\item \textbf{Inversion} through characteristic function. $f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{-j\omega x} \Phi_x(\omega) d\omega$.
+	\item \textbf{Moment generating function.} $\bs \Phi_x(s) = E\{e^{sx}\} = \int_{-\infty}^{\infty} e^{s x} f(x)dx$.
+	
+	As the name suggests, this function can simplify greatly the computation of the moments, as in the theorem below.
+	\item \textbf{Moment theorem.} $\bs \Phi^{(n)}(s) = E\{\mb x^n e^{s \mb x}\}$; hence, $\bs \Phi^{(n)}(s)=E\{\mb x^n\} = m_n$
+	\item \textbf{(Second) characteristic function.} $\Psi_x(\omega) = \ln \Phi_x{\omega} = \bs \Psi (j\omega)$
+	\item \textbf{Cumulants.} The cumulants $\lambda_n$ of an RV $\mb x$ are by definition $\left.\frac{d^n\Psi(s)}{d s^n}\right|_{s=0}=\lambda_n$
+	
+	Cumulants are moments contain the same statistical information~\cite{hyvarinen04}, but sometimes it's preferable to work with cumulants as they have two properties not shared by moments \cite{hyvarinen04}: (i) If $\mb {x}$ and $\mb y$ are two independent RVs, then the cumulant of their sum $\mb z = \mb{x+y}$ is equal to the sum of the cumulants of $\mb x$ and $\mb y$. This property generalizes to more than two RVs. (ii) If the distribution of the RV $\mb x$ is multivariate gaussian, ten all its cumulants of order three and higher are identically zero. 
+ 	
+	
+	\end{itemize}
+	
+\item For discrete RVs.
+\end{itemize}
+
+
+
+
+
 
 
 
@@ -700,9 +828,16 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 \chapter*{Towards a cheatsheet}
 \section{Interesting RV Transformations}
 \begin{itemize}
-\item If $\mb{x}_1, \hdots, \mb{x}_n$ are jointly normal, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is also normal (\#257)
-\item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is $\chi^2(n)$ (\#259)
-\item If $\mb{x}$ is $\chi^2(n)$ and $\mb{y}$ is $\chi^2(m)$ and $\mb{x,y}$ independent, then $\mb{z} = \mb{x+y}$ is $\chi^2(n+m)$ (\#260)
+\item If $\mb x$ is Cauchy (with parameter $\alpha$), $\mb y = \frac{1}{\mb x}$ is also Cauchy (with parameter $1/\alpha$ \---- p131).
+\item If $\mb{x}_1, \hdots, \mb{x}_n$ are jointly normal, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is also normal (p257)
+\item If $\mb x$ is normal, then $\mb y = e^{\mb x}$ is lognormal.
+\item If $\mb x$ is uniform in $(-\frac{\pi}{2}, \frac{\pi}{2})$, then $\mb y = \tan \mb x$ is Cauchy with param. 1 (p136).
+\item Whatever $\mb x$ is, $\mb u = F_x(\mb x)$ is uniform in (0,1) (p139).
+\item Assume $F_y(y)$ is any invertible distro function and $\mb u \sim U(0,1)$. Then, $\mb y = F_y^{-1} (\mb u)$ has distribution $F_y(y)$.
+\item If $\mb x$ has chi-square density with $n$ DoF, then $\mb y = \sqrt{\mb x}$ has chi-density with $n$ DoF
+\item If $\mb x$ is standardized normal $N(0,1)$, then $\mb y= \mb x^2$ is chi-square with 1 degree of freedom.
+\item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is $\chi^2(n)$ (p259)
+\item If $\mb{x}$ is $\chi^2(n)$ and $\mb{y}$ is $\chi^2(m)$ and $\mb{x,y}$ independent, then $\mb{z} = \mb{x+y}$ is $\chi^2(n+m)$ (p260)
 \end{itemize}
 
 \section{Useful Identities}
@@ -712,11 +847,33 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter*{Sketches to solutions}
 \section{Solutions to equations in the book}
 
 \subsection{Error correction for CLT}
 \label{sec:error_correction}
+
 It is really not obvious how the error correction for CLT is arrived at in \#281. The general idea is to match the higher order moments of the approximation with that of the data. The approximation error between the (unknown) density $f(x)$ and the approximated normal density $f_n(x; 0, \sigma)$ is:
 %
 \begin{equation}
@@ -784,7 +941,7 @@ m_3 = 3! \sigma^3 C_3.
 
 
 
-\bibliographystyle{IEEEtran}
+\bibliographystyle{../IEEEtran}
 \bibliography{../bibliography}
 
 \printindex

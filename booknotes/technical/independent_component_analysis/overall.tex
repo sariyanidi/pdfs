@@ -242,35 +242,83 @@ The method above can be implemented via the gradient algorithm (p185) or a fixed
 \item \textbf{Estimating multiple components}. The summary above deals with a single component. The algorithms (gradient or fixed-point) described for the material above are called ``one-unit''*** algorithms as they consider a single component. Thanks to whitening, estimating multiple components becomes quite easy. There are two ways to do it:
 	\begin{itemize}
 	\item \textbf{Deflationary orthogonalization}. We first estimate the first IC, $\mb w_1$, and then one by one determine $p-1$ more components with the criterion of being orthogonal to the existing components. The drawback is that errors in the first IC can be accumulated.
-	\item \textbf{Symmetric orthogonalization}. Contrary to the one above, this approach is parallel estimation of all $p$ components. We initialize all components $\mb{w}_1,\hdots, \mb{w}_p$ randomly and then iteratively converge to the solution. At each iteration, we (i) do \textit{one} iteration of the one-unit algorithms, (ii) form the matrix $\mb W$ by concatenating horizontally the vectors $\mb w_i$ and (iii) do a symmetric orthogonalization of $\mb W$ (see p195). Symmetric orthogonalization discussed in Chapter 6 (Section 6.5). 
+	\item \textbf{Symmetric orthogonalization}. Contrary to the one above, this approach is parallel estimation of all $p$ components. We initialize all components $\mb{w}_1,\hdots, \mb{w}_p$ randomly and then iteratively converge to the solution. At each iteration, we (i) do \textit{one} iteration of the one-unit algorithms, (ii) form the matrix $\mb W$ by concatenating horizontally the vectors $\mb w_i$ and (iii) do a symmetric orthogonalization of $\mb W$ via $$\mb{W} \gets (\mb{WW}^T)^{-1/2}\mb W\hspace{0.65cm}\text{where}\hspace{0.2cm} \mb{A}^{-1/2} = \mb E\, \diag(d_1^{-1/2},\hdots,d_n^{-1/2}) \mb E^T$$ with $\mb E$ and $d_i$ being the matrix of eigenvectors and the eigenvalues, respectively  (see p195). Symmetric orthogonalization discussed in Chapter 6 (Section 6.5). 
 	\end{itemize}
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
+	
+	
 \end{itemize}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{ICA by Maximum Likelihood Estimation}
+
+An alternative way to ICA is maximizing (log)likelihood. This can be achieved using the densities of the ICs. However, this is not strictly necessary, as shown in this chapter. One may find the ML solution by finding the family of the density in question: The space of probability densities is divided (wisely) into two halves; if one manages to correctly identify the half, then the ML solution is consistent \---- no need for more specific information!
+
+
+\begin{itemize}
+\item \textbf{The (log) likelihood equation.} We aim to recover the inverse of the mixing matrix $\mb {x = As}$; let us denote this matrix as $\mb{B} = \mb A^{-1}$. After calculations (p203-204), this equation is: %
+$$\frac{1}{T} \log L(\mb B) = E\left\{ \sum\limits_{i=1}^n \log p_i (\mb b_i^T \mb x) \right\} + \log |\det \mb B| $$  
+\item \textbf{Approaches to solve the ML problem.} The problem in the equation above is that we don't know the densities $p_i$ as well as $\mb B$. One can overcome this problem in two ways.
+	\begin{itemize}
+	\item \textit{Method 1: When the densities are known} in advance we just use them.
+	\item \textit{Method 2: Finding the density family}. If we don't know the densities $p_i$ in advance, their estimation from finite data is always very difficult. But this chapter shows that finding the density is not strictly necessary, and the elegant alternative rests on Theorem 9.1. This alternative is to divide the space of probabilities into two (the division is also done through a condition found via Theorem 9.1), and then to find the only the family that the density in question belongs to. Theorem 9.1 shows that under mild conditions the ML solution is consistent as long as the family is correctly identified. The division is done as supergaussian and subgaussian densities (p206). The identification of the correct half is done at each iteration of the optimization (see Table 9.1 in p210). If a priori information is available, it can be used too.
+	\end{itemize}
+\item \textbf{Optimization}.
+	\begin{itemize}
+	\item \textit{The natural gradient algorithm}. This is better than (p208) standard gradient algorithm, but it has some pitfalls compared to the fixed-point algorithm. See Table 9.1 in p210 for algorithm.
+	\item \textbf{Fixed-point algorithm} is like a computationally optimized version of the natural gradient algorithm; the $\alpha_i, \beta_i$ parameters act as adaptive learning rates that make convergence faster. See p211 for other advantages and Table 9.2 (p212) for summary of algorithm.
+	\end{itemize}
+\item \textbf{Infomax $\equiv$ Likelihood Maximization } (p213).
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
