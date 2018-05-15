@@ -1,4 +1,4 @@
-\documentclass[a4paper]{book}
+\documentclass[a4paper, one	side]{book}
 
 \input{../preliminaries}
 \usepackage{pstricks, pst-node, pst-tree}
@@ -292,6 +292,57 @@ $$\frac{1}{T} \log L(\mb B) = E\left\{ \sum\limits_{i=1}^n \log p_i (\mb b_i^T \
 	\end{itemize}
 \item \textbf{Infomax $\equiv$ Likelihood Maximization } (p213).
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{ICA by minimization of mutual information}
+Mutual information provides theoretical justification for the heuristic that maximizing nongaussianity leads to independent components. Mutual information (MI) is defined in terms of entropy; more specifically, the entropy of the individual RVs and that of the joint random vector: %
+$$ I(y_1,y_2,\hdots,y_m) = \sum\limits_{i=1}^{m} H(y_i) - H(\mb y) $$
+
+The general idea is that: Independent components should have minimal mutual information, so we need to minimize mutual information. The goal becomes to find the linear transformation $\mb{y=Bx}$ that minimizes mutual information. Using results on Chapter 5, we can rewrite MI as:%
+$$ I(y_1, y_2, \hdots, y_m) = \sum_i H(y_i) - H(\mb x) - \log |\det \mb B| $$
+%
+The restrictions that we assume about the $y_i$'s allow us to rewrite MI as:
+$$ I(y_1, y_2, \hdots, y_m) = \text{const.} - \sum_i J(y_i)  $$
+where $J(\cdot)$ is the negentropy. 
+
+The whole chapter basically serves as a bridge between heuristics their theoretical justification. The application of MI minimization is nearly equivalent either to nongaussianity maximization or to likelihood maximization, depending on how we approximate entropy (see Section 10.4, p224).
+\\
+
+\noindent In practice, there are at least two differences between MI minimization and other nongaussianity maximization principles (p223)
+\begin{enumerate}
+\item Negentropy and other measures of nongaussianity enable deflationary, \ie one-by-one estimation of the ICs. This is not possible for MI minimization or likelihood maximization principles. 
+\item For nongaussianity we force the estimates of the ICs to be uncorrelated, thus reduce the optimization space. This is not necessary when using MI. 
+\end{enumerate}
+
+
+
+
 
 
 
