@@ -357,6 +357,190 @@ The whole chapter basically serves as a bridge between heuristics their theoreti
 
 
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\chapter{ICA by Nonlinear Decorrelation and Nonlinear PCA}
+
+For gaussian variables, uncorrelatedness is a sufficient (and necessary) condition for independence. However, this is not necessarily the case for other variables; there do exist variables for which uncorrelatedness doesn't imply independence.
+
+This section investigates what happens if we look at \textit{nonlinear correlations}.  That is, if two variables are nonlinearly uncorrelated can we infer that they are independent too? Nonlinear uncorrelatedness for two RVs $y_1, y_2$ is defined as 
+%
+\begin{equation}
+E\{f(y_1)g(y_2)\} = 0
+\label{eq:nonlinear_decorrelation}
+\end{equation}
+where at least one  of the functions $f, g$ is nonlinear. The second half of this section is devoted to nonlinear PCA and to showing some equivalences between nonlinear PCA and ICA; the former is praised as a \textit{versatile} technique too (p261).  
+
+\section{Nonlinear Decorrelation}
+
+\begin{itemize}
+\item \textbf{What does nonlinear uncorrelatedness have to do with independence?} Taylor expansion around the origin allows us to write $E\{f(y_1)g(y_2)\}$ as (p241):
+$$ E\{f(y_1)g(y_2)\} = \sum_i\sum_j f_i g_j E\{y_1^i y_2^j\}, $$
+where $f_i,g_j$ are the coefficients from the Taylor expansion. Here it becomes clear that the RHS is zero if $E\{y_1^i y_2^j\}$. Ensuing discussion shows that this condition can be satisfied if (i) $y_1$ and $y_2$ are independent AND $E\{y_1^i\}=0$ or $E\{y_2^i\}=0$ for all odd $i$ values and $f(y_1)$ (or $g(y_2)$) is an odd function. Note that here independence (+ some additional conditions) is only a sufficient condition and NOT a necessary condition. In other words, nonlinear uncorrelatedness doesn't warrant independence, but I understand that for practical purposes we can assume that it does warrant it. 
+
+This provides the justification for using nonlinear decorrelation to obtain ICs.
+
+\item \textbf{Methods.} There are many methods to reach the condition \eqref{eq:nonlinear_decorrelation}. 
+	\begin{itemize}
+	\item \textit{The Herault-Jutten algorithm.} For two ICs, the mixed model can be represented as
+	\begin{align*}
+	x_1 = a_{11}s_1 + a_{12} s_2 \\
+	x_2 = a_{21}s_1 + a_{22} s_2
+	\end{align*}
+	
+	The authors defined a feedback circuit which recovers the estimated ICs $y_1, y_2$:
+	\begin{align*}
+	y_1 = x_1 - m_{12} y_2 \\
+	y_2 = x_2 - m_{21} y_1.
+	\end{align*}
+	If the algorithm manages to find the ICs, then $\mb y=\mb{(I+M)}^{-1}\mb x = \mb{A x}$ where $\mb M$ is the matrix with zero as diagonal elements and $m_{12}, m_{21}$ as off-diagonals. The authors propose the update rules: 
+	\begin{align*}
+	\Delta m_{12} = \mu f(y_1) g(y_2) \\ 
+	\Delta m_{21} = \mu f(y_2) g(y_1) \\ 
+	\end{align*} If the algorithm converges, then by definition of convergence the RHS of those equations must be zero and the nonlinear decorrelatedness in \eqref{eq:nonlinear_decorrelation} is attained. 	In practice, the algorithm suffers from the requirement of inverting the matrix $(\mb{I+M})$ as well as other limitations (p243).
+	\item \textit{The Cichocki-Unbehauen algorithm} doesn't suffer from the aforelisted shortcoming as it avoids matrix inversion via a feedforward network. It estimates the ICs via a model $\mb{y = Bx}$ where the goal is to estimate $\mb B$ iteratively. The learning algorithm is: 
+	$$\Delta \mb B = \mu [\bs \Lambda - f(\mb y)g(\mb y^T)]\mb B$$
+	where $\bs \Lambda$ is a diagonal matrix.
+	
+	If the algorithm converges, then by definition of convergence it must hold that (trivial solution $\mb B = \mb 0$ aside):
+	$$ \bs \Lambda - E\{f(\mb y) g(\mb y^T)\} = \mb 0 $$
+	Since $\bs \Lambda$ is diagonal, the result above suggests that convergence implies that the nonlinear uncorrelatedness condition in \eqref{eq:nonlinear_decorrelation} is attained.
+	\end{itemize}
+	
+	\item \textbf{Generalization via Estimating functions} \---- and derivation of the two methods above as special cases. Amari and Cardoso (p246) proved that one can always find an equally performing or better (\ie more efficient) \textit{estimating function} $\mb F(\mb{x, B})$ than any given function in the form: 	
+	$$\mb{F(x,B)} = \bs \Lambda -f(\mb{Bx}) (\mb{Bx})^T.$$
+	Interestingly, the Herault-Jutten and Cichocki-Unbehauen algorithms follow this general form. Importantly, the result also shows that \textit{only one nonlinear function} is sufficient. 
+\end{itemize}
+
+
+\section{Nonlinear PCA}
+The standard linear PCA tries to maximize (in one formulation) the mean-square:
+\begin{equation}
+\text{minimize}\,\, E\left\{ ||\mb x - \sum\limits_{i=1}^n (\mb w_i^T \mb x) \mb w_i||^2 \right\}
+\end{equation}
+The rest of the chapter relies on a simple nonlinearization of this criterion:
+\begin{equation}
+\text{minimize}\,\, E\left\{ ||\mb x - \sum\limits_{i=1}^n g_i(\mb w_i^T \mb x) \mb w_i||^2 \right\}
+\label{eq:nl_pca}
+\end{equation}
+where $g(\cdot)$ is a nonlinear function. Clearly, the choice of the nonlinear algorithm will dictate the outcomes of nonlinear PCA \---- and there are many choices. The chapter shows that some choices will lead to discovering ICs.
+
+Specifically, for prewhitened data, through \eqref{eq:nl_pca} we can obtain formulations equivalent to ICA. In p252 it is shown that \eqref{eq:nl_pca} is equivalent to minimizing:  
+\begin{equation}
+J_{NLPCA}(\mb W) := \sum_{i=1}^n E\{[y_i-g_i(y_i)]^2\}.
+\label{eq:J_nlpca}
+\end{equation}
+where $\mb y = (y_1,\hdots,y_n) = \mb{Wz}$.
+
+\begin{itemize}
+\item \textbf{Connection to ICA by kurtosis} By choosing $g_i(y)$ for all $i$ as 
+$$g_i(y) = \begin{cases} y^2 + y & \text{if}\,\, y \ge 0 \\ -y^2 + y & \text{if}\,\, y<0 \end{cases},$$
+we can obtain the kurtosis-based formulation of ICA.
+\item \textbf{Connection to ML-based ICA solution.} By choosing $g_i(y_i)$ for all $i$ as %
+$$g_i(y_i) = -\frac{p_i'(y_i)}{p_i(y_i)}$$
+where $p_i(\cdot)$ is the density of the RV $y_i$, we attain the ML-based solution of ICA. \end{itemize}
+The details of a good algorithm for the optimization of nonlinear PCA is given in p259, but it may be necessary to go to ref \#347 in the book. Section 2.3 of \cite{landqvist05} also seems to be a good source.
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\chapter{Practical Considerations}
+
+This chapter gives a few suggestions for applying ICA. 
+\begin{itemize}
+\item Filter your data (if time series). ICA works \textit{much better with data that doesn't have much noise} (p265). The type of filtering depends on the application. One can do
+	\begin{itemize}
+	\item Low-pass filtering
+	\item High-pass filtering
+	\item Band pass filtering.
+	\end{itemize}
+
+In any case it's difficult to decide the frequencies to keep; there are no guidelines, it's trial and error.
+
+\item Reduce dimensionality through PCA. This is useful to:
+	\begin{itemize}
+	\item Make the mixing matrix square (which is needed for Basic ICA) in cases where the number of mixtures is smaller than the number of ICs.
+	\item Reduce noise
+	\item Prevent overlearning, which typically yields ``spiky'' signals. 
+	\end{itemize}
+\item Choice of learning algorithm
+	\begin{itemize}
+	\item Estimating all components parallel or one-by-one? Parallel is suggested.
+	\item The non-linearity choice: $\tanh(\cdot)$ seems to be a good choice in many cases, although it's useful to try other nonlinearities too.
+	\item On-line or batch? Choose batch and FastICA if possible; if the problem necessitates online learning go for stochastic gradient descent. 
+	\end{itemize}
+\end{itemize}
+
+An advice actually from the next chapter is that
+
+\begin{itemize}
+\item Do the whitening in a robust way (p278).
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

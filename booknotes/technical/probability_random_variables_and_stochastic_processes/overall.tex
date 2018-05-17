@@ -52,16 +52,6 @@ This book made me realize that a good technical book is not necessarily one that
 
 
 
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -132,6 +122,12 @@ $P(BC)=P(B)P(C)$, $P(BD)=P(B)P(D)$, $P(CD)=P(C)P(D)$.
 \textbf{Example}. It is possible for events to be pairwise independent but not mutually independent.
 
 \end{itemize}
+
+
+
+
+
+
 
 
 
@@ -410,7 +406,7 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 	
 	The characteristic function sometimes simplifies greatly the computation of a transformed RV, mainly thanks to the important property of the mean mentioned also above: %
 	 $$\Phi_y(\omega) = E\{e^{j\omega \mb y}\} = E\{e^{j\omega g(\mb x)}\} = \int\limits_{-\infty}^{\infty} e^{j\omega g(x)} f(x) dx.$$
-	Computation can be simplified because sometimes we compute $\Phi_y(\omega)$ for the transformed RV above and then try to match it with existing characteristing functions (\eg those in Table 5-2, p162).
+	Computation can be simplified because sometimes we compute $\Phi_y(\omega)$ for the transformed RV above and then try to match it with existing characteristing functions (\eg those in Table 5-2, p162). For example, the DeMoivre-Laplace theorem is proven this way (see p156). See also Examples 5-34 and 5-35.
 	\item \textbf{Inversion} through characteristic function. $f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{-j\omega x} \Phi_x(\omega) d\omega$.
 	\item \textbf{Moment generating function.} $\bs \Phi_x(s) = E\{e^{sx}\} = \int_{-\infty}^{\infty} e^{s x} f(x)dx$.
 	
@@ -419,12 +415,18 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 	\item \textbf{(Second) characteristic function.} $\Psi_x(\omega) = \ln \Phi_x{\omega} = \bs \Psi (j\omega)$
 	\item \textbf{Cumulants.} The cumulants $\lambda_n$ of an RV $\mb x$ are by definition $\left.\frac{d^n\Psi(s)}{d s^n}\right|_{s=0}=\lambda_n$
 	
-	Cumulants are moments contain the same statistical information~\cite{hyvarinen04}, but sometimes it's preferable to work with cumulants as they have two properties not shared by moments \cite{hyvarinen04}: (i) If $\mb {x}$ and $\mb y$ are two independent RVs, then the cumulant of their sum $\mb z = \mb{x+y}$ is equal to the sum of the cumulants of $\mb x$ and $\mb y$. This property generalizes to more than two RVs. (ii) If the distribution of the RV $\mb x$ is multivariate gaussian, ten all its cumulants of order three and higher are identically zero. 
- 	
-	
-	\end{itemize}
+	Cumulants and moments contain the same statistical information~\cite{hyvarinen04}, but sometimes it's preferable to work with cumulants as they have two properties not shared by moments \cite{hyvarinen04}: (i) If $\mb {x}$ and $\mb y$ are two independent RVs, then the cumulant of their sum $\mb z = \mb{x+y}$ is equal to the sum of the cumulants of $\mb x$ and $\mb y$. This property generalizes to more than two RVs. (ii) If the distribution of the RV $\mb x$ is multivariate gaussian, ten all its cumulants of order three and higher are identically zero. 
+	\end{itemize}	
 	
 \item For discrete RVs.
+	\begin{itemize}
+	\item \textbf{(First) Characteristic Function}. $\Phi_x(\omega) = \sum_i p_i e^{i \omega x_i}$.
+	
+	However, if $\mb x$ takes only integer values, a definition in terms of the $z$ transform, $\bs \Gamma(\mb z) = \sum_{-\infty}^\infty p_n z^n$, is preferable: $\Phi_x(\omega) = \bs{\Gamma}(e^{j\omega}) = \sum_{-\infty}^{\infty} p_n e^{j\omega n} $.
+	
+	\item \textbf{(Second) Characteristic Function}. $\bs{\Psi}(s) = \ln \bs\Gamma (e^x)$
+	\item \textbf{Moment theorem.} $\bs \Gamma^{(k)}(z) = E\{\mb x(\mb x -1)\hdots(\mb x-k+1)z^{\mb x-k}\}$. With $z=1$, we have $\bs \Gamma^{(k)}(1) = E\{\mb x(\mb x -1)\hdots(\mb x-k+1)\}$
+	\end{itemize}
 \end{itemize}
 
 
@@ -434,6 +436,117 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Two Random Variables} 
+
+\section{Definitions and some properties}
+
+\begin{itemize}
+\item \textbf{Joint distribution}. $F(x,y) = P\{\mb x \le x, \mb y \le y\}$
+
+Some properties.
+	\begin{itemize}
+	\item $F(-\infty,y) = 0 \hspace{0.7truecm} F(x,-\infty)=0 \hspace{0.7truecm} F(\infty, \infty)=1$
+	\item $P\{x_1 \le \mb x \le x_2, \mb y \le y\} = F(x_2,y) - F(x_1, y)$
+	\item $P\{\mb x \le x, y_1 \le \mb y \le y_2\} = F(x,y_2) - F(x, y_1)$
+	\item $P\{x_1 \le \mb x \le x_2, y_1 \le \mb y \le y_2\} = F(x_2, y_2) - F(x_2, y_1) - F(x_1, y_2) + F(x1, y_1)$
+	\end{itemize}
+
+\item \textbf{Joint density.} $$f(x,y) = \frac{\p^2 F(x,y)}{\p x \p y}.$$ Clearly, $F(x,y) = \int\limits_{-\infty}^x \int\limits_{-\infty}^y f(a,b)dadb$
+
+\item \textbf{Marginal Statistics.}
+	\begin{itemize}
+	\item $F_x(x) = F(x,\infty) \hspace{0.7truecm} F_y(y) = F(\infty, y)$
+	\item $f_x(x) = \int\limits_{-\infty}^{\infty} f(x,y) dy$
+	\item $f_y(y) = \int\limits_{-\infty}^{\infty} f(x,y) dx$
+	\end{itemize}
+\item \textbf{Independence.} If two RVs are statistically independent then $f$
+\item \textbf{Important theorem:} If the RVs $\mb x$ and $\mb y$ are independent, then the RVs $\mb z = g(\mb x)$ and $\mb w = h(\mb y)$ are also independent. 
+\item \textbf{Joint normality. } $\mb x$ and $\mb y$ are jointly normal, denoted as $N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, r)$,  if their joint density is:
+$$f(x,y) =  A \exp\left\{ -\frac{1}{2(1-r^2)} \left( \frac{(x-\mu_1)^2}{\sigma_1^2} -2 r\frac{(x-\mu_1)(y-\mu_2)}{\sigma_1 \sigma_2} + \frac{(y-\mu_2)^2}{\sigma_2^2}  \right)  \right\}\hspace{0.5cm}\text{where}\hspace{0.5cm}A= \frac{1}{2\pi \sigma_1 \sigma_2 \sqrt{1-r^2}}$$
+\item \textbf{Circular symmetry. } We say that the joint density of two RVs $\mb{x,y}$ is circularly symmetric if it depend only on the distance from the origin $r$, \ie $f(x,y) = g(r)$
+\end{itemize}
+
+\section{RV Transformations}
+\begin{itemize}
+\item \textbf{One transformation of two RVs}: $\mb z = g(\mb{x,y})$. The book provides between p180-197 the following transformations:
+	\begin{itemize}
+	\item $\mb z = \mb{x+y}$; $f(z) = \int\limits_{-\infty}^\infty f_{xy}(z-y, y)dy$
+	\item $\mb{x-y}$
+	\item $\mb{x/y}$
+	\item $\mb{xy}$
+	\item $\max(\mb{x,y})$
+	\item $\min(\mb{x,y})$
+	\item $\frac{\min(\mb{x,y})}{\max(\mb{x,y})}$
+	\item $\sqrt{\mb x^2 + \mb y^2}$
+	\end{itemize}
+\item \textbf{Two functions of two RVs}. Assume we have $\mb z = g(\mb{x,y})$ and $\mb w  = h(\mb{x,y})$. What is the \textit{joint} density of $\mb z$ and $\mb w$?
+
+If both are continuous and differentiable functions, then we can develop a formula to obtain the joint pdf $f_{zw} (z,w)$ directly. Let us denote the solutions to $\mb z = g(\mb{x,y})$ and $\mb w  = h(\mb{x,y})$ with $(x_1,y_1), \hdots (x_n,y_n)$, \ie for all $i$%
+$$g(x_i,y_i) = z\hspace{1truecm} h(x_i,y_i) = w.$$
+%
+Then, the joint density of the transformed variables, $f_{zw}(z,w)$, is obtained as:%
+$$f_{zw}(z,w) = \sum_{i}|J(z,w)|f_{xy}(x_i,y_i) = \sum_{i}\frac{1}{|J(x_i,y_i)|}f_{xy}(x_i,y_i),$$
+where $J(\cdot)$ is the Jacobian that can be written either in terms of the inverse transformations\footnote{In p200 inv. transformation is denoted with $g_1,h_1$ but I found this notation counter-intuitive and prefer $g^{-1}, y^{-1}$}, $x_i = g^{-1}(z,w)$ and $y_i = h^{-1}(z,w)$:
+\begin{equation}
+J(z,w) = \left| \begin{matrix}
+\frac{\p g^{-1}}{\p z} & \frac{\p g^{-1}}{\p w} \\
+\frac{\p h^{-1}}{\p z} & \frac{\p h^{-1}}{\p w}
+\end{matrix} \right|
+\label{eq:j_inverse}
+\end{equation}
+%
+or in terms of the direct transformation
+%
+\begin{equation}
+J(x_i,y_i) = \left| \begin{matrix}
+\frac{\p g}{\p x} & \frac{\p g}{\p y} \\
+\frac{\p h}{\p x} & \frac{\p h}{\p y}
+\end{matrix} \right|_{x=x_i,y=y_i},
+\label{eq:j_direct}
+\end{equation}
+depending on whichever of the two leads to a simpler output.
+
+\underline{\textit{Example}}. Say, we do the transformation $\mb r = g(\mb{x,y}) = \sqrt{\mb x^2+\mb y^2}$ and $\bs \theta = \tan^{-1}(\mb{y/x})$. Then, in the interval $(-\pi,\pi)$ we have one solution (\ie effectively the inverse transform): $x_1 = r\cos \theta$ and $y_1 = r \sin \theta$. If we use \eqref{eq:j_inverse}, we have: %
+$$J(r,\theta) = \left| \begin{matrix} \frac{\p x_1}{\p r} & \frac{\p x_1}{\p \theta} \\ 
+\frac{\p x_1}{\p \theta} & \frac{\p y_1}{\p \theta} \end{matrix}\right|$$
+
+
+
+\end{itemize}
 
 
 
@@ -826,16 +939,35 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 \end{itemize}
 
 \chapter*{Towards a cheatsheet}
+
+\section{Interesting facts}
+
+\begin{itemize}
+\item About normality.
+	\begin{itemize}
+	\item If two RVs are jointly normal, then they are also marginally normal (p176). The converse is not true (see p176 and also Example 6-3).
+	\end{itemize}
+\end{itemize}
+
 \section{Interesting RV Transformations}
 \begin{itemize}
 \item If $\mb x$ is Cauchy (with parameter $\alpha$), $\mb y = \frac{1}{\mb x}$ is also Cauchy (with parameter $1/\alpha$ \---- p131).
-\item If $\mb{x}_1, \hdots, \mb{x}_n$ are jointly normal, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is also normal (p257)
 \item If $\mb x$ is normal, then $\mb y = e^{\mb x}$ is lognormal.
+\item If $\mb{x, y}$ are zero-mean jointly normal, $N(0,0,\sigma_1^2, \sigma_2^2, r)$, then $\mb z=\mb{x/y}$ has Cauchy density centered at $r \sigma_1/\sigma_2$ (p187).
+\item If $\mb{x, y}$ are independent Gamma RVs, then $\mb z=\mb{x/(x+y)}$ has a beta density (p188).
+\item If $\mb{x, y}$ are independent zero-mean Gaussians, then $\mb z=\mb{x}^2+\mb{y}^2$ is exponential RV with parameter $2\sigma^2$ (p190).
+\item The magnitude and phase of a zero-mean complex Gaussian, $\mb{z} = \mb{x}+j \mb y$, have Rayleigh and Uniform distros, \textit{i.e.:}
+	\begin{itemize}
+	\item $\mb z = \sqrt{\mb x^2 + \mb y^2}$ is Rayleigh
+	\item $\bs \theta = \tan^{-1}\left(\frac{\mb y}{\mb x}\right)$ is Uniform
+	\end{itemize}
+\item If $\mb x$ and $\mb y$ are independent exponential RVs with param $\lambda$, then $\min(\mb{x,y})$ is also exponential (w/ param $2 \lambda$)
 \item If $\mb x$ is uniform in $(-\frac{\pi}{2}, \frac{\pi}{2})$, then $\mb y = \tan \mb x$ is Cauchy with param. 1 (p136).
 \item Whatever $\mb x$ is, $\mb u = F_x(\mb x)$ is uniform in (0,1) (p139).
 \item Assume $F_y(y)$ is any invertible distro function and $\mb u \sim U(0,1)$. Then, $\mb y = F_y^{-1} (\mb u)$ has distribution $F_y(y)$.
 \item If $\mb x$ has chi-square density with $n$ DoF, then $\mb y = \sqrt{\mb x}$ has chi-density with $n$ DoF
 \item If $\mb x$ is standardized normal $N(0,1)$, then $\mb y= \mb x^2$ is chi-square with 1 degree of freedom.
+\item If $\mb{x}_1, \hdots, \mb{x}_n$ are jointly normal, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is also normal (p257)
 \item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is $\chi^2(n)$ (p259)
 \item If $\mb{x}$ is $\chi^2(n)$ and $\mb{y}$ is $\chi^2(m)$ and $\mb{x,y}$ independent, then $\mb{z} = \mb{x+y}$ is $\chi^2(n+m)$ (p260)
 \end{itemize}
