@@ -278,8 +278,8 @@ where $P\{\mb x \le x, M\}$ is the intersection of the events $\{\mb x \le x\}$ 
 Its distribution function is $F_x(x) = \int\limits_{-\infty}^x  f_x(x) := G(\frac{x-\mu}{\sigma})$ where the function $G(x)$%
 $$G(x) := \int\limits_{-\infty}^x e^{-y^2/2}dy$$  is often available in tabulated form and is directly related to the $\text{erf}$ function; $\int\limits_{0}^x e^{-y^2/2}dy  = G(x) - \frac{1}{2}.$
 
-\item \textbf{Exponential distribution.} $$f(x) = \begin{cases} \lambda e^{-\lambda x}  & x\ge 0 \\ 0 \text{otherwise} \end{cases}$$.
-The exponential distribution has the \textit{memoryless} propert; that is, for $s,t\ge 0$, $P\{\mb x> t+s | \mb x >s\} =P \{\mb x >t\} $. In other words, the time that passed, $s$, doesn't change anything for the exponential distro. 
+\item \textbf{Exponential distribution.} $$f(x) = \begin{cases} \lambda e^{-\lambda x}  & x\ge 0 \\ 0 & \text{otherwise} \end{cases}$$
+The exponential distribution has the \textit{memoryless} propert; that is, for $s,t\ge 0$, $P\{\mb x> t+s | \mb x >s\} =P \{\mb x >t\} $. In other words, the time that passed, $s$, doesn't change anything for the exponential distro. Memorylessness is also equivalent to the condition $f(x | \mb x > t) = f(t-t) =  f(0) = \lambda$ (see p229 and Fig. 6-32).
 \end{itemize}
 
 \section{Some Discrete Random Variables}
@@ -407,6 +407,7 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 	The characteristic function sometimes simplifies greatly the computation of a transformed RV, mainly thanks to the important property of the mean mentioned also above: %
 	 $$\Phi_y(\omega) = E\{e^{j\omega \mb y}\} = E\{e^{j\omega g(\mb x)}\} = \int\limits_{-\infty}^{\infty} e^{j\omega g(x)} f(x) dx.$$
 	Computation can be simplified because sometimes we compute $\Phi_y(\omega)$ for the transformed RV above and then try to match it with existing characteristing functions (\eg those in Table 5-2, p162). For example, the DeMoivre-Laplace theorem is proven this way (see p156). See also Examples 5-34 and 5-35.
+	Characteristic functions can also be useful to ascertain the independence of two RVs (see p216)
 	\item \textbf{Inversion} through characteristic function. $f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{-j\omega x} \Phi_x(\omega) d\omega$.
 	\item \textbf{Moment generating function.} $\bs \Phi_x(s) = E\{e^{sx}\} = \int_{-\infty}^{\infty} e^{s x} f(x)dx$.
 	
@@ -501,6 +502,7 @@ $$f(x,y) =  A \exp\left\{ -\frac{1}{2(1-r^2)} \left( \frac{(x-\mu_1)^2}{\sigma_1
 \end{itemize}
 
 \section{RV Transformations}
+\label{sec:two_rv_transformations}
 \begin{itemize}
 \item \textbf{One transformation of two RVs}: $\mb z = g(\mb{x,y})$. The book provides between p180-197 the following transformations:
 	\begin{itemize}
@@ -540,13 +542,61 @@ J(x_i,y_i) = \left| \begin{matrix}
 \end{equation}
 depending on whichever of the two leads to a simpler output.
 
-\underline{\textit{Example}}. Say, we do the transformation $\mb r = g(\mb{x,y}) = \sqrt{\mb x^2+\mb y^2}$ and $\bs \theta = \tan^{-1}(\mb{y/x})$. Then, in the interval $(-\pi,\pi)$ we have one solution (\ie effectively the inverse transform): $x_1 = r\cos \theta$ and $y_1 = r \sin \theta$. If we use \eqref{eq:j_inverse}, we have: %
+\underline{\textit{Example}}. Say, we do the transformation $\mb r = g(\mb{x,y}) = \sqrt{\mb x^2+\mb y^2}$ and $\bs \theta = \tan^{-1}(\mb{y/x})$. Then, in the interval $(-\pi,\pi)$ we have one solution: $x_1 = r\cos \theta$ and $y_1 = r \sin \theta$. If we use \eqref{eq:j_inverse}, we have: %
 $$J(r,\theta) = \left| \begin{matrix} \frac{\p x_1}{\p r} & \frac{\p x_1}{\p \theta} \\ 
-\frac{\p x_1}{\p \theta} & \frac{\p y_1}{\p \theta} \end{matrix}\right|$$
+\frac{\p x_1}{\p \theta} & \frac{\p y_1}{\p \theta} \end{matrix}\right|,$$
+%
+so that $|J(r,\theta)| = r$. We can also compute $J(x,y)$ using \eqref{eq:j_direct}: %
+$$J(x,y) = \left| \begin{matrix}
+\frac{x}{\sqrt{x^2+y^2}} & \frac{y}{\sqrt{x^2+y^2}} \\
+\frac{-y}{x^2+y^2} & \frac{x}{x^2+y^2}
+\end{matrix} \right| = \frac{1}{\sqrt{x^2+y^2}} = \frac{1}{r}.$$ 
+%
+\item \textbf{Auxiliary variables.}  Suppose that we want to compute the density of a RV such as $\mb z = g(\mb{x,y})$. It is sometimes easier to put use dummy variable such as $\mb{w=x}$ or $\mb{w=y}$, discover the joint density $f_{zw}(z,w)$ and then marginalize out $\mb w$. Some useful examples are Example 6-24 to 6-26.
 
-
-
+\item \textbf{Mean}: Assume we form the RV $\mb z = g(\mb{x,y})$ and want to compute its mean, $E\{\mb z\}$. Theorem 6-4 (p209) says that we don't need to do the RV transfomration to compute this mean; we can directly compute it as $$E\{\mb z\} = E\{g(\mb{x,y})\} = \int\limits_{-\infty}^{\infty}\int\limits_{-\infty}^{\infty} g(x,y) f(x,y) dx dy.$$
+\item \textbf{Covariance}: The covariance $C$ or $C_{xy}$ is: $C_{xy} = E\{(\mb x - \mu_x)(\mb y - \mu_y)\}.$
+\item \textbf{Correlation coefficient} $\rho$ is $\rho = \frac{C_{xy}}{\sigma_x \sigma_y}$.
+\item \textbf{Uncorrelatedness} can be expressed in three forms: (1) $C_{xy} = 0$, (2) $\rho = 0$ or $E\{\mb{xy}\} = E\{\mb x\}E\{\mb y\}$
+\item \textbf{Orthogonality}  is  when $E\{\mb{xy}\} = 0$ and denoted as $\mb x \perp \mb y$. \item \textbf{Joint moments} The mean $m_{kr} = E\{\mb x^k\ \mb y^r\}$ is called the joint moment
+\item \textbf{Estimates of mean and var. of $\{g(\mb{x,y})\}$}: $$\eta_g \approx g + \frac{1}{2}\left( \frac{\p^2 g}{\p x^2}\sigma_x^2 + 2 \frac{\p^2g}{\p x \p y}\rho_{xy} \sigma_x  \sigma_y + \frac{\p^2 g}{\p y^2} \sigma_y^2  \right)$$
+$$\sigma_g^2 \approx \left( \frac{\p g}{\p x} \right)^2 \sigma_x^2  + 2\left( \frac{\p g}{\p x} \right) \rho_{xy}\sigma_x \sigma_y  + \left( \frac{\p g}{\p y} \right)^2\sigma_y^2 $$
 \end{itemize}
+
+
+\section{Characteristic functions}
+\begin{itemize}
+\item \textbf{Joint characteristic function } is:%
+$$\Phi(\omega_1,\omega_2) = E\{e^{j(\omega_1 x + \omega_2 y)}\} =  \int\limits_{-\infty}^{\infty} \int\limits_{-\infty}^{\infty} e^{j(\omega_1 x + \omega_2 y)} f(x,y) dx dy.$$ 
+\item \textbf{Inversion.} The density $f(x,y)$ can be obtained as: %
+$$f(x,y) = \frac{1}{4\pi^2}\int\lii \int\lii \Phi(\omega_1,\omega_2) e^{-j(\omega_1 x + \omega_2 y)d\omega_1 d\omega_2}. $$
+\item \textbf{Convolution theorem.} If the RVs $\mb{x,y}$ are independent, then $E\{\Phi(\omega_1, \omega_2)\} = E\{\Phi_x(\omega_1)\}E\{\Phi_y(\omega_2)\}$
+\end{itemize}
+
+\section{Notes}
+\begin{itemize}
+\item \textbf{Price's Theorem}. Given two jointly normal random variables $\mb x$ and $\mb y$, we form the mean %
+$$I = E\{g(\mb{x,y})\} = \int\lii\int\lii g(x,y) f(x,y)dx dy.$$ This is a function of the covariance $c$ between the RVs $\mb x$ and $\mb y$. According to Price's theorem:
+$$\frac{\p ^n I(c)}{\p c^n} = \int\lii \int\lii \frac{\p^{2n} g(x,y)}{\p x^n \p y^n} f(x,y) dx dy = E \left( \frac{\p^{2n} g(\mb {x,y})}{\p \mb x^n \p \mb y^n} \right),$$
+given that $g(x,y)f(x,y) \to 0$ as $(x,y)\to \infty$. When used smartly, Price's theorem can greatly simplify the calculation of certain expectations and higher-order moments for normal RVs.
+
+\textit{Example}. Computing $E\{\mb x^2 \mb y^2\}$ (for gaussian $\mb{x,y}$) is somewhat difficult (see p219). Using Price's theorem with $g(\mb{x,y}) = \mb{x}^2 \mb y^2$, for $n=1$ we note that
+$$\frac{\p I(c)}{\p c} = E\left( \frac{\p^2 g(\mb{x,y})}{\p \mb x \p \mb y} \right) = 4 E\{\mb{xy}\}= 4c \implies I(c) = \frac{4c^2}{2} + I(0).$$
+But $I(0)$ is when $\mb{x,y}$ are independent, hence $I(0) = E\{\mb{x}^2 \mb y^2\} = E\{\mb x^2\} E\{\mb y^2\}$, and we conclude that $E\{\mb{x}^2 \mb y^2\} = 2(E\{\mb x \mb y\})^2+E\{\mb x^2\} E\{\mb y^2\}$.\item \textbf{Conditional Distributions}. $$F(z,w|M) = \frac{F(z,w,M)}{P(M)}$$ %
+Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$$
+\item \textbf{Markov Matrix}. Suppose the RVs $\mb{x,y}$ are discrete and let $p_{ik} = P\{\mb x = x_i,\mb y = y_k\}$, and $p_i = \sum_k p_{ik}$ and $q_k = \sum_k p_{ik} $. Let $P$ be the matrix whose $ik$th element is the conditional probability $\pi_{ik} = P\{\mb y = y_k | \mb x=x_i \}$.
+\item \textbf{System reliability} and \textbf{time to failure}. The difference $R(t) = 1 - F(t) = P\{ \mb x > t\}$ is called time to failure. The mean time to failure is $E\{\mb x\} = \int_0^\infty xf(x)dx = \int_0^\infty R(t) dt$ (see also 5-52). The probability that a system that works until time $t$ fails prior to time $x$ is: $F(x|\mb{x} >t) = \frac{P\{t <\mb x < x\}}{1-F(t)} = \frac{F(x) - F(t)}{1-F(t)}$.
+\item \textbf{Conditional expected values.} $E\{g(\mb y) | M\} = \int \lii g(y) f(y|M) dy$ and similarly $E\{g(\mb y) | x\} = \int \lii g(y) f(y|x) dy$. Specifically, the conditional mean and variance are $$\mu_{y|x} = E\{\mb y |x\} = \int\lii y f(y|x) dy \hspace{0.8truecm} \sigma^2_{y|x} = E\{ (\mb y - \mu_{y|x})^2 | x \} = \int\lii(y-\mu_{y|x})^2 f(y|x) dy$$.
+\item \textbf{Some very useful identities} about the conditional means (p234):
+	\begin{itemize}
+	\item $E\{E\{\mb{y | x}\}\} = E\{\mb y\}$.
+	\item $E\{ E\{ g(\mb{x,y}) |\mb x\} \} = E\{g(\mb{x,y})\}$
+	\item $E\{ g_1(\mb x) g_2(\mb y) | x \} = E\{ g_1 (x) g_2(\mb y) \} = g_1(x) E\{g_2(\mb y)\}$.
+	\item $E\{g_1(\mb x) g_2(\mb y)\} = E\{E\{ g_1( \mb x) g_2( \mb y) | \mb x  \}\} = E\{ g_1(\mb x) E\{ g_2 (\mb y) | \mb x \} \}$.
+	\end{itemize}
+ \end{itemize}
+
+
 
 
 
@@ -946,7 +996,15 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 \item About normality.
 	\begin{itemize}
 	\item If two RVs are jointly normal, then they are also marginally normal (p176). The converse is not true (see p176 and also Example 6-3).
+	\item If $\mb{x,y}$ are independent and their sum is normal, then $\mb{x,y}$ are also normal.
+	
 	\end{itemize}
+\end{itemize}
+
+\section{Interesting identities, inequalities}
+\begin{itemize}
+\item $E^2\{\mb{xy}\} \le E\{\mb x^2\} E\{\mb y^2\}$
+\item The variance of the sum of two RVs $\mb{z = x+y }$ is $\sigma_z^2 = \sigma_x^2 + 2\rho_{xy} \sigma_x\sigma_y+ \sigma_y^2$. If $\mb{x,y}$ independent, then $\sigma_z^2 = \sigma_x^2 + \sigma_y^2$
 \end{itemize}
 
 \section{Interesting RV Transformations}
@@ -962,6 +1020,9 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 	\item $\bs \theta = \tan^{-1}\left(\frac{\mb y}{\mb x}\right)$ is Uniform
 	\end{itemize}
 \item If $\mb x$ and $\mb y$ are independent exponential RVs with param $\lambda$, then $\min(\mb{x,y})$ is also exponential (w/ param $2 \lambda$)
+\item If $\mb x \sim N(0,1)$ and $\mb y \sim \chi^2(n)$, and $\mb {x,y}$ are independent, then $\mb z =\frac{\mb x}{\sqrt{\mb y/n}}$ has a $t(n)$ (Student $t$) distribution (p207).
+\item If $\mb{x,y}$ are independent Gamma RVs, then $\mb{z=x+y}$ is also Gamma (p206).
+\item If $\mb{x,y}$ are independent, $\mb x\sim \chi^2(n)$ and $\mb y \sim \chi^2(m)$, then $\mb F = \frac{\mb x/m}{\mb y/n}$ is said to have an $F$ distribution with $(m,n)$ degrees of freedom.
 \item If $\mb x$ is uniform in $(-\frac{\pi}{2}, \frac{\pi}{2})$, then $\mb y = \tan \mb x$ is Cauchy with param. 1 (p136).
 \item Whatever $\mb x$ is, $\mb u = F_x(\mb x)$ is uniform in (0,1) (p139).
 \item Assume $F_y(y)$ is any invertible distro function and $\mb u \sim U(0,1)$. Then, $\mb y = F_y^{-1} (\mb u)$ has distribution $F_y(y)$.
