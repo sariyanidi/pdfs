@@ -18,11 +18,12 @@ These are my notes from the book of Harville~\cite{harville97}. This are probabl
 \chapter{Matrices}
 Preliminaries and basics of matrix algebra are presented here. But one has to go through to become familiar with the notation that will follow (\eg $\mb{J}_{mn}$ is an $m\times n$ matrix of ones). Plus going through the entire text and solving the exercises helped me to start and become familiar with \textit{proving} linear algebra. Exercise 8 is particularly interesting.
 
-Some interesting notes:
+Some notes:
 
-\begin{align*}
-\mb{J}_{mn} \mb{J}_{np} = n \mb{J}_{mp}m
-\end{align*}
+\begin{itemize}
+\item $\mb{J}_{mn} \mb{J}_{np} = n \mb{J}_{mp}$ 
+\item \textbf{L1.3.1} If $\mb{A,B}$ are upper (lower) triangular, then (i) $\mb{AB}$ is upper (lower) triang. (ii) the $i$th diagonal of $\mb{AB}$ is $a_{ii} b_{ii}$
+\end{itemize}
 
 \subsection{Redo in future}
 \begin{itemize}
@@ -30,24 +31,51 @@ Some interesting notes:
 \item Exercise 8
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Submatrices and Partitioned Matrices}
 A basic topic that I wasn't sufficiently familiar is covered in this chapter (see title). 
 
 \section{Definitions and some properties}
 \begin{itemize}
 \item \textit{Principle submatrix} is a submatrix of $\mb A$ that is obtained by striking out the rows and columns with the same indices.
+\item \textit{Leading principal submatrix} is an $r\times r$ submatrix of $\mb A$ obtained by striking out the last $n-r$ columns and rows.
+\item A \textit{partitioning} of a matrix or \textit{partitioned matrix} is obtained by putting horizontal/vertical lines between its various columns or rows. The only requirement is that the lines shouldn't be \textit{staggered} (see \#15). 
 \end{itemize}
 
 \section*{Notes}
 \begin{itemize}
-\item A partitioning of a matrix is obtained by putting horizontal/vertical lines between its various columns or rows. The only requirement is that the lines shouldn't be \textit{staggered} (see \#15). 
 \item The fact that multiplication of partitioned matrices is similar to that of the regular matrices (see 2.7) is very intuitive. Proves useful when proving thing in future chapters.
 \end{itemize}
 
 \section*{Interesting identities/lemmas/theorems}
 
 \begin{itemize}
-\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $A$ and $B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}'_i\mb{b}_i$.
+\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $\mb A$ and $\mb B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}'_i\mb{b}_i$.
+\item \textbf{L2.3.2} For any two $m\times n$ matrices $ \mb{A,B}$, $\mb A = \mb B \iff \mb{Ax = Bx}$ for every $n\times 1$ vector $\mb x$
 \end{itemize}
 
 \section*{Important concepts}
@@ -61,8 +89,50 @@ A basic topic that I wasn't sufficiently familiar is covered in this chapter (se
 \item Exercise 4
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Linear Dependence and Independence}
 Very short chapter, but its lemmas are very useful, they can be used extensively in proofs that come later in the chapters. Lemma 3.2.1 and 3.2.2 are fundamental and they should be practically memorized. Lemma 3.2.4 is an elegant one, it seems like it can be the key to some complicated proofs. 
+
+\section{Definitions}
+\begin{itemize}
+\item A nonempty finite set of matrices $\{\mb A_1, \hdots,  \mb A_k\}$ is called \textit{linearly dependent} if $\exists$ scalars $x_1,\hdots, x_k$ such that $$x_1 \mb A_1 + \hdots + x_k \mb A_k = \mb 0$$
+\end{itemize}
+
+\section{Notes}
+\begin{itemize}
+\item \textbf{L3.2.1} A set of $m\times n$ matrices  $\{\mb A_1, \hdots,  \mb A_k\}$  is linearly dependent iff there is at least one matrix that is expressible as the linear combination of others.
+\item \textbf{L3.2.2} A set of $m\times n$ matrices  $\{\mb A_1, \hdots,  \mb A_k\}$, the first of which is nonnull, is linearly dependent fif at least one of the matrices is expressible as the linear combination of the preceding ones.
+\item \textbf{L3.2.4} Let $\{\mb A_i\}_{i=1}^k$ and $\{\mb C_i\}_{i=1}^r$ be sets of matrices and $\mb x_1,\hdots,\mb x_r$ vectors such that $$\mb C_j = x_{1j} \mb A_1 + \hdots + x_{kj} \mb A_k,$$
+where $\mb x_j = (x_{1j}, \hdots, x_{kj})$. If $\mb x_1, \hdots, \mb x_k$ and $\mb A_1, \hdots, \mb A_k$ are linearly independent, then $\mb C_1, \hdots, \mb C_r$ are linearly independent. If $\mb {x}_1, \hdots, \mb x_r$ are linearly dependent, then $\mb C_1, \hdots, \mb C_r$ are linearly dependent.z
+\end{itemize}
 
 \section{Redo in future}
 
@@ -79,6 +149,13 @@ Very short chapter, but its lemmas are very useful, they can be used extensively
 \item Lemma 3.2.4
 \item Exercise 2
 \end{itemize}
+
+
+
+
+
+
+
 
 
 
@@ -105,15 +182,67 @@ Very short chapter, but its lemmas are very useful, they can be used extensively
 
 Very useful chapter, it's title doesn't do justice. Fundamental concepts of rank, dimension, basis, linear space, subspace, column/row space are introduced and they are made concrete with many lemmas and theorems.
 
-
-\section{Notes}
+\section{Definitions and basic properties}
 \begin{itemize}
-\item \textbf{C4.4.5}. For any $\mb{A}, \mb{B}$, $\rank(\mb{AB})\le \rank(\mb A)$ and $\rank(\mb{AF})\le \rank(\mb F)$.
-\item \textbf{T4.4.6}. Given $\mb{A,B}$. If $\mathcal{C}(\mb B) \subset \mathcal{C}(\mb A)$ and $\rank(\mb B) = \rank(\mb A)$, then $\mathcal{C}(\mb B)=\mathcal{C}(\mb A)$. Similar for row space.
-\item \textbf{L4.4.11}. Any symmetric matrix of rank $r$ contains an $r\times r$ nonsingular principal submatrix.
+\item \textit{Column space} of an $m\times n$ matrix, $\mathcal{C}(\mb A) $, is the set of all $m$-dimensional col vectors that can be expressed as the linear combination of columns of $\mb A$, \ie $\mathcal{C}(\mb A) = \left\{\sum_{i=1}^n x_i\mb{a}_i : \forall x_i \in \mathcal{R} \right\}$.
+\item \textit{Row space} $\mathcal{R}(\mb A) $ is defined similarly as $\mathcal{R}(\mb A) = \left\{\sum_{i=1}^m x_i\mb{a'}_i : \forall x_i \in \mathcal{R} \right\}$.
+\item Simple ways to ascertain a column space.
+	\begin{itemize}
+	\item \textbf{L4.1.1.} For any $m\times n$ $\mb A$, $\mb y \in \mc C (\mb A) \iff \mb y' \in \mc R(\mb A')$
+	\item \textbf{L4.2.1.} Given $m\times n$ $\mb A$. For any subspace $\mc U$ of $\mc R^m$, $\mc C(\mb A) \in \mc U \iff $ every column of $\mb A$ belongs to $\mc V$. 
+	
+	Similarly, for any subspace $\mc V$ of $\mc R^n$, $\mc R(\mb A) \in \mc V \iff $ every row of $\mb A$ belongs to $\mc U$. Similarly, for any
+	\end{itemize}
+\item \textit{Linear space}. A nonempty set of $m\times n$ is a linear space if (1) $\mb{A,B} \in \mc{V} \implies \mb {A+B} \in \mc V$ and (2) $\mb A \in \mc V \implies k\mb A \in \mc V$.
+\item \textit{Subspace}. A subset $\mc U$ of a linear space $\mc V$ is a \textit{subspace} if $\mc U$ itself is a linear space. 
+
+\item \textit{Span.} The span of a set of matrices $\mc A = \{\mb A_1, \hdots, \mb A_k\}$ is the set of all the linear combinations of $\mc A$, denoted with $\text{span}(\mc A)$. $\mc A$ is said to span a space $\mc V$ if $\text{span}(\mc A) = \mc V$
+\item \textit{Basis} for a linear space $\mc V$ is a set of linearly independent matrices that spans $\mc V$.
+\item \textit{Dimension.} The number of matrices in a basis for a lin. space $\mc V$ is called the dimension. 
+	\begin{itemize}
+	\item $\dim (\mc R^{m\times n}) = mn$
+	\item $\dim (\mc U) \le mn$ for any $\mc U \subset \mc R^{m\times n}$
+	\end{itemize}
+\item \textit{Column rank and row rank.} The column (or row) rank of a matrix is the dimension of its column (or row) space.
+\item \textit{Rank} is the column or row rank of an $m\times n$ matrix $\mb A$; the two latter ranks are the same anyway (T4.4.1). 
+	\begin{itemize}
+	\item $\rank (\mb A)\le m$ and $\rank(\mb A)\le n$ (L4.3.3)
+	\item For any $n\times p$ mat $\mb F$, $\rank(\mb{AF}) \le \rank (\mb A)$ and  $\rank(\mb AF) \le \rank (\mb F)$ (C4.4.5)
+	\item $\rank(\mb{A,B}) \le \rank(\mb A) + \rank(\mb B)$  and $\rank\left(\begin{matrix} \mb A \\ \mb C \end{matrix} \right) \le \rank(\mb A) + \rank(\mb B)$ (L4.5.7)
+	\item $\rank(\mb A +\mb B) \le \rank(\mb{A,B})$  (L4.5.8)
+	\item $\rank(\mb A +\mb B) \le \rank(\mb A) + \rank(\mb B)$  (C4.5.9)
+	\item $\rank\left( \begin{matrix}
+	\mb A & \mb 0 \\ \mb 0 & \mb B
+	\end{matrix}\right) = \rank(\mb A) + \rank(\mb B)$ (L4.5.11)
+	\item Repeated application of the above leads to $\rank\left[\diag(\mb{A}_1, \hdots \mb A_k)\right] = \rank(\mb A_1) + \hdots \rank(\mb A_k)$
+	\end{itemize}
+\item \textit{Nonsingular} matrix is an $m \times m$ matrix $\mb A$ with rank $m$.
 \end{itemize}
 
+
 \section{Important Lemmas/Theorems/Equations}
+\begin{itemize}
+\item \textbf{Regarding the column/row spaces}.
+	\begin{itemize}
+	\item \textbf{L4.2.2}. $\mcc B \subset \mcc A \iff \exists \mb F $ such that $\mb{B=AF}$. Similarly, $\mcr C \subset \mcr A \iff \exists \mb L$ such that $\mb{C} = \mb{LA}$.
+	\item \textbf{T4.4.6}. Given $\mb{A,B}$. If $\mathcal{C}(\mb B) \subset \mathcal{C}(\mb A)$ and $\rank(\mb B) = \rank(\mb A)$, then $\mathcal{C}(\mb B)=\mathcal{C}(\mb A)$. Similar for row space.
+	\end{itemize}
+\item \textbf{Regarding the ranks and singularity/nonsingularity.}
+	\begin{itemize}
+	\item \textbf{T4.4.1} The row rank of any matrix equals its column rank.
+	\item \textbf{T4.4.2}. Let $\mb A$ be an $m\times n$ matrix of row rank $r$ and column rank $c$. Then, there exists an $m\times c$ mat $\mb B$ and a $c\times n$ mat $\mb L$ s.t. $\mb{A=BL}$.
+	\item \textbf{T4.4.4} Let $\mb{A,B,C}$ be $m\times n$, $m \times p$ and $q\times n$. Then, 	$\mcc B \subset \mcc A \implies \rank(\mb B) \le \rank(\mb C)$ and $\mcr C \subset \mcr A \implies \rank(\mb C) \le \rank(\mb A) $.
+	\item Let $\mb A$ be $m\times n $ of rank $r$. Then, $\exists$ $m\times r$ $\mb{B}$ and $r\times n$ $\mb{T}$ s.t. $\mb{A = BT}$. Moreover, $\rank(\mb B) = \rank(\mb T) = r.$
+	\item \textbf{T4.4.10}. Any matrix of rank $r$ contains an $r\times r$ nonsingular submatrix.
+	\item \textbf{L4.4.11}. Any symmetric matrix of rank $r$ contains an $r\times r$ nonsingular principal submatrix.
+	\end{itemize}
+\item \textbf{Regarding partitioned matrices and sums of matrices.} For any $\mb{A,B,C}$ with respective sizes $m\times n, m\times p, q\times n$,
+	\begin{itemize}
+	\item \textbf{C4.5.2}: $\rank(\mb A) \le \rank(\mb{A,B})$; $\rank(\mb B) \le \rank(\mb{A,B})$; $\rank(\mb A) \le \rank\left(\begin{matrix} \mb A \\ \mb C\end{matrix}\right)$ and $\rank(\mb C) \le \rank\left(\begin{matrix} \mb A \\ \mb C\end{matrix}\right)$
+	\item \textbf{L4.5.4}: $\mcc{A,B} = \mcc{A, B-AL}$. Similar result applies to row spaces.
+	\end{itemize}
+\end{itemize}
+
 \begin{itemize}
 \item Lemma 4.2.2 is easily the most important result in the chapter. Many results in the chapter can be proved directly through this lemma.
 \item Corollary 4.2.3 also very useful.
