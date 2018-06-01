@@ -445,7 +445,7 @@ where $g(\cdot)$ is a nonlinear function. Clearly, the choice of the nonlinear a
 Specifically, for prewhitened data, through \eqref{eq:nl_pca} we can obtain formulations equivalent to ICA. In p252 it is shown that \eqref{eq:nl_pca} is equivalent to minimizing:  
 \begin{equation}
 J_{NLPCA}(\mb W) := \sum_{i=1}^n E\{[y_i-g_i(y_i)]^2\}.
-\label{eq:J_nlpca}
+\label{eq:J_nlpca}czardas vittorio monti
 \end{equation}
 where $\mb y = (y_1,\hdots,y_n) = \mb{Wz}$.
 
@@ -516,6 +516,53 @@ An advice actually from the next chapter is that
 \begin{itemize}
 \item Do the whitening in a robust way (p278).
 \end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{Overview and comparison of Basic ICA methods}
+
+The Basic ICA methods are compared theoretically and experimentally. Theoretical comparison includes (i) statistical efficiency (\ie variance) and (ii) robustness. Experimental comparison includes (i) accuracy (\ie matrix recovery performance) and (ii) computational efficiency. 
+
+\begin{itemize}
+\item \textbf{Differences between estimation principles} (p275)
+	\begin{itemize}
+	\item Some principles are able to estimate single independent components whereas others need to estimate them simultaneously
+	\item Some objective functions use nonpolynomial functions based on the assumed probability density functions of the ICs, whereas others use polynomial functions related to cumulants. This leads to different nonquadratic functions in the objective functions. 
+	\item In many estimation principles, uncorrelatedness is required. This is strictly not necessary (although I don't get it how) and reduces the optimization space.  However, practically it doesn't cause much loss. 
+	\end{itemize}
+\item \textbf{Theoretical comparisons}.
+	\begin{itemize}
+	\item \textit{Comparison of asymptotic variance.} Since we have a finite sample, the expectations in the theoretical definitions of the objective functions are replaced with sample averages. We want to know how much problem can be caused by this. A classic measure of such errors is asymptotic (co)variance. Theorem 14.1 shows how this variance can be computed, and Theorem 14.2 shows the family of functions that minimizes it:%
+	$$ G_{opt}(y) = c_1 \log p_i(y) + c_2 y^2 + c_3 $$
+	Note that $\log p_i(y)$ also belongs to the family above. \underline{This shows that negentropy is an optimal measure}  of nongaussianity.
+	\item \textit{Comparison of robustness}. Robustness is defined through \textit{B-robustness}. An estimator is called B-robust if the influence of outliers is limited (see p278 for more precise definition). 
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
 
 
 
