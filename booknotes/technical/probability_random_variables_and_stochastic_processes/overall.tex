@@ -394,7 +394,7 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 \item \textbf{Chebyshev (Tchebycheff) inequality}: For any $\epsilon >0$, $P\{|x-\mu| \ge \epsilon\} = \frac{\sigma^2}{\epsilon^2}$.
 \item \textbf{Markov inequality} If $f(x)=0$ for $x<0$, then, for any $\alpha > 0$: $P\{ \mb x \ge \alpha \} \le \frac{\mu}{\alpha}$
 \item \textbf{Bienayme inequality}. $P\{ |\mb x - a| \ge \epsilon\} \le \frac{E\{ |\mb x - a|^n \}}{\epsilon^n}$
-\item \textbf{Lyapunov inequality}. Let $\beta_k = E\{|\mb x|^k\} < \infty$ represent the absolute moments of $\mb x$. Then, for any $k$, $\beta^{1/(k-1)}_{k-1} \le \beta_k^{1/k}$
+\item \textbf{Lyapunov inequality}. Let $\beta_k = E\{|\mb x|^k\} < \infty$ be the absolute moments of $\mb x$. Then, for any $k$, $\beta^{1/(k-1)}_{k-1} \le \beta_k^{1/k}$
 \end{itemize}
 
 
@@ -405,8 +405,17 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 	\item \textbf{(First) characteristic function.} $\Phi_x(\omega) := E\{e^{j\omega x}\} = \int_{-\infty}^{\infty} f(x) e^{j \omega x}dx$
 	
 	The characteristic function sometimes simplifies greatly the computation of a transformed RV, mainly thanks to the important property of the mean mentioned also above: %
-	 $$\Phi_y(\omega) = E\{e^{j\omega \mb y}\} = E\{e^{j\omega g(\mb x)}\} = \int\limits_{-\infty}^{\infty} e^{j\omega g(x)} f(x) dx.$$
-	Computation can be simplified because sometimes we compute $\Phi_y(\omega)$ for the transformed RV above and then try to match it with existing characteristing functions (\eg those in Table 5-2, p162). For example, the DeMoivre-Laplace theorem is proven this way (see p156). See also Examples 5-34 and 5-35.
+	 $$\Phi_y(\omega) = E\{e^{j\omega \mb y}\} = E\{e^{j\omega g(\mb x)}\} = \int\limits_{-\infty}^{\infty} e^{j\omega g(x)} f(x) dx.$$ 
+	Computation can be simplified because sometimes we compute $\Phi_y(\omega)$ for the transformed RV above and then try to match it with existing characteristing functions (\eg those in Table 5-2, p162). Some examples
+	\begin{itemize}
+	\item The DeMoivre-Laplace theorem is proven this way (see p156). 
+	\item See Examples 5-34 and 5-35.
+	\item Computing the PDF of Bernoulli from Binomials (p256)
+	\item Computing the PDF of Poisson from Binomials (p256)
+	\item The sum of jointly normal RVs is normal (p257)
+	\item The sum of the squares of independent normal variables is chi-square (p259)
+	\item The sum of two chi-square distros is also chi-square (p260)
+\end{itemize}	 
 	Characteristic functions can also be useful to ascertain the independence of two RVs (see p216)
 	\item \textbf{Inversion} through characteristic function. $f(x) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{-j\omega x} \Phi_x(\omega) d\omega$.
 	\item \textbf{Moment generating function.} $\bs \Phi_x(s) = E\{e^{sx}\} = \int_{-\infty}^{\infty} e^{s x} f(x)dx$.
@@ -521,7 +530,10 @@ If both are continuous and differentiable functions, then we can develop a formu
 $$g(x_i,y_i) = z\hspace{1truecm} h(x_i,y_i) = w.$$
 %
 Then, the joint density of the transformed variables, $f_{zw}(z,w)$, is obtained as:%
-$$f_{zw}(z,w) = \sum_{i}|J(z,w)|f_{xy}(x_i,y_i) = \sum_{i}\frac{1}{|J(x_i,y_i)|}f_{xy}(x_i,y_i),$$
+\begin{equation}
+f_{zw}(z,w) = \sum_{i}|J(z,w)|f_{xy}(x_i,y_i) = \sum_{i}\frac{1}{|J(x_i,y_i)|}f_{xy}(x_i,y_i),
+\label{eq:two_rv_transformation}
+\end{equation}
 where $J(\cdot)$ is the Jacobian that can be written either in terms of the inverse transformations\footnote{In p200 inv. transformation is denoted with $g_1,h_1$ but I found this notation counter-intuitive and prefer $g^{-1}, y^{-1}$}, $x_i = g^{-1}(z,w)$ and $y_i = h^{-1}(z,w)$:
 \begin{equation}
 J(z,w) = \left| \begin{matrix}
@@ -654,35 +666,72 @@ Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$
 \chapter{Sequences of Random Variables}
 
 
-\section{Notes}
+\section{Definitions and some basic operations and properties}
 \begin{itemize}
-\item Multivariate Transformation
-\item How to integrate some RVs from a multi-variate distro to obtain ... (Sec 7.2)
-\item How to compute the mean conditioned on a subset of RVs
-\item Characteristic function leads to so much interesting applications, such as:
-%\begin{itemize}
-	\item Computing the PDF of Bernoulli from Binomials (\#256)
-	\item Computing the PDF of Poisson from Binomials (\#256)
-	\item The sum of jointly normal RVs is normal (\#257)
-	\item The sum of the squares of independent normal variables is chi-square (\#259)
-	\item The sum of two chi-square distros is also chi-square (\#260)
-%	\end{itemize}
-\item The optimal single-value estimation (in the MS sense), $c$, of a future value of a RV $\mb{y}$ is $c=E(\mb{y})$.
-\item The optimal functional estimation of $\mb{y}$ \ito a (dependent) RV $\mb{x}$ is $c(x)=E(\mb{y}|x)$. In general, this estimation is \textit{non-linear}.
-\item The optimal linear f. estimation of $\mb{y}$ \ito $\mb{x}$ is $c(x) = Ax + B$ where $B = \eta_y - A\eta_x$ and $A = r \sigma_x/\sigma_y$. 
+\item \textbf{Multivariate Transformation} is a direct extension of two-variable transformation in \eqref{eq:two_rv_transformation}
+\item \textbf{Refining conditional distributions:} How to integrate RVs from a multi-variate distro to eliminate them from conditional probabilities (p253-254):
+	\begin{itemize}
+	\item To remove any variables from the left of the conditional line, we just integrate them out, \eg
+	$$f(x_1|x_3) = \int\lii f(x_1, x_2 | x_3) dx_2$$
+	\item To remove any variables from the right of the line, we multiply by their conditional density wrt. the \textit{remaining} variable on the right and we integrate the product, \eg
+	$$f(x_1 | x_3) = \int\lii \int\lii f(x_1|x_2,x_3,x_4) f(x_2,x_3 | x_4) d x_2 dx_3$$
+	\end{itemize}
+\item \textbf{Group independence} The RV groups $\mb x_1, \hdots, \mb x_n$ and $\mb y_1, \hdots, \mb y_k$ are independent if $f(x_1,\hdots,x_n, y_1,\hdots,y_k) = f(x_1,\hdots,x_n)f(y_1,\hdots,y_k)$  
+\item \textbf{Joint normality}. The RVs $\mb x_1, \hdots, \mb x_n$ are jointly normal iff the sum%
+ $$a_1 \mb x_1 + \hdots a_n \mb x_n = A\mb X^t$$%
+ is a normal RV for any $A$.
+ \item \textbf{Homogeneous linear estimation}. Linear estimation without a bias term
+\item \textbf{Nonhomogeneous linear estimation}. Linear estimation with a bias term
+
+ 
+\end{itemize}
+
+
+\section{Mean, Variance and Characteristic functions}
+\begin{itemize} 
+\item \textbf{Conditional mean}; \eg $E\{\mb x_1 | x_2,\hdots,x_n\} = \int\lii x_1 f(x_1| x_2,\hdots,x_n) d x_1$. To remove any variables from the right of the conditional line, we multiply by their conditional density wrt remaining variables on the right and integrate the product, \eg %
+$$E\{\mb x_1 | x_3\} = \int\lii E\{\mb x_1 | x_2, x_3\} f(x_2|x_3) d x_2$$ 
+\item Characteristic function leads to so much interesting applications (see notes of Chapter 5)
+\item \textbf{Sample mean and variances}
+$$\mb{\bar{x}} = \frac{1}{n} \sum\limits_{i=1}^n \mb x_i \hspace{1truecm} \mb{\bar{v}} = \frac{1}{n-1} \sum\limits_{i=1}^n (\mb x_i -\mb{\bar{x}})^2$$
+\item \textbf{Minium-variance unbiased linear estimator of the mean} is shown at p258:
+$$ \hat{\eta} = \frac{x_1/\sigma_1^2 + \hdots + x_n/\sigma_n^2}{1/\sigma_1^2 + \hdots + 1/\sigma_n^2} $$
+Note that this equals the sample mean if we assume that RVs $\mb x_i$ have the same variance.  
+\item \textbf{Correlation and Covariance matrices}. The $ij$th entry of the correlation matrix of RVs $\mb x_i$ is $R_{ij} = E\{ \mb x_i \mb x_j\}$ and the $ij$th entry of the covariance matrix is $C_{ij} = E\{(\mb x-\eta_x)(\mb y-\eta_y)\}$. Clearly, for $\mb X = [\mb x_1, \hdots, \mb x_n]$, 
+$$R = E\{\mb X^t \mb X\}$$
+\item \textbf{Linear independence} of RVs. The RVs $\mb{x}_i$ are called linearly independent if (p251) $$E\{|a_1 \mb x_1 + \hdots + a_n \mb x_n|\}>0$$
+The determinant of the correlation matrix, $\Delta_n$, is zero if the RVs are linearly dependent. Otherwise, it is strictly and so are all its principal minors.
+\item \textbf{Orthonormal data transformation: Whitening}. If the data $\mb x_i$ are orthogonal, then $R$ is a diagonal matrix. One can obtain an orthonormal matrix through the Gram-Schmidt method (p271). Whitening is very useful, especially for linear estimators (see also last note in the item list below).
+\end{itemize}
+ 
+\section{Mean square estimation}
+\begin{itemize}
+\item The optimal \textit{single-value} estimation (in the MS sense), $c$, of a future value of a RV $\mb{y}$ is $c=E(\mb{y})$.
+\item The optimal functional estimation of $\mb{y}$ \ito a (dependent) RV $\mb{x}$ is $c(x)=E\{\mb{y}|x\}$. In general, this estimation is \textit{non-linear}.
+
+If $\mb x$ and $\mb y$ are independent, then $c(x) = E\{\mb y | x\} = E\{\mb y\} = c$; \ie the knowledge of $\mb x$ has no effect on estimate of $\mb y$.
+\item The optimal linear functional estimation of $\mb{y}$ \ito $\mb{x}$ is $c(x) = Ax + B$ where $B = \eta_y - A\eta_x$ and $A = r \sigma_x/\sigma_y$. 
 \item \textit{For Gaussian RVs, linear and non-linear MS estimators are identical (\#264)}.
-\item \textit{The orthogonality principle}: The error between of linear estimator $\mb{\hat{y}}=A\mb{x}+B$ of $\mb{y}$ is orthogonal to the data: $E\{(\mb{y}-\mb{\hat{y}})\mb{x}\}=0$
+\item \textit{The orthogonality principle}: A linear estimator is optimal if its error $(\mb y - \mb{\hat{y}})$ is orthogonal to the data $\mb x$; \ie $E\{(\mb{y}-\mb{\hat{y}})\mb{x}\}=0$
 %	\begin{itemize}
-	\item Generalizes to the linear estimate of $\mb{s}$ \ito multi RVs $\mb{x}_1, \hdots, \mb{x}_n$: $E\{(\mb{s}-\mb{\hat{s}})\mb{x}_i\}$ for $i=1,\hdots,n$.
-	\item Generalizes to \textit{non-linear} estimation: $E\{[\mb{s}-g(\mb{X})]w(\mb{X})\}$, where $g(\mb{X})$ is the non-linear MS estimator and $w(\mb{X})$ \textit{any} function of data $\mb{X}=[\mb{x}_1,\hdots,\mb{x}_n]$. (\#269)
+	\item Generalizes to the linear estimate $\mb{\hat{s}}$ of $\mb{s}$ \ito multi RVs $\mb{x}_1, \hdots, \mb{x}_n$: $E\{(\mb{s}-\mb{\hat{s}})\mb{x}_i\}=0$ for $i=1,\hdots,n$.
+	\item Generalizes to \textit{non-linear} estimation: $E\{[\mb{s}-g(\mb{X})]w(\mb{X})\}=0$, where $g(\mb{X})$ is the optimal non-linear MS estimator and $w(\mb{X})$ \textit{any} function of data $\mb{X}=[\mb{x}_1,\hdots,\mb{x}_n]$. (\#269)
 %	\end{itemize}
-\item Computing the linear MS estimator is \textit{much easier} if the RVs $\mb{x}_i$ are orthogonal to one another (\ie $R_{ij}=0$ for $i\neq j$).  That is why it is often we perform \textit{whitening} (see \#271-272).
+\item Computing the linear MS estimator is \textit{much easier} if the RVs $\mb{x}_i$ are orthogonal to one another (\ie $R_{ij}=0$ for $i\neq j$).  That is why we often perform \textit{whitening} (see \#271-272).
+\end{itemize}
+
+\section{Stochastic convergence and limit theorems}
+\begin{itemize}
 \item Convergence modes for a random sequence (RS) $\mb{x}_1, \hdots, \mb{x}_n, \hdots$
 \begin{itemize}
 \item Everywhere (e), almost everywhere (a.e.), in the MS sense (MS), in prob (p), in distro (d).
 \item Ordered in relaxedness (except last two): d $>$ p $>$ (a.e. $|$ MS)
 \item Cauchy criterion (CC): We typically think of convergence as converging into a sequence $x$. With CC, we can eliminate this need. That is, we ask that $|x_{n+m}-x_n|\to	0$ as $n\to	\infty$.
 \end{itemize}
+\end{itemize}
+
+\section{Application of RS convergence}
+\begin{itemize}
 \item All the below are technically applications of RS convergence:
 	\begin{itemize}
 	\item The law of large numbers: If $p$ is the prob of event $A$ in a single experiment and $k$ is number of successes in $n$ trials, then we can show that $p$ tends to $k/n$ in \textit{probability}.
@@ -690,7 +739,7 @@ Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$
 	\end{itemize}
 	\item The ones below are more specifically applications for estimating $E\{\mb{\bar{x}}_n\}$ (and optionally $\bar{\sigma}^2_n$): the sample mean of a RS of $n$ RVs $\mb{\bar{x}}_n=\frac{\mb{x}_1+\hdots+\mb{x}_n}{n}$ (the variance of the sample mean)
 	\begin{itemize}
-	\item Markov's thm: If the RVs $\mb{x}_i$ are s.t. the mean of $\bar{\eta}_n$ of $\bar{\mb{x}}_n$ tends to a limit $\eta$ and its variance $\bar{\sigma}_n$ tends to $0$ as $n\to \infty$, then $E\{(\mb{\bar{x}}_n-\eta)^2\}\to 0$ as $n\to \infty$. Convergence in MS sense.\\
+	\item Markov's thm: If the RVs $\mb{x}_i$ are s.t. the mean $\bar{\eta}_n$ of $\bar{\mb{x}}_n$ tends to a limit $\eta$ and its variance $\bar{\sigma}_n$ tends to $0$ as $n\to \infty$, then $E\{(\mb{\bar{x}}_n-\eta)^2\}\to 0$ as $n\to \infty$. Convergence in MS sense.\\
 	(Note that $\mb{x}_i$ do not have to be uncorrelated or independent)
 	\item Corollary: if $\mb{x}_i$ are uncorrelated and $\frac{\sigma_1^2+\hdots+\sigma_n^2}{n}\to 0$ as $n\to \infty$, then $\mb{\bar{x}}_n\to \eta=\lim_{n\to\infty} \frac{1}{n}\sum\limits_{i=1}^n E\{\mb{x}_n\}$ as $n\to \infty$. Convergence in MS sense. \\
 	(Note that now we do require uncorrelated RVs but in exchange, compared to Markov's thm, the condition on the mean is removed and we \textit{do} have a way of computing the mean $\eta$.)
@@ -705,6 +754,12 @@ Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$
 	\item Error corr: The errors of CLT can be corrected by matching higher order moments using Hermite polynomials (see\#281 and also Section~\ref{sec:error_correction}).
 	\item CLT for products $\mb{y}=\mb{x}_1\mb{x}_2\hdots\mb{x}_n$ (assuming $\mb{x}_i>0$) is \textit{lognormal}. (Easily seen by letting $\mb{z} = \ln{\mb{y}} = \ln \mb{x}_1+\hdots+\ln\mb{x}_n$ and $\mb{y} = e^{\mb{z}}$.
 	\end{itemize}
+	
+\end{itemize}
+
+
+\section{Sampling for matching a target distribution}
+\begin{itemize}
 \item Sampling random sequences for a target distribution $F(x)$
 \item The general idea is to generate a uniform RS $u_1, \hdots, u_n$, and then use some method to convert it to a RS $x_1, \hdots, x_{n'}$ (where $n' \leq n$) that matches the distribution of $F(x)$.
 \item There are several methods for sampling
@@ -733,7 +788,7 @@ Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$
 \section{Interesting identities/lemmas/theorems}
 
 \begin{itemize}
-\item The unbiased linear estimator with minimum variance is the one shown in (7-17).
+
 \item Theorem 7.1: The correlation matrix is nonnegative definite
 \item Sum of jointly normal RVs is normal
 \item Sample mean and variance of $n$ RVs $\mb{x}_1, \hdots, \mb{x}_n$ are $\mb{\bar{x}} = \frac{1}{n}\sum\limits_{i=1}^n$ and $\bar{\mb{v}} = \frac{1}{n-1}\sum\limits_{i=1}^n(\mb{x}-\bar{\mb{x}})^2$.
@@ -750,12 +805,6 @@ Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$
 \item Mean square estimation (Linear and non-linear)
 \end{itemize}
 
-\section{Some terminology}
-\begin{itemize}
-\item Homogeneous linear estimation:  Linear estimation without a bias term
-\item Nonhomogeneous linear estimation: Linear estimation with a bias term
-
-\end{itemize}
 \section{Redo in future}
 \begin{itemize}
 \item Poisson
@@ -1029,7 +1078,7 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 \item If $\mb x$ has chi-square density with $n$ DoF, then $\mb y = \sqrt{\mb x}$ has chi-density with $n$ DoF
 \item If $\mb x$ is standardized normal $N(0,1)$, then $\mb y= \mb x^2$ is chi-square with 1 degree of freedom.
 \item If $\mb{x}_1, \hdots, \mb{x}_n$ are jointly normal, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is also normal (p257)
-\item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1 + \hdots \mb{x}_n$ is $\chi^2(n)$ (p259)
+\item If $\mb{x}_1, \hdots, \mb{x}_n$ are independent and each $\mb{x}_i$ is $N(0,1)$, then $\mb{z} = \mb{x}_1^2 + \hdots \mb{x}_n^2$ is $\chi^2(n)$ (p259)
 \item If $\mb{x}$ is $\chi^2(n)$ and $\mb{y}$ is $\chi^2(m)$ and $\mb{x,y}$ independent, then $\mb{z} = \mb{x+y}$ is $\chi^2(n+m)$ (p260)
 \end{itemize}
 

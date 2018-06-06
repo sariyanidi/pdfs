@@ -1,0 +1,99 @@
+\documentclass[a4paper, oneside]{book}
+
+%\topmargin=-0.95in    % Make letterhead sftart about 1 inch from top of page
+%\textheight=9.60in    % text height can be bigger for a longer letter
+%\oddsidemargin=-0.5in % leftmargin is 1 inch
+%\textwidth=8.7in   % textwidth of 6.5in leaves 1 inch for right margin
+
+
+
+\input{../preliminaries.tex}
+
+\begin{document}
+
+
+\chapter{Introduction}
+
+Mixed notes from the book Convex Optimization \cite{boyd04}. Some parts will be supplemented by the book of Dattoro \cite{dattorro10}. The book of Dattoro is extremely useful for concretely illustrating most of the concepts. 
+
+\section*{Quotes}
+\begin{itemize}
+\item ``We study convex geometry because it is the easiest of geometries. For that reason, much of a practitioner’s energy is expended seeking invertible transformation of problematic sets to convex ones". Dattoro \cite{dattorro10}.
+\end{itemize}
+
+
+\chapter{Convex Sets}
+
+\section{Affine and convex sets and cones.}
+\begin{itemize}
+	\item \textbf{Affine set.}  A set $C \subseteq	 \mb R^n$ is \textit{affine} if the line through any two points in $C$ lines in $C$, \ie if $x_1, x_2 \in C$ and $\theta \in \mb R$ implies $\theta x_1 + (1-\theta) x_2 \in C$.  More generally, an affine set is a set that contains all \textit{affine combination} (see def. below) of two or more of its points.
+	\begin{itemize}
+\item 	
+		\begin{itemize}
+		\item Any affine set is convex \cite{dattorro10}.
+		\item The intersection of an arbitrary collection of affine sets remains affine \cite{dattorro10}.
+		\item Any affine set is open in the sense that it contains no boundary, \eg the empty set $\emptyset$, point, line, plane, hyperplane, subspace etc \cite{dattorro10}. Converse not necessarily true (\eg see point just below about subspace.)
+		\item If $C$ is an affine set and $x_0 \in C$, then the set $V=C-x_o = \{x-x_0 | x\in C\}$ is a subspace.
+ 		\end{itemize}
+	\item \textit{Affine combination.} A combination of points $\sum_{i=1}^k \theta_i x_i$ where $\sum_{i=1}^k\theta_i = 1$ is an affine combination.
+	\item \textit{Ambient space.} The space where a given set lives in, \eg a plane can live in $\mb R^2, \mb R^3$. The choice of ambient space has implications on, for example, the interior of a set (\cite{dattorro10}, p34)
+	\item \textit{Affine hull}, denoted $\setop{aff}{C}$ is the smallest set that makes $C$ affine.
+	\item \textit{Affine dimension} of a set $C$ is the dimension of $\setop{aff}{C}$. In fact dimension of a set is synonymous with affine dimension \cite{dattorro10}.
+	\item \textit{Relative interior}. The interior of, for example, a plane in $\mb R^3$ is empty. To ``fix'' this issue, we define the relative interior of $C$ as: $\setop{relint}{C} = \{x \in C | B(x,r) \cup \setop{aff}{C} \subseteq C\text{ for some }r>0\}$
+	\end{itemize} 
+\item \textbf{Convex sets}. A set $C$ is convex if the line segment between any two points in $C$ lies in $C$, \ie  $\theta x_1 +(1-\theta) x_2 \in C$ for any $x_1,x_2 \in C$ and $0 \le \theta \le 1$.
+	\begin{itemize}
+	\item \textit{Convex combination}. A combination of points $\sum_{i=1}^k \theta_i x_i$ where $\sum_{i=1}^k\theta_i = 1$ and $\theta_i\ge 0$ is a convex combination.
+	\item \textit{Convex hull} $\setop{conv}{C}$ of a set $C$ is the smallest set that makes $C$ convex.
+	\end{itemize}
+\item \textbf{Cones}. A set $C$ is called a cone if for every $x \in C$ and $\mb \theta \ge 0$ we have $\theta x \in C$.
+	\begin{itemize}
+	\item \textit{Convex cone} is a set that is cone and also convex, \ie $\theta_1 x_1 + \theta_2 x_2 \in C$ for any $x_1, x_2 \in C$ and for $\theta_1, \theta_2 \ge 0$.
+	
+	Some differences between a convex set and a convex cone: (i) A convex set doesn't have to include the origin, a convex cone does; (ii) a convex set can be bounded but a convex cone cannot. 
+	
+	\end{itemize}
+\end{itemize}
+
+Some important examples and notes (\cite{boyd04} p27):
+\begin{itemize}
+\item Any subspace is affine and a convex cone
+\item A line segment is convex but not affine
+\item A ray (\ie $\{\theta v + x_0 : x\ge 0\}$) is convex but not affine. It is convex cone if its base $x_0$ is 0.
+\item Any line is affine. 
+\item The empty set, any single point and the whole space are affine (hence convex) subsets of $\mb R^n$
+\item Halfspaces (see below) are convex but not affine.
+\end{itemize}
+
+
+\section{Hyperplanes and halfspaces}
+\begin{itemize}
+\item \textbf{Hyperplane} is a set of the form $$\{x | a^T x = b\}$$
+
+This set has several intuitive interpretations. 
+	\begin{enumerate}
+	\item It is the hyperplane with a normal vector $a$ and an offset $b$ from the origin.
+	\item Let $b$ be $a^T x = b$. Then, $\{x | a^T x = b\} = \{x | a^T (x-x_0)\} = x_0 + a^\perp$ where $a^\perp$ is the orthogonal complement of $a$.
+	\item More interpretations on p27-28.
+	\end{enumerate}
+\item \textbf{Halfspace}. Each hyperplane divides $\mb R^n$ into two halfspaces. A (closed) halfspace is of the form $$\{x | a^T x\le b\},$$
+where $a \neq 0$.
+\end{itemize}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{../bibliography}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
