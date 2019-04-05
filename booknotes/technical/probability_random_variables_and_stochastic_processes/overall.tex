@@ -1,7 +1,7 @@
 \documentclass[a4paper, oneside]{book}
 
 \input{../preliminaries}
-\usepackage{pstricks, pst-node, pst-tree}
+\usepackage{pstricks, pst-node, pst-tree, pst-all}
 \begin{document}
 
 \chapter*{Introduction}
@@ -1005,6 +1005,160 @@ We accept $H_0$	& ;) & Type II error (prob: $\beta(\theta) = P\{ \mb{X} \notin D
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\chapter{Stochastic Processes}
+
+This section considers Stochastic processes, some fundamental concepts related to them (mean, autocorrelation, cross-correlation, autocovariance, cross-covariance), properties that pertain to stochastic processes (independence, a-independence, uncorrelatedness, stationarity), and introduces linear systems. 
+
+\section{Definitions and some basic concepts}
+\begin{itemize}
+\item \textbf{Definition of Stochastic Process.} It's helpful to define a stochastic process via an analogy to RVs. An RV $\mb x$ is a \textit{rule} for assigning to every outcome $\zeta$ a \textit{number} $\mb x(\zeta)$. A stochastic process is a rule for assigning to every outcome $\zeta$ a \textit{function} $\mb x(t, \zeta)$. Thus a stochastic process is a family of time functions depending on the parameter $\zeta$ or, equivalently, a function of $t$ and $\zeta$. The domain of $\zeta$ is the set of all experimental outcomes and the domain of $t$ is a set $R$ of real numbers. (Note: It's not \textit{the} set of real numbers, it's \textit{a} set of real numbers.
+
+If $R$ is the real axis, then $\mb x(t)$ is a continuous-time process. If $R$ is the set of integers, then $\mb x(t)$ is a discrete-time process. A discrete-time process is, thus, a sequence of RVs. Such a sequence is typically denoted by $\mb x_n$ or $\mb x[n]$.
+
+The symbol $\mb x(t)$ has multiple interpretations:
+\begin{itemize}
+\item It's a family of functions $\mb x(t,\zeta)$. In this interpretation, $t$ and $\zeta$ are variables.
+\item It's a single time function (or a \textit{sample} of the given process). In this case, $t$ is a variable and $\zeta$ is fixed.
+\item If $t$ is fixed and $\zeta$ is variable, then $\mb x(t)$ is an RV.
+\item If $t$ and $\zeta$ are fixed, then $x(t)$ is a \textit{number}.
+\end{itemize}
+
+\item \textbf{Properties}: First and second order properties of stochastic processes.
+\begin{itemize}
+\item \textit{Mean}. The mean $\eta(t)$ of $\mb x(t)$ is the expected value of the random variable $\mb x(t)$: $\eta(t) = E\{\mb x(t)\}=\int_{-\infty}^{\infty} x f(x; t) dx$. Clearly, $\eta(t)$ is a function.
+\item \textit{Autocorrelation}. The autocorrelation $R(t_1,t_2)$ of $\mb x(t)$ is the expected value of the product $\mb x(t_1)^* \mb x(t_2)$: 
+\begin{equation}
+R(t_1,t_2) = E\{\mb x(t_1)^* \mb x(t_2)\} = \int_{-\infty}^{\infty} x_1 x_2^* f(x_1,x_2^*; t_1,t_2)dx_1 dx_2.
+\end{equation}
+The function $R(t_1,t_2)$ is \textit{positive definite}, which means that for any $a_i, a_j$ we have that $\sum_{i,j} a_i a_j^* R(t_i,t_j)\ge 0$.
+\item \textit{Average power}: The value of $R(t,t)$ is the average power of $\mb x(t)$: $E\{ |\mb x(t)|^2\}=R(t,t)$
+\item \textit{Autocovariance}: The autocovariance $C(t_1,t_2)$ of $\mb x(t)$ is the covariance of the random variables $\mb x(t_1)$ and $\mb x(t_2)$:
+\begin{equation}
+C(t_1,t_2) = R(t_1, t_2) - \eta(t_1)\eta^*(t_2).
+\end{equation}
+Clearly, the autocovariance of a process $\mb x(t)$ is the autocorrelation of the centered process $\mb x(t):=\mb x(t)-\eta (t)$.
+\item \textit{Cross-correlation} between two processes $\mb x(t)$ and $\mb y(t)$ is the function $R_{xy}(t_1, t_2)=E\{\mb x(t_1) \mb y^*(t_2)\}=R_{yx}(t_2,t_1)$.
+\item \textit{Cross-covariance} between two processes $\mb x(t)$ and $\mb y(t)$ is $C_{xy}(t_1,t_2) = R_{xy}(t_1,t_2)-\eta_x(t_1)\eta_y^*(t_2)$
+\end{itemize}
+
+
+\end{itemize}
+\section{Categories or qualifications of stochastic processes}
+\begin{itemize}
+\item \textbf{Orthogonality/uncorrelatedness/independence.}
+\begin{itemize}
+\item \textit{Orthogonal}. Two processes $\mb x(t)$ and $\mb y(t)$ are orthogonal if $R(t_1,t_2)=0$ for every $t_1$ and $t_2$.
+\item \textit{Uncorrelated}. Two processes $\mb x(t)$ and $\mb y(t)$ are uncorrelated if $C_{xy}(t_1,t_2)=0$ for every $t_1$ and $t_2$.
+\item \textit{a-dependent processes}. Generally, the dependence (if any) between two time points $\mb x(t_1)$ and $\mb x(t_2)$ reduces as $|t_1-t_2|\to \infty$. A stochastic process is called \textit{a-dependent} if $C(t_1,t_2)=0$ for $|t_1-t_2|>a$.
+\item \textit{White noise}. A process $\mb \nu(t)$ is white noise if its values are uncorrelated: $C(t_i,t_j) = 0$ for $t_i\neq t_j$. The autocovariance of a nontrivial white-noise process must be of the form $C(t_1,t_2)=q(t_1)\delta(t_1-t_2)$ with $q(t)\ge 0$. Often the white noise has zero mean.
+\item \textit{Independence}. If $\mb x(t)$ and $\mb y(t)$ are such that the RVs $\mb x(t_1),\dots,\mb x(t_n)$ and $\mb y(t_1'), \dots, \mb y(t_n')$ are mutually independent, then $\mb x(t)$ and $\mb y(t)$ are called independent.
+\end{itemize}
+
+\item \textbf{Normal processes.} A process $\mb x(t)$ is called normal if the RVs $\mb x(t_1),\dots,\mb x(t_2)$ are jointly normal for any $n$ and $t_1, \dots, t_n$. The statistics of a normal process are completely determined in terms of its mean $\eta(t)$ and autocovariance $C(t_1,t_2)$. Indeed, since 
+\begin{equation}
+E\{\mb x(t)\} = \eta (t), \,\,\,\, \sigma_x^2(t) = C(t,t)
+\end{equation}
+we conclude that the first-order density $f(x;t)$ of $\mb x(t)$ is the normal density $\mathcal{N}\left[\eta(t), \sqrt{C(t,t)}\right].$
+\begin{itemize}
+\item \textbf{Existence theorem}. Given an arbitrary function $\eta (t)$ and a positive definite function (see above) $C(t_1,t_2)$ we can construct a normal process with mean $\eta(t)$ and autocovariance $C(t_1,t_2)$.
+\end{itemize}
+
+\item \textbf{Stationarity}
+\begin{itemize}
+\item \textit{Strict Sense Stationary (SSS)}. A process $\mb x(t)$ is called \textit{strict sense stationary} (SSS) if its statistical properties are invariant to a shift of the origin. This means that the processes $\mb x(t)$ and $\mb x(t+c)$ have the same statistics for any $c$. Two processes $\mb x(t)$ and $y(t)$ are called jointly stationary if the joint statistics of $\mb x(t+c)$ and $\mb y(t+c)$ are the same for any $c$.
+\item \textit{Wide Sense Stationary (WSS)}. A process $\mb x(t)$ is called \textit{wide sense stationary} (WSS) if (i) its mean is constant (i.e., $E\{\mb x(t)\}=\eta$) and its autocorrelation depends only on $\tau:=t1_t2$: $E\{\mb x(t+\tau) \mb x^*(t)\} = R(\tau)$.
+\item Note: If a process is SSS, then it is also WSS (p390).
+\end{itemize}
+\item \textbf{Point/Counting/Renewal processes}
+	\begin{itemize}
+	\item A \textit{point process} (or an \textit{arrival process}) is a sequence of RVs (note that it's NOT a stochastic process) $\mb t_1, \mb t_2, \dots$ such that $0 < \mb t_1 < \mb t_2 < \dots$ where $\mb t_i < \mb t_{i+1}$ means that the RV $\mb z:=\mb t_{i+1}-\mb t_i$ is a positive RV, \ie, $F_z(0) = 0$. This is the clearest definition that  I found and it's from~\cite{gallagher_ch2}.
+	\item A \textit{counting process} $\mb x(t)$ is described based on a point process as the number of points in the interval $(0, t)$. An example is the Poisson process (see below).
+	\item To every point $\mb t_i$ in a point process  we can associate a sequence of RVs $\mb z_n$ such that
+	\begin{equation}
+	\mb z_1 = \mb t_1\,\,\,\,\,\,\,\, \mb z_2 = \mb t_2-\mb t_1\,\,\,\,\,\,\, \dots \,\,\,\,\,\,\, \mb z_n = \mb t_n-\mb t_{n-1}.
+	\end{equation}
+	This sequence is called a \textit{renewal process}. An example is the life history of lightbulbs that are replaced as soon as they fail. In this case, $\mb z_i$ is the total time of the $i$th bulb in operation and $\mb t_i$ is the time of its failure.
+	\item Above we establish a correspondence between three concepts: (a) a point process, (b) a discrete-state stochastic process $\mb x(t)$ increasing in unit steps at the points $\mb t_i$ and (c) a renewal process consisting of random variables $\mb z_i$ such that $\mb t_n = \mb z_1 + \dots + \mb z_n$.
+	
+	
+	
+	\end{itemize}
+	\item \textbf{Poisson Process}. An arrival process is called a Poisson process with rate $\lambda$ if (a) The probability of $k$ arrivals in an interval $(t_1,t_2)$, $P\{\mb n(t_1,t_2)=k\}$, is the same for all intervals of the same length, (b) the number of arrivals during a particular interval is independent of the history of arrivals outside this interval and (c) the probabilities $P\{\mb n(t_1, t_2)=k\}$ satisfy~\cite{bertsekas08}:
+	\begin{itemize}
+	\item $P\{\mb n(t_1,t_2)=0\} = 1 - \lambda(t_2-t_1)+o(t_2-t_1)$
+	\item $P\{\mb n(t_1,t_2)=1\} = \lambda\tau + o_1(t_2-t_1)$
+	\item $P\{\mb n(t_1,t_2)=k\} = o_k(t_2-t_1)\,\,\,\, for k=2,3,\dots$, where $o(\tau)$ and $o_k(\tau)$ are functions of $\tau$ that satisfy $\lim_{\tau\to 0}\frac{o(\tau)}{\tau} = 0$ and $\lim_{\tau\to 0} \frac{o_k(\tau)}{\tau} = 0$.
+	\end{itemize}
+	The number of the points $\mb t_i$ in an interval $(t_1,t_2)$ of length $\tau = t_2-t_1$ is a Poisson random variable  with parameter $\lambda \tau$:
+	\begin{equation}
+	P\{\mb n(t_1,t_2) = k\} = \frac{e^{-\lambda \tau}(\lambda \tau)^k}{k!}.
+	\end{equation}
+\end{itemize}
+
+
+\section{Systems with stochastic inputs}
+\begin{itemize}
+\item \textbf{Definition of system.} Given a stochastic process $\mb x(t),$ we assign according to some rule to each of its samples $\mb x(t,\zeta_i)$ a function $\mb y(t,\zeta_i)$. We have thus created another process:
+\begin{equation}
+\mb y(t) = T[\mb x(t)].
+\end{equation}
+\item \textbf{Memoryless systems}. A system is called if its output at time $t_i$ depends only on the input at the same time, $\mb x(t_i)$. Examples are square law detector (takes square of the input process) or hard limiter (i.e., binary quantizer of the input).
+	\begin{itemize}
+	\item \textit{Stationarity}. If the input to a memoryless system is an SSS process, then the output is also an SSS process. (This doesn't apply in general for WSS processes).
+	\item \textit{Bussgang's Theorem}. If the input to a memoryless system $y=g(x)$ is a zero-mean normal process $\mb x(t)$, the cross-correlation of $\mb x(t)$ with the resulting output $\mb y(t) = g[\mb x(t)]$ is proportional to the autocorrelation $R_{xx}(\tau)$; that is, $R_{xy}(\tau)=K R_{xx}(\tau)$ where $K=E\{g'[\mb x(t)]\}$.
+	\end{itemize}
+\item \textbf{Linear systems}: A linear system is typically denoted with $L$, that is, $\mb y(t) = L[\mb x(t)]$. The familiar definition of linearity holds also for random variables: $L[\mb a_1 \mb x_1(t) + \mb a_2 \mb x_2(t)]=\mb a_1 L[\mb x_1(t)]+\mb a_2 L[\mb x_2(t)]$.
+
+The output of a linear system is convolution:
+\begin{equation}
+\mb y(t) = \mb x(t) * h(t) = \int_{-\infty}^\infty \mb x(t-\alpha) h(\alpha) d\alpha
+\end{equation}
+where
+\begin{equation}
+h(t) = L[\delta(t)]
+\end{equation}
+is its impulse response.
+	\begin{itemize}
+	
+	\item A system is called time invariant if its response to $\mb x(t)$ equals $\mb y(t+c)$
+	\end{itemize}
+\item \textbf{Properties of linear systems}. For any linear system, 
+	\begin{itemize}
+	\item \textit{(Mean)} $E\{L[\mb x(t)]\}=L[E\{\mb x(t)\}]$.
+	\item \textit{(input/output cross-correlation)} $R_{xy}(t_1,t_2) = L_2[R_{xx}(t_1,t_2)]$ where $L_2$ means that system operates on var. $t_2$
+	\item \textit{(output autocorrelation)} $R_{yy}(t_1,t_2)=L_1[R_{xy}(t_1,t_2)]$ where $L_1$ means that the system operates on $t_1$.
+	\end{itemize}
+\end{itemize}
 
 
 
