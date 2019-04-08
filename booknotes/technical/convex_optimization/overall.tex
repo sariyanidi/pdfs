@@ -46,7 +46,7 @@ Mixed notes from the book Convex Optimization \cite{boyd04}. Some parts will be 
 	\item \textit{Convex combination}. A combination of points $\sum_{i=1}^k \theta_i x_i$ where $\sum_{i=1}^k\theta_i = 1$ and $\theta_i\ge 0$ is a convex combination.
 	\item \textit{Convex hull} $\setop{conv}{C}$ of a set $C$ is the smallest set that makes $C$ convex.
 	\end{itemize}
-\item \textbf{Cones}. A set $C$ is called a cone if for every $x \in C$ and $\mb \theta \ge 0$ we have $\theta x \in C$.
+\item \textbf{Cones}. A set $C$ is called a cone if for every $x \in C$ and $\mb \theta \ge 0$ we have $\theta x \in C$. Cones can have very unintuitive shapes, see Fig. 35-41 in \cite{dattorro10}.
 	\begin{itemize}
 	\item \textit{Convex cone} is a set that is cone and also convex, \ie $\theta_1 x_1 + \theta_2 x_2 \in C$ for any $x_1, x_2 \in C$ and for $\theta_1, \theta_2 \ge 0$.
 	
@@ -66,7 +66,7 @@ Some important examples and notes (\cite{boyd04} p27):
 \end{itemize}
 
 
-\section{Hyperplanes and halfspaces}
+\section{Hyperplanes, halfspaces, balls and polyhedra}
 \begin{itemize}
 \item \textbf{Hyperplane} is a set of the form $$\{x | a^T x = b\}$$
 
@@ -78,12 +78,169 @@ This set has several intuitive interpretations.
 	\end{enumerate}
 \item \textbf{Halfspace}. Each hyperplane divides $\mb R^n$ into two halfspaces. A (closed) halfspace is of the form $$\{x | a^T x\le b\},$$
 where $a \neq 0$.
+\item \textbf{Norm ball}. A norm ball is the set of the form $B(x_c, r)=\{ x :  ||x_c-x||\le r, x\in \mb R^n \}$, where $||\cdot||$ is a given norm. Another common representation of the ball is $B(x_c, r) = \{x_c+ru : ||u|| \le 1, u \in \mb R^n \}$.
+
+Norm ball is convex (p30).
+\item \textbf{Norm cone} is the set $C(x,t)=\{(x,t) : ||x||\le  x\in \mb R^{n+1}, t \in \mb R\} \subseteq \mb R^{n+1}$. It is a convex cone.
+
+\item \textbf{Proper cone} is a cone $K \subseteq \mb R^n$ that satisfies the following:
+	\begin{itemize}
+	\item is convex
+	\item is closed
+	\item is solid, \ie it has nonempty interior
+	\item is pointed, which means that it contains no line (or, equivalently, $x\in K$, $-x\in K \implies x =0 $)
+	\end{itemize}
+	
+The concept of Proper Cone will be central in defining \textit{generalized inequalities}.
+
+\item \textbf{Polyhedra}. A polyhedron is the solution set of a finite number of equalities and inequalities:
+$$\mathcal P =\{ x : a_j^T x \le b_j, j=1, \hdots, m, c^T_i x= d_i, i=1,\hdots,m \}. $$
+A simpler notation is $\mathcal P = \{x | Ax \preceq b, Cx = d \}$, where the symbol $\preceq$ is \textit{vector} or \textit{componentwise} inequality (p32).
+\item \textbf{Simplexes.} \index{Simplex} Simplexes are a family of polyhedra; they are also a generalization of the triangle (and its interior); \ie a 1D simplex is a line segment, a 2D simplex is the triangle and its interior, a 3D simplex is tetrahedron. 
+	\begin{itemize}
+	\item \textit{\index{Affine independence}Affine independence} means that for $v_0, \hdots, v_k \in \mb R^n$, the points $v_1-v_0, \hdots, v_k-v_0$ are linearly independent.
+	\item A simplex can be defined in terms affinely independent points: $C=\setop{conv}{ \{v_0,\hdots,v_k\}}$.
+	\end{itemize}
+
 \end{itemize}
 
+
+
+
+
+
+\section{Operations that preserve convexity\textsl{•}}
+
+
+\begin{itemize}
+\item \textbf{Intersection}: Convexity is preserved under intersection; the intersection of even infinite convex sets is convex.
+\item \textbf{Affine functions.} Let $f$ be an affine function, \ie $f(x)=Ax+b$. Then the image of $S$ under $f$, $$f(S) = \{f(x) \,\,|\,\, x \in S\}$$
+and the inverse image of $S$ under $f$, $$f^{-1}(S) = \{x | f(x) \in S \}$$
+are both convex if $S$ is convex.
+	\begin{itemize}
+	\item \textit{Cartesian product}. $S=S_1\times S_2$ for two convex sets $S_1, S_2$, $S=\{x_1 + x_2 : x_1 \in S_1, S_2 \in x_2\}$ is convex.
+	\item \textit{Sum} The sum $S$ of two convex sets $S_1, S_2$, $S=\{x_1 + x_2 : x_1 \in S_1, S_2 \in x_2\}$ is convex.
+	\end{itemize}
+\item \textbf{Linear-fractional and perspective functions.} 
+	\begin{itemize}
+	\item \textit{Perspective function} is the $R^{n+1} \to \mb R^n $ function  $P(x,t) = x/t$ with domain $\setop{dom}{P} = \mb R ^{n+1} \times \mb R_{++}$. That is, the perspective function normalizes the input vector so the last element is one, and then drops this last element.
+	
+	If a set $C \subseteq \setop{dom}{P}$ is convex, then its image under $P$ is also convex. 
+	\item \textit{Linear-fractional function} is the composition $P \circ g$ of a perspective function $P$ with an affine function $g$.
+	
+	It is easy to show that linear-fraction functions preserve convexity: If $S$ is convex, then  its image $g(S)$ under $g$ will be convex, then its image under perspective will also be convex. 
+	\end{itemize}
+\end{itemize}
+
+
+
+\section{Generalized inequalities, minimum and minimal elements}
+\begin{itemize}
+\item \textbf{Generalized inequality}. A proper cone $K$ (see above) can be used to define a \textit{generalized inequality} as follows:
+$$x\preceq_K y \iff y-x \in K$$
+A strict generalized inequality $x \prec y$ is defined as
+$$x \prec_K y \iff y-x \in \setop{int}{K}$$
+%
+\textit{Example.} The nonnegative orthant $\mb R_+^n$ is a proper cone and for $K = \mb R_+^n$ the associated inequality $\preceq_K$  corresponds to componentwise inequality $x\prec y$.
+
+\underline{Properties of generalized inequalities}:
+	\begin{enumerate}
+	\item $\preceq_K$ is preserved under addition: If $x \preceq_K y$ and $u \preceq_K y$, then $x+u \preceq_K y+v$
+	\item $\preceq_K$ is transitive: If $x \preceq_K y$ and $y \preceq_K z$, then $x \preceq_K z$.
+	\item $\preceq_K$ is preserved under nonnegative scaling: If $x\preceq_K y$ and $\alpha > 0$, then $\alpha  x \preceq_K \alpha y$.
+	\item $\preceq_K$ is reflexive: If $x \preceq_K x$.
+	\item $\preceq_K$ is antisymmetric: If $x \preceq_K y$ and $y \preceq_K x$, then $x = y$.
+	\item $\preceq_K$ is preserved under limits: If $x_i \preceq_K y_i$ for $i=1,2,\hdots$ and $x_i \to x$ and $y_i \to i$, then $x \preceq_K y$. 
+	\end{enumerate}
+	
+Properties 1,2,3 are shared by the strict inequality $x \prec_K y$ too, property 4 is strictly \textit{not} shared by it. Also, and additional property for strict generalized inequalities (probably shared by non-strict too):
+	\begin{itemize}
+	\item if $x\prec_K y$, then for small enough $u,v$ we have $x+u\prec_K y+v$.
+	\end{itemize}
+\item \textbf{Minimum and minimal elements}. An essential difference between a regular inequality and a generalized one is that \textit{not all points are comparable}; that is, one of the two inequalities $x \le y$ or $x \le y$ has to hold. This is not the case for generalized inequality.
+
+\textit{Example.} Consider the proper cone $K=\mb R^n_+$, and points $x=(3,3)$, $y=(5,5)$ and $z=(4,2)$. Clearly, $x$ and $y$ are comparable and $x\preceq_K y$. Similarly, $y$ and $z$ are comparable and $z \preceq_K y$ . However, $x$ and $z$ are not comparable.
+
+	\begin{itemize}
+	\item \textit{Minimum element}. We say that $x \in S$ is the minimum element of $S$ (w.r.t. $\preceq_K$) if for every $y \in S$ we have $x \preceq_K y$, which happens if and only if $$S \subseteq x+K$$
+	where $x+K$ is the set of all the points that are (i) comparable to $x$ and (ii) greater than or equal to $x$ (confer Fig. 2.17 of \cite{boyd04} or Fig. 43 of \cite{dattorro10}).  
+	
+	There can be at most \textit{one} minimum point.
+	\item \textit{Minimal element}. First of all, a minimum point is also a minimal point. But a minimal point can exist even if there is no minimum. There can be more than one minimal points. 
+	
+	We say that $x\in S$ is the minimal point of $S$ (w.r.t. $\preceq_K$) if for any $y\in S$, $y\preceq_K$ holds only if $y=x$. Or, equivalently, 
+	$$ (x-K) \cap S = \{x\} $$
+	where $x-K$ denotes the set of all points that are comparable to $x$ and are less then or equal to $x$ w.r.t. $\preceq_K$.
+	
+	Confer Fig. 2.17 of \cite{boyd04} or Fig. 43 of \cite{dattorro10}. Note that in Fig. 43b it's impossible to draw the cone $K$ (centered on any of the minimal points) that would contain the entire $\mathcal C_2$, therefore $\mathcal{C}_2$ has no minimum. 
+	\end{itemize}
+\end{itemize}
+
+
+\section{Separating and supporting hyperplanes}
+\begin{itemize}
+\item \textbf{Separating hyperplane} is a hyperplane that separates two convex sets.
+
+\textit{Separating hyperplane theorem}. Let $C$ and $D$ be two convex sets that do not intersect. Then, there exists $a \neq 0$ and $b$ such that $a^T x \le b$ for all $x\in C$ and $a^T x \ge b$ for all $x \in D$.
+
+	\begin{itemize}
+	\item \textit{Strict separation} is defined similarly when $\ge$ and $\le$ are replaced by $>$ and $<$.
+	\end{itemize}
+\textit{Converse of separating hyperplane theorem} is not in general true, but one can obtain it by adding additional constraints. One variant of converse theorem would be (see p50): Any two convex sets at least one of which is open are disjoint if and only if there exists a separating hyperplane.
+
+\item \textbf{Supporting hyperplane}. Suppose that $C \subseteq \mb R^n$ and $x_0$ is a point in its boundary, \ie $x_o \in \setop{bd}{C} = \setop{cl}{C} \setminus \setop{int}{C}$. If $a\neq 0$ satisfies $a^T x \le a^T x_0$ for all $ x \in C$ (\ie the entire set $C$ lies on one side of the hyperplane), then the hyperplane $\{ x : a^T x = a^T x_0 \}$ is called a \textit{supporting hyperplane}.
+
+Convexity and supporting hyperplanes are intimately connected:
+
+	\begin{itemize}
+	\item \textit{Supporting hyperplane theorem}: If $C$ is convex, then there exists a supporting hyperplane for any $x_0 \in \setop{bd}{C} $.
+	\item Partial converse of the theorem: If a set is closed, has nonempty interior and has a supporting hyperplane at every point on its boundary, then it is convex.
+	\end{itemize}
+\end{itemize}
+
+
+
+\section{Dual cones and generalized inequalities}
+
+\begin{itemize}
+\item \textbf{Dual cone}. Let $K$ be a cone. Then, the set $K^* = \{y : x^T y \ge 0 \text{ for all } x \in K\}$ is called the dual cone of $K$. Some properties of dual cone $K^*$ (p51 and p53):
+	\begin{itemize}
+	\item A dual cone $K^*$ is a ... cone.
+	\item $K^*$ is always \textit{convex}. 
+	\item $K^*$ is always closed.
+	\item $K_1 \subseteq K_2 \implies K_2^* \subseteq K_1^*$.
+	\item If $K$ has nonempty interior, then $K^*$ is pointed.
+	\item If the closure of $K$ is pointed, than $K^*$ has nonempty interior.
+	\item $K^{**}$ is the closure of the convex hull of $K$ (hence, if $K$ is convex and closed, $K^{**}=K$).
+	\item If $K$ is a proper cone, then $K^*$ is also a proper cone.
+	\end{itemize}
+	
+An intuitive way of defining a dual cone is shown in Fig. ******************. 
+\textit{Examples to dual cones.}
+	\begin{itemize}
+	\item The dual cone of $K=\mb R^n_+$ is itself.
+	\item The dual cone of a line in space is its orthogonal complement.
+	\item More generally, the dual cone of a subspace $V \subseteq \mb R^n$ is its orthogonal complement $\{ y : y^Tv  = 0 \text{ for all } v \in V \}$
+	\end{itemize}
+\item \textbf{Dual generalized inequalities}. Like any proper cone, the dual of a proper cone, $K^*$, induces a generalized inequality $\preceq_{K^*}$. The following relationships relating the generalized inequality of proper cone and its dual seem to be fundamental:
+	\begin{itemize}
+	\item $x \preceq_K y$ iff $\lambda^Tx \le \lambda^T y$ for all $\lambda \succeq_{K^*}0$.
+	\item $x \prec_K y$ iff $\lambda^Tx < \lambda^T y$ for all $\lambda \succ_{K^*}0$, $\lambda \neq 0$.
+	\end{itemize}
+Those are central properties that allow us to characterize minimum and minimal points w.r.t. a cone $K$ in terms of its dual generalized inequalities, $\preceq_{K^*}$.
+	\begin{itemize}
+	\item \textit{Minimum point.} $x \in S$ is the minimum point in $S$ w.r.t. generalized inequality $\preceq_K$ iff for all $\lambda \succ_{K^*} 0$, $x$ is the unique minimizer of $\lambda^T z$ over $z \in S$. Geometrically, this means that for any $\lambda \succ_{K^*}$, the hyperplane 
+	$$\{z : \lambda^T (z-x) =0\}$$
+	is a strict supporting hyperplane (strict means that the hyperplane intersects $S$ only at one point, \eg it's not a trivial hyperplane such a line being supporting hyperplane of a line).
+	\item \textit{Minimal point.}  There is a gap between necessary and sufficient conditions.  A note to illustrate why: $x \in S$ may be minimal of $S$ but there may be no $\lambda$ for which $x$ minimizes $\lambda^T z$ over $z \in S$ (see Figure 2.25, 2.26, p57).
+
+	\end{itemize}
+\end{itemize}
 
 \bibliographystyle{IEEEtran}
 \bibliography{../bibliography}
 
+\printindex
 
 
 \end{document}

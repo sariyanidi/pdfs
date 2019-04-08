@@ -74,7 +74,7 @@ A basic topic that I wasn't sufficiently familiar is covered in this chapter (se
 \section*{Interesting identities/lemmas/theorems}
 
 \begin{itemize}
-\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $\mb A$ and $\mb B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}'_i\mb{b}_i$.
+\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $\mb A$ and $\mb B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}_i\mb{b}'_i$.
 \item \textbf{L2.3.2} For any two $m\times n$ matrices $ \mb{A,B}$, $\mb A = \mb B \iff \mb{Ax = Bx}$ for every $n\times 1$ vector $\mb x$
 \end{itemize}
 
@@ -1495,6 +1495,15 @@ $$\int_{\mathcal{R}^n}\mb{(x-c)'W(x-c)} \exp [-(1/2)\mb{(x-c)'W(x-c)}]  d\mb{x} 
 
 
 
+\clearpage
+\chapter*{Quizzes}
+\begin{itemize}
+\item How to check if a column vector $\mb{b}$ is in the column space (or range) of a matrix $\mb{A}$?\\
+1) You can compare the ranks of $\mb A$ and $\mb{\tilde{A}} = [\mb{A}  & \mb b]$
+2) You can do a ``full'' QR factorization on $[\mb{A}  & \mb b]$ and check if the last column generated a new vector for the orthogonal set of vectors extracted in the previous steps of the QR.
+\end{itemize}
+
+
 
 
 
@@ -1505,7 +1514,6 @@ $$\int_{\mathcal{R}^n}\mb{(x-c)'W(x-c)} \exp [-(1/2)\mb{(x-c)'W(x-c)}]  d\mb{x} 
 
 
 \end{document}
-
 
 
 
