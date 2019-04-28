@@ -1360,7 +1360,58 @@ $$\int_{\mathcal{R}^n}\mb{(x-c)'W(x-c)} \exp [-(1/2)\mb{(x-c)'W(x-c)}]  d\mb{x} 
 
 
 
+\chapter{Intersections and Sums of Subspaces}
+The concept of essentially disjoint subspaces allows us to identify conditions to more precisely specify the rank of partitioned matrices or of multiplication of matrices. It also allows us to describe column or row spaces more specifically. Essential disjointness is closely related to projection as well.
+\section{Definitions}
+\begin{itemize}
+\item \textit{Sum of subspaces}. The sum of two subspaces $\mathcal{U}$ and $\mathcal{V}$ is defined as $\mathcal{U}+\mathcal{V}= \{\mb U \in \mathcal{U}, \mb V \in \mathcal{V}\}$. 
+	\begin{itemize}
+	\item \textbf{T17.4.1.} $\dim(\mathcal{U}+\mathcal{V}) = \dim(\mathcal{U}) + \dim(\mathcal{V}) - \dim(\mathcal{U}\cap\mc V)$
+	\end{itemize}
+\item \textit{Essentially disjoint}. Two subspaces $\mathcal{U}$ and $\mc V$ of $\mc W$ are called essentially disjoint if $\mathcal{U}\cap \mathcal{V} = \{\mb 0\}$. Essential disjointness can be seen as a generalization of orthogonality; orthogonal subspaces are essentially disjoint (\textbf{L17.1.9}) but the converse is not in general true.
+\begin{itemize}
+\item \textbf{L.17.1.3.} Let $\{\mb U_1, \dots, \mb U_r\}$ be a linearly independent set in $\mathcal{U}$ and $\{\mb V_1, \dots, \mb V_s\}$ be two sets of linearly independent matrices in $\mathcal{U}$ and $\mathcal{V}$. If $\mathcal{U}$ and $\mathcal{V}$ are essentially disjoint, then the combined set $\{\mb U_1,\dots,\mb U_r, \mb V_1, \dots, \mb V_s\}$ is also linearly independent.
+\end{itemize}
+\item \textit{Direct sum}. If $\mathcal{U}$ and $\mathcal{V}$ are essentially disjoint subspaces, then their sum is called a direct sum, denoted as $\mathcal{U}\oplus  \mathcal{V}$
+	\begin{itemize}
+	\item $\dim(\mathcal{U}\oplus \mathcal{V}) = \dim(\mathcal{U})+\dim(\mathcal{V})$ (\textbf{C17.1.6})
+	\end{itemize}
+\end{itemize}
 
+\section{Results on Ranks of Partitioned Matrices and Column/Row Spaces}
+\begin{itemize}
+\item \textbf{T17.2.4.} If $\mathcal C (\mb A)$ and $\mathcal{C}(\mb B)$ are essentially disjoint, then $$\rank(\mb A, \mb B)=\rank(\mb A)+ \rank(\mb B).$$ If they are not, then $\rank(\mb A, \mb B)<\rank(\mb A)+ \rank(\mb B)$. This is a sharpening of the results of \textbf{L4.5.7}.
+\item \textbf{C17.2.8.} For any appropriately sized matrices $\mb A$ and $\mb B$, $\mathcal{C}(\mb A)$ and $\mathcal{C}[(\mb{I-AA^-})\mb B]$ are essentially disjoint. Intuitively terms, this result says that  $\mathcal{C}[(\mb{I-AA^-})\mb B]$ ``hits'' the part of the  $\mb B$'s column space that cannot be hit by $\mathcal{C}(\mb A)$. A direct consequence of this is that $$\rank[\mb A, (\mb{I-AA^-})\mb B] = \rank(\mb A) + \rank[(\mb{I-AA^-})\mb B].$$
+\item \textbf{C17.2.9} For any appropriately sized matrices $\mb A$ and $\mb B$, $$\mathcal{C}(\mb{A,B})=\mathcal C[\mb A, \mb{(I-AA^-)B}] = \mathcal{C}(\mb A)\oplus\mathcal{C}[\mb{(I-AA^-)B}].$$.
+\item \textbf{L17.2.2} Suppose that $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb B)$ are essentially disjoint and that $\mathcal{C}(\mb X) \subset \mathcal{C}(\mb A)$ and $\mathcal{C}(\mb X) \subset \mathcal{C}(\mb B)$, then $\mb {X=0}$.
+\item \textbf{L17.2.3} If $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb B)$ are essentially disjoint, then $\mb{AK} = \mb{BL} = )$ for any $\mb{K,L}$.
+\item \textbf{L17.2.6} $\mb A$ is idempotent if and only if $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb{I-A})$ are essentially disjoint. 
+\item \textbf{L17.2.7} For any $\mb A$, $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb{I-A^-A})$ are essentially disjoint. 
+\item \textbf{C17.2.12} If $\mb{AA^-B=0}$ or $\mb{BB^-A=0}$, then $\mathcal{C}(\mb A), \mathcal{C}(\mb B)$ are essentially disjoint.
+\item \textbf{T17.2.17} For any $\mb{T,U,V}$ $$\rank\begin{bmatrix}
+\mb T & \mb U \\ \mb V & \mb 0
+\end{bmatrix} = \rank(\mb V) + \rank[\mb U, \mb{T(I-V^-V)}].$$
+\item \textbf{T17.2.19} For any $\mb{T,U,V}$ $$\rank\begin{bmatrix}
+\mb T & \mb U \\ \mb V & \mb 0
+\end{bmatrix} \le \rank(\mb V) + \rank (\mb U) + \rank (\mb T)$$ with eq. holding iff $\rowsp{T}$ and $\rowsp{V}$ are essentially disjoint and $\colsp{T}$ and $\colsp{V}$ are also essentially disjoint. 
+\end{itemize} 
+
+\section{Results on Linear Systems and on G. Inverses of Partitioned Matrices}
+\begin{itemize}
+\item \textbf{T17.3.1}. Suppose that $\colsp{A_1}$ and $\colsp{A_2}$ are essentially disjoint, and that $\colsp{B_1}\subset\colsp{A_1}$ and $\colsp{B_2}\subset\colsp{A_2}$. Then, for the solution to the linear system $(\mb A_1, \mb A_2)\left( \begin{matrix}\mb X_1\\\mb X_2\end{matrix} \right)=\mb B_1 + \mb B_2$, $\mb X_1$ and  $\mb X_2$ are solutions to the systems $\mb {A}_1 \mb X_1 = \mb B_1$ and $\mb {A}_2 \mb X_2 = \mb B_2$.
+\item \textbf{T17.3.3} Assume $\left( \begin{matrix}\mb G_1 \\ \mb G_2\end{matrix}\right)$ is GI of $(\mb{A,B})$. $\mb G_1$ is GI of $\mb A$ and $\mb G_2$ is GI of $\mb B$ iff $\colsp{A}$ and $\colsp{B}$ are essentially disjoint. 
+\item \textbf{T17.3.4} provides a more complicated set of conditions for the GI of partitioned matrix $\left(\begin{matrix}\mb {T} & \mb{U} \\ \mb {V} & \mb{W}\end{matrix} \right)$
+\end{itemize}
+
+\section{More results on ranks including on multiplication of matrices}
+\begin{itemize}
+\item \textbf{T17.4.3}. $\rank[(\mb{I-AA^-})\mb B] = \rank(\mb B)-\dim[\colsp{A}\cap\colsp{B}]$
+\item \textbf{T17.4.2}. $\rank(\mb{A,B}) = \rank (\mb A)+\rank(\mb B)-\dim[\colsp{A}\cap\colsp{B}]$
+\item \textbf{T17.5.2}. $\rank(\mb{AB}) \ge \rank (\mb A) + \rank(\mb B) - n$ with equality holding iff $\mb{(I-BB^-)(I-A^-A)=0}$
+\item \textbf{T17.5.4}.  $\rank(\mb {AB}) = \rank(\mb B)-\dim[\colsp{B}\cap \mc N(\mb A)] = \rank(\mb A)-\dim[\colsp{B'}\cap \mc N(\mb A')]$
+\end{itemize}
+
+% 
 
 
 
@@ -1499,8 +1550,8 @@ $$\int_{\mathcal{R}^n}\mb{(x-c)'W(x-c)} \exp [-(1/2)\mb{(x-c)'W(x-c)}]  d\mb{x} 
 \chapter*{Quizzes}
 \begin{itemize}
 \item How to check if a column vector $\mb{b}$ is in the column space (or range) of a matrix $\mb{A}$?\\
-1) You can compare the ranks of $\mb A$ and $\mb{\tilde{A}} = [\mb{A}  & \mb b]$
-2) You can do a ``full'' QR factorization on $[\mb{A}  & \mb b]$ and check if the last column generated a new vector for the orthogonal set of vectors extracted in the previous steps of the QR.
+%1) You can compare the ranks of $\mb A$ and $\mb{\tilde{A}} = [\mb{A}  & \mb b]$
+%2) You can do a ``full'' QR factorization on $[\mb{A}  & \mb b]$ and check if the last column generated a new vector for the orthogonal set of vectors extracted in the previous steps of the QR.
 \end{itemize}
 
 
