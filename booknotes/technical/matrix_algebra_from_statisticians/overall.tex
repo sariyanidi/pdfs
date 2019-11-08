@@ -74,7 +74,7 @@ A basic topic that I wasn't sufficiently familiar is covered in this chapter (se
 \section*{Interesting identities/lemmas/theorems}
 
 \begin{itemize}
-\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $\mb A$ and $\mb B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}_i\mb{b}'_i$.
+\item (2.9): $\mb{AB} = \sum_{k=1}^c \mb{A}_k \mb{B}_k$, where $\mb{A,B}$ are appropriately defined partitionings (see \#19), i.e. $\mb{A} = \left(\mb{A}_1, \mb{A}_2, \hdots, \mb{A}_c \right)$, $\mb B=\begin{bmatrix} \mb{B}_1\\ \mb{B}_2\\ \hdots\ \\ \mb{B}_c \end{bmatrix}$. Particularly interesting when $\mb{A}_i$ and $\mb{B}_j$ are cols and rows of $\mb A$ and $\mb B$ respectively, i.e. $\mb{C}=\mb{A}\mb{B}=\sum_{i=1}^c \mb{a}_i\mb{b}'_i$.
 \item \textbf{L2.3.2} For any two $m\times n$ matrices $ \mb{A,B}$, $\mb A = \mb B \iff \mb{Ax = Bx}$ for every $n\times 1$ vector $\mb x$
 \end{itemize}
 
@@ -207,7 +207,7 @@ Very useful chapter, its title doesn't do justice. Fundamental concepts of rank,
 \item \textit{Rank} is the column or row rank of an $m\times n$ matrix $\mb A$; the two latter ranks are the same anyway (T4.4.1). 
 	\begin{itemize}
 	\item $\rank (\mb A)\le m$ and $\rank(\mb A)\le n$ (L4.3.3)
-	\item For any $n\times p$ mat $\mb F$, $\rank(\mb{AF}) \le \rank (\mb A)$ and  $\rank(\mb AF) \le \rank (\mb F)$ (C4.4.5)
+	\item For any $n\times p$ mat $\mb F$, $\rank(\mb{AF}) \le \rank (\mb A)$ and  $\rank(\mb{AF}) \le \rank (\mb F)$ (C4.4.5)
 	\item $\rank(\mb{A,B}) \le \rank(\mb A) + \rank(\mb B)$  and $\rank\left(\begin{matrix} \mb A \\ \mb C \end{matrix} \right) \le \rank(\mb A) + \rank(\mb B)$ (L4.5.7)
 	\item $\rank(\mb A +\mb B) \le \rank(\mb{A,B})$  (L4.5.8)
 	\item $\rank(\mb A +\mb B) \le \rank(\mb A) + \rank(\mb B)$  (C4.5.9)
@@ -359,7 +359,7 @@ This chapter is about the two important concepts in the title that relate to whe
 
 \section*{Important Concepts}
 \begin{itemize}
-\item Linear system (in $\mb{x}$) is: $\mb{Ax=B}$. $\mb A$ is the \textit{coefficient matrix}, $B$ is the \textit{right side} and any $x$ that satisfies the equality is a solution. 
+\item Linear system (in $\mb{x}$) is: $\mb{Ax=B}$. $\mb A$ is the \textit{coefficient matrix}, $\mb B$ is the \textit{right side} and any $\mb x$ that satisfies the equality is a solution. 
 \item A linear system is called \textit{homogeneous} if $\mb{B=0}$ and \textit{non-homogeneous} otherwise.
 \item A system is called \textit{consistent} if it has one or more solutions.
 \end{itemize}
@@ -546,7 +546,7 @@ This chapter is about the finding inverses for matrices that are not square or n
 	\mb Y & \mb Z
 	\end{bmatrix}$ for some $\mb{X, Y}$ and $\mb Z$ (of appropriate dimensions)
 	\item The theorem above becomes particularly powerful when combined with T9.2.3
-	\item \textbf{L9.2.2}: Let $\mb{A}$ be $m\times n$ partitioned as $\mb{A} = \begin{bmatrix} \mb{A}_{11} & \mb A_{12} \\ \mb{A}_{21} & \mb{A}_{22} \end{bmatrix}$ such that $\rank(\mb{A}_{11})=r$. Then, $\mb{A}_{22}=\mb{A}_{21}\mb{A}_11^{-1}\mb{A}_{12}$.
+	\item \textbf{L9.2.2}: Let $\mb{A}$ be $m\times n$ partitioned as $\mb{A} = \begin{bmatrix} \mb{A}_{11} & \mb A_{12} \\ \mb{A}_{21} & \mb{A}_{22} \end{bmatrix}$ such that $\rank(\mb{A}_{11})=r$. Then, $\mb{A}_{22}=\mb{A}_{21}\mb{A}_{11}^{-1}\mb{A}_{12}$.
 	\item \textbf{T9.2.3}: Let $\mb A$ be $m\times n$ with rank $r$. Let $\mb B$ be obtained from $\mb A$ by permuting its rows/columns, \ie $\mb{B=PAQ}$, so that $\mb{B}_{11}$, the principal leading $r\times r$ submatrix of $\mb{B}$, is of rank $r$. Then, $\mb G$ is GI of $\mb B$ iff 
 	$\mb{G}=\mb Q \begin{bmatrix}
 	\mb B^{-1}_{11}-\mb{X}\mb B_{21} \mb B^{-1}_{11}-\mb B^{-1}_{11} \mb B_{12} \mb Y - \mb B^{-1}_{11} \mb B_{12} \mb{ZB}_{21}\mb B^{-1}_{11} & \mb X \\
@@ -568,7 +568,7 @@ This chapter is about the finding inverses for matrices that are not square or n
 	\item The Schur treatment for GIs on Partitioned Matrices
 	\begin{itemize}
 	\item A treatment similar to that of computing the inverse (see Section 8.5) applies to GIs
-	\item The Schur complement is now defined as $\mb{Q=W-VT^{-1}U}$. 
+	\item The Schur complement is now defined as $\mb{Q=W-VT^{-}U}$. 
 	\item \textbf{T9.6.1}: Computing the rank (v similar to T8.5.10). Suppose $\mathcal{C}(\mb U) \subset \mathcal{C}(\mb T)$ and $\mathcal{R}(\mb V) \subset \mathcal{C}(\mb T)$. Then, $\rank\left(\begin{matrix}
 	\mb T & \mb U \\ \mb V & \mb W
 	\end{matrix}\right) = \rank(\mb T) + \rank(\mb Q)$. Moreover, the GI of the partitioned matrix can be computed in terms of the GI of $\mb T^{-}, \mb Q^{-}, \mb V, \mb U$ (\#121). The bottom right of the GI is $\mb Q^-$
@@ -627,7 +627,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 
 \section*{Definition and Some Properties}
 \begin{itemize}
-\item $\mb A$ is said to be idempotent if $\mb A^2 = A$
+\item $\mb A$ is said to be idempotent if $\mb A^2 = \mb A$
 \item The only $n\times n$ idempotent matrix is $\mb I_n$ (L10.1.1)
 \item $\mb A'$ is idempotent $\iff$ $\mb A$ is idempotent (L10.1.2)
 \item $\mb A$ is idempotent $\iff$ $\mb{I-A}$ is idempotent (L10.1.2)
@@ -712,11 +712,11 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item Summary based on p142-143:
 		\begin{itemize}
 		\item (homog.) If $\mb{A}$ has full col. rank, $\mb{AX}=\mb{0}$ has \textit{one} solution (\ie the null mat. $\mb{0}$)
-		\item (homog.) If $\mb{A}$ is col. rank deficient, then $\mb{AX}=0$ has infinite solutions
+		\item (homog.) If $\mb{A}$ is col. rank deficient, then $\mb{AX}=\mb 0$ has infinite solutions
 		\item (nonhom.) Since there is one-to-one correspondence between solutions to $\mb{AX=0}$ and sol.s to $\mb{AX=B}$, the two above apply to nonhomogeneous case too given that the nonhom. system is consistent
 		\end{itemize}
 	\end{itemize}
-\item Equivalence of linear systems: When are the solution sets of two linear systems the same?
+\item Equivalence of linear systems: When two linear systems have the same set of solutions?
 	\begin{itemize}
 	\item \textbf{L11.6.1.} If $\mb{C}$ is of full col. rank, then the systems $\mb{AX=B}$ and $\mb{CAX=CB}$ are equivalent
 	\item \textbf{L11.6.2.} For any $\mb{A}$, the linear systems $\mb{A'AX=A'AF}$ and $\mb{AX=AF}$ are equivalent
@@ -805,7 +805,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 \begin{itemize}
 \item Orthogonality conditions
 	\begin{itemize}
-	\item \textbf{L12.1.1}. $\mb{Y}\perp\mathcal{U}=\text{sp}(\mb{X}_1,\hdots,\mb{X}_k) \iff \mb{Y\cdot X}_i$ for $i=1,...,k$. $\mathcal{U\perp V}=\text{sp}(\mb{Z}_1,\hdots,\mb{Z}_t) \iff \mb{X}_i \perp \mb{Z}_j \,\,\forall i,j$.
+	\item \textbf{L12.1.1}. $\mb{Y}\perp\mathcal{U}=\text{sp}(\mb{X}_1,\hdots,\mb{X}_k) \iff \mb{Y\cdot X}_i=0$ for $i=1,...,k$. $\mathcal{U\perp V}=\text{sp}(\mb{Z}_1,\hdots,\mb{Z}_t) \iff \mb{X}_i \perp \mb{Z}_j \,\,\forall i,j$.
 	\item \textbf{C12.1.2}. $\mb{y}\, (\in \mathcal{R}^m) \perp \mathcal{C}(\mb{X}) \iff \mb{X}'\mb{y}=0$
 	\item \textbf{T12.1.3}. Let $\mb{Y} \in \mathcal{V}$, $\mathcal{U}\subset \mathcal{V}$ and $\text{dim}(\mathcal{U})=r$. Then, there is \textit{unique} $\mb{Z} \in \mathcal{U}$ s.t. $(\mb{Y-Z})\perp \mathcal{U}$. Let $\{\mb{X}_1,\hdots,\mb{X}_r\}$ be an orthonormal basis for $\mathcal{U}$. Then, $\mb{Z}=c_1\mb{X}_1+\hdots+c_r\mb{X}_r$ where $c_i=\mb{X\cdot Y}_i$. Moreover, $\mb{Z=Y} \iff \mb{Y}\in\mathcal{U}$. 
 	\end{itemize}
@@ -975,7 +975,7 @@ Apparently the class of idempotent matrices is very important in statistics and 
 	\item If $\mb{A},\mb{B}$ are nonnegative, then $\mb{A+B}$ is nonnegative. If one of them is positive, then $\mb{A+B}$ is positive. (L14.2.4)
 	\item Any positive definite matrix is nonsingular (L14.2.8).
 	\item The inverse of a positive definite (semidefinite nonsingular) matrix is positive definite (semidefinite). (C13.2.11)
-	\item Every symmetric idempotent matrix is nonnegative definite (L14.2.7).
+	\item Every symmetric idempotent matrix is nonnegative definite (L14.2.17).
 	\item A symmetric nonnegative definite $\mb{A}$ is positive definite $\iff$ it $\mb{A}$ is nonsingular (C14.3.12).
 \end{itemize}
 \item Properties regarding traces of nonnegative matrices
@@ -1370,7 +1370,7 @@ The concept of essentially disjoint subspaces allows us to identify conditions t
 	\end{itemize}
 \item \textit{Essentially disjoint}. Two subspaces $\mathcal{U}$ and $\mc V$ of $\mc W$ are called essentially disjoint if $\mathcal{U}\cap \mathcal{V} = \{\mb 0\}$. Essential disjointness can be seen as a generalization of orthogonality; orthogonal subspaces are essentially disjoint (\textbf{L17.1.9}) but the converse is not in general true.
 \begin{itemize}
-\item \textbf{L.17.1.3.} Let $\{\mb U_1, \dots, \mb U_r\}$ be a linearly independent set in $\mathcal{U}$ and $\{\mb V_1, \dots, \mb V_s\}$ be two sets of linearly independent matrices in $\mathcal{U}$ and $\mathcal{V}$. If $\mathcal{U}$ and $\mathcal{V}$ are essentially disjoint, then the combined set $\{\mb U_1,\dots,\mb U_r, \mb V_1, \dots, \mb V_s\}$ is also linearly independent.
+\item \textbf{L.17.1.3.} Let $\{\mb U_1, \dots, \mb U_r\}$ and $\{\mb V_1, \dots, \mb V_s\}$ be two sets of linearly independent matrices in $\mathcal{U}$ and $\mathcal{V}$. If $\mathcal{U}$ and $\mathcal{V}$ are essentially disjoint, then the combined set $\{\mb U_1,\dots,\mb U_r, \mb V_1, \dots, \mb V_s\}$ is also linearly independent.
 \end{itemize}
 \item \textit{Direct sum}. If $\mathcal{U}$ and $\mathcal{V}$ are essentially disjoint subspaces, then their sum is called a direct sum, denoted as $\mathcal{U}\oplus  \mathcal{V}$
 	\begin{itemize}
@@ -1384,7 +1384,7 @@ The concept of essentially disjoint subspaces allows us to identify conditions t
 \item \textbf{C17.2.8.} For any appropriately sized matrices $\mb A$ and $\mb B$, $\mathcal{C}(\mb A)$ and $\mathcal{C}[(\mb{I-AA^-})\mb B]$ are essentially disjoint. Intuitively terms, this result says that  $\mathcal{C}[(\mb{I-AA^-})\mb B]$ ``hits'' the part of the  $\mb B$'s column space that cannot be hit by $\mathcal{C}(\mb A)$. A direct consequence of this is that $$\rank[\mb A, (\mb{I-AA^-})\mb B] = \rank(\mb A) + \rank[(\mb{I-AA^-})\mb B].$$
 \item \textbf{C17.2.9} For any appropriately sized matrices $\mb A$ and $\mb B$, $$\mathcal{C}(\mb{A,B})=\mathcal C[\mb A, \mb{(I-AA^-)B}] = \mathcal{C}(\mb A)\oplus\mathcal{C}[\mb{(I-AA^-)B}].$$.
 \item \textbf{L17.2.2} Suppose that $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb B)$ are essentially disjoint and that $\mathcal{C}(\mb X) \subset \mathcal{C}(\mb A)$ and $\mathcal{C}(\mb X) \subset \mathcal{C}(\mb B)$, then $\mb {X=0}$.
-\item \textbf{L17.2.3} If $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb B)$ are essentially disjoint, then $\mb{AK} = \mb{BL} = )$ for any $\mb{K,L}$.
+\item \textbf{L17.2.3} If $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb B)$ are essentially disjoint and $\mb{AK} = \mb{BL}$, then $\mb{AK=BL=)}$.
 \item \textbf{L17.2.6} $\mb A$ is idempotent if and only if $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb{I-A})$ are essentially disjoint. 
 \item \textbf{L17.2.7} For any $\mb A$, $\mathcal{C}(\mb A)$ and $\mathcal{C}(\mb{I-A^-A})$ are essentially disjoint. 
 \item \textbf{C17.2.12} If $\mb{AA^-B=0}$ or $\mb{BB^-A=0}$, then $\mathcal{C}(\mb A), \mathcal{C}(\mb B)$ are essentially disjoint.
