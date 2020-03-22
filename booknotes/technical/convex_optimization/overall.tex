@@ -39,7 +39,7 @@ Mixed notes from the book Convex Optimization \cite{boyd04}. Some parts will be 
 	\item \textit{Ambient space.} The space where a given set lives in, \eg a plane can live in $\mb R^2, \mb R^3$. The choice of ambient space has implications on, for example, the interior of a set (\cite{dattorro10}, p34)
 	\item \textit{Affine hull}, denoted $\setop{aff}{C}$ is the smallest set that makes $C$ affine.
 	\item \textit{Affine dimension} of a set $C$ is the dimension of $\setop{aff}{C}$. In fact dimension of a set is synonymous with affine dimension \cite{dattorro10}.
-	\item \textit{Relative interior}. The interior of, for example, a plane in $\mb R^3$ is empty. To ``fix'' this issue, we define the relative interior of $C$ as: $\setop{relint}{C} = \{x \in C | B(x,r) \cup \setop{aff}{C} \subseteq C\text{ for some }r>0\}$
+	\item \textit{Relative interior}. The interior of, for example, a plane in $\mb R^3$ is empty. To ``fix'' this issue, we define the relative interior of $C$ as: $\setop{relint}{C} = \{x \in C | B(x,r) \cap \setop{aff}{C} \subseteq C\text{ for some }r>0\}$
 	\end{itemize} 
 \item \textbf{Convex sets}. A set $C$ is convex if the line segment between any two points in $C$ lies in $C$, \ie  $\theta x_1 +(1-\theta) x_2 \in C$ for any $x_1,x_2 \in C$ and $0 \le \theta \le 1$.
 	\begin{itemize}
@@ -109,16 +109,17 @@ A simpler notation is $\mathcal P = \{x | Ax \preceq b, Cx = d \}$, where the sy
 
 
 
-\section{Operations that preserve convexity}
+\section{Operations that preserve set convexity}
 
+Some operations that preserve set convexity are (p35 \cite{boyd04}):
 
 \begin{itemize}
 \item \textbf{Intersection}: Convexity is preserved under intersection; the intersection of even infinite convex sets is convex.
-\item \textbf{Affine functions.} Let $f$ be an affine function, \ie $f(x)=Ax+b$. Then the image of $S$ under $f$, $$f(S) = \{f(x) \,\,|\,\, x \in S\}$$
-and the inverse image of $S$ under $f$, $$f^{-1}(S) = \{x | f(x) \in S \}$$
+\item \textbf{Affine functions.} Let $f$ be an affine function, \ie $f(x)=Ax+b$. Then the image of $S$ under $f$, $$f(S) = \{f(x) \mid x \in S\}$$
+and the inverse image of $S$ under $f$, $$f^{-1}(S) = \{x \mid f(x) \in S \}$$
 are both convex if $S$ is convex.
 	\begin{itemize}
-	\item \textit{Cartesian product}. $S=S_1\times S_2$ for two convex sets $S_1, S_2$, $S=\{x_1 + x_2 : x_1 \in S_1, S_2 \in x_2\}$ is convex.
+	\item \textit{Cartesian product}. Define $S:=S_1\times S_2$ for two convex sets $S_1, S_2$. Then, $S$ is convex.
 	\item \textit{Sum} The sum $S$ of two convex sets $S_1, S_2$, $S=\{x_1 + x_2 : x_1 \in S_1, S_2 \in x_2\}$ is convex.
 	\end{itemize}
 \item \textbf{Linear-fractional and perspective functions.} 
@@ -145,7 +146,7 @@ $$x \prec_K y \iff y-x \in \setop{int}{K}$$
 
 \underline{Properties of generalized inequalities}:
 	\begin{enumerate}
-	\item $\preceq_K$ is preserved under addition: If $x \preceq_K y$ and $u \preceq_K y$, then $x+u \preceq_K y+v$
+	\item $\preceq_K$ is preserved under addition: If $x \preceq_K y$ and $u \preceq_K v$, then $x+u \preceq_K y+v$
 	\item $\preceq_K$ is transitive: If $x \preceq_K y$ and $y \preceq_K z$, then $x \preceq_K z$.
 	\item $\preceq_K$ is preserved under nonnegative scaling: If $x\preceq_K y$ and $\alpha > 0$, then $\alpha  x \preceq_K \alpha y$.
 	\item $\preceq_K$ is reflexive: If $x \preceq_K x$.
@@ -215,8 +216,7 @@ Convexity and supporting hyperplanes are intimately connected:
 	\item If $K$ is a proper cone, then $K^*$ is also a proper cone.
 	\end{itemize}
 	
-An intuitive way of defining a dual cone is shown in Fig. ******************. 
-\textit{Examples to dual cones.}
+An intuitive way of grasping the meaning a dual cone is shown in Fig. 369 \cite{dattorro10}: Draw the two hyperplanes that are orthogonal to the two vertices that define the original cone $\mathcal K$ in the figure, and then their intersection (i.e., the purple area) is the dual cone (the intersection is necessary because the definition of the dual cone says that any vector in the dual cone should form an acute angle with all points of the original cone). 
 	\begin{itemize}
 	\item The dual cone of $K=\mb R^n_+$ is itself.
 	\item The dual cone of a line in space is its orthogonal complement.
