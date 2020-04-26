@@ -288,6 +288,9 @@ The exponential distribution has the \textit{memoryless} propert; that is, for $
 $$ P\{\mb y = k\} = \binom nk p^k q^{n-k}\,\,\,\,\,\,\,\,\,\,\, p+q=1\,\,\,\,\,\,\,\,\,\,\,k=0,1,\hdots,n $$
 \item \textbf{Poisson distribution} is similar to Binomial; it represents the number of occurrences of a \textit{rare} events in a large number of trials.  $$P\{\mb x = k\} = \lambda^k \frac{e^{-\lambda}}{k!}\,\,\,\,\,\, k=0,1,2,\hdots,\infty$$
 \item \textbf{Geometric distribution} represents the probability of first success against the number of trials. $$P\{\mb x = k\} = P(\underbrace{\overline{A}\overline{A}\hdots\overline{A}}_{k-1}A) = P(\overline{A})P(\overline{A})\hdots P(\overline{A}) P(A) = (1-p)^{k-1}p =  pq^{k-1} $$
+
+Geometric distribution also has the \textit{memorylessness} property. In fact, if a distribution is memoryless and discrete, then it must be a geometric distribution (\ie, a discrete distribution is geometric iff it is geometric)
+
 \item \textbf{Negative binomial distribution} generalizes geometric distribution; it's used to answer the question ``how many trials are needed for $r$'' successes. $$P\{y=k\} = \binom{k-1}{r-1}p^r q^{k-r}.$$
 \end{itemize}
 
