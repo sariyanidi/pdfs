@@ -43,15 +43,6 @@ This book made me realize that a good technical book is not necessarily one that
 
 
 
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,7 +181,10 @@ In other words, the probability that the frequency interpretation is \textit{not
 
 
 
-
+\section{Re-do}
+\begin{itemize}
+\item Bernoulli's Theorem (page \#58).
+\end{itemize}
 
 
 
@@ -319,6 +313,28 @@ $$\frac{n!}{k_1!\hdots k_{m+1}!}p_1^{k_1}\hdots p^{k_{m+1}}_{m+1} \approx \frac{
 
 
 
+\section{Re-do}
+
+\begin{itemize}
+\item How to compute normalization coefficient for Gaussian distribution? A nice set of tricks does it in eq. 4-28. Try to do it yourself!
+\item \textbf{Example 4-12} - Prove Poisson points -  \ie how to show that the probability \item \textbf{Example 4-16} - Prove that if a discrete RV is memoryless then it must be geometric
+\item \textbf{Example 4-19} - Nice recap for Bayesian 
+of having $k$ events in an interval is given by Poisson distribution?
+\item \textbf{Theorem 4-2} - De Moivre - Laplace Theorem 
+\item \textbf{Problem 4-11}
+\item \textbf{Problem 4-16}
+\item \textbf{Problem 4-20}
+\item \textbf{Problem 4-33}
+\item \textbf{Problem 4-34} -- But don't spend much time on this.
+\end{itemize}
+
+
+
+
+
+
+
+
 
 
 
@@ -367,7 +383,7 @@ This section is interested in computing the statistics of a transformed RV, name
 \textbf{Fundamental Theorem.} To determine $f_y(y)$ for a \textit{specific} $y$, we solve the equation $y=g(x)$. Denoting its real roots by $x_n$, \ie $y=g(x_1) = g(x_2) = \hdots = g(x_n) = \hdots$, we can compute the pdf of the transformed variable as: %
 $$f_y(y) = \frac{f_x(x_1)}{|g'(x_1)|} + \hdots + \frac{f_x(x_n)}{|g'(x_n)|} + \hdots$$
 %
-The equation above is valid for conditional densities too; all we need to do is replace the densities $f_y(y), f_x(x)$ with the conditional densities $f_y(y|M), f_x(x|M)$.
+The equation above is valid for conditional densities too; all we need to do is replace the densities $f_y(y), f_x(x)$ with the conditional densities $f_y(y|M), f_x(x|M)$. Fig. 5-2 is very useful in precisely illustrating the transformation of RV, as well as Fig. 5-1 and Fig. 5-9.
 
 
 \section{Mean, variance and other moments}
@@ -382,10 +398,10 @@ The equation above is valid for conditional densities too; all we need to do is 
 \item \textbf{Variance:} $\sigma_x = E\{(x-\mu_x)^2\} = \int\limits_{-\infty}^{\infty} (x-\mu_x)^2 f(x) dx$
 \item \textbf{Moments}
 	\begin{itemize}
-	\item \textit{Moments}: $\mu_n = E\{\mu^n\}$
-	\item \textit{Central moments}: $\mu_n = E\{(x-\mu)^n\}$
-	\item \textit{Absolute moments}: $E\{|x-\mu|^n\} \hspace{1truecm} E\{|x|^n\}$
-	\item \textit{Generalized moments}: $E\{(x-a)^n\} \hspace{1truecm} E\{|x-a|^n\}$
+	\item \textit{Moments}: $\mu_n = E\{\mb x^n\}$
+	\item \textit{Central moments}: $\mu_n = E\{(\mb x-\mu)^n\}$
+	\item \textit{Absolute moments}: $E\{|\mb x-\mu|^n\} \hspace{1truecm} E\{|\mb x|^n\}$
+	\item \textit{Generalized moments}: $E\{(\mb x-a)^n\} \hspace{1truecm} E\{|\mb x-a|^n\}$
 	\end{itemize}
 	
 Special case: Normal Random Variables. All the moments of the standard RV can be specified from the mean and the standard deviation. I.e. Normal RVs have no unique information beyond the second order moment!
@@ -444,12 +460,19 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 
 
 
+\section{Re-do}
 
-
-
-
-
-
+\begin{itemize}
+\item What RV transformation shall we apply to go from $F_x(x)$ to a uniform distribution (page \#139)?
+\item The same as above but from uniform to $F_y(y)$?
+\item Re-read Theorem 5-1 (page \#142)
+\item Re-do: how to obtain eq. 5-73 -- the $n$th moment of a Gaussian RV?
+\item Re-prove: Chebyshev inequality (page \#151)
+\item Re-prove: Markov inequality (page \#151)
+\item Re-prove: Bienayme inequality (page \#152)
+\item Re-prove: Lyapunov inequality (page \#152)
+\item Re-prove: De Moivre - Laplace theorem (page \#156)
+\end{itemize}
 
 
 
