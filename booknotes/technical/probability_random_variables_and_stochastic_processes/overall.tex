@@ -183,7 +183,7 @@ In other words, the probability that the frequency interpretation is \textit{not
 
 \section{Re-do}
 \begin{itemize}
-\item Bernoulli's Theorem (page \#58).
+\item Bernoulli's Theorem (p.58).
 \end{itemize}
 
 
@@ -317,10 +317,9 @@ $$\frac{n!}{k_1!\hdots k_{m+1}!}p_1^{k_1}\hdots p^{k_{m+1}}_{m+1} \approx \frac{
 
 \begin{itemize}
 \item How to compute normalization coefficient for Gaussian distribution? A nice set of tricks does it in eq. 4-28. Try to do it yourself!
-\item \textbf{Example 4-12} - Prove Poisson points -  \ie how to show that the probability \item \textbf{Example 4-16} - Prove that if a discrete RV is memoryless then it must be geometric
+\item \textbf{Example 4-12} - Prove Poisson points -  \ie how to show that the probability of number of points in interval is Poisson?
+ \item \textbf{Example 4-16} - Prove that if a discrete RV is memoryless then it must be geometric
 \item \textbf{Example 4-19} - Nice recap for Bayesian 
-of having $k$ events in an interval is given by Poisson distribution?
-\item \textbf{Theorem 4-2} - De Moivre - Laplace Theorem 
 \item \textbf{Problem 4-11}
 \item \textbf{Problem 4-16}
 \item \textbf{Problem 4-20}
@@ -410,7 +409,8 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 
 \section{Important inequalities}
 \begin{itemize}
-\item \textbf{Chebyshev (Tchebycheff) inequality}: For any $\epsilon >0$, $P\{|x-\mu| \ge \epsilon\} = \frac{\sigma^2}{\epsilon^2}$.
+\item \textbf{Chebyshev (Tchebycheff) inequality}: For any $\epsilon >0$, $P\{|x-\mu| \ge \epsilon\} \ge \frac{\sigma^2}{\epsilon^2}$.
+\item \textbf{``Inverse'' Tchebycheff inequality}: (I made up this term): For any $\epsilon >0$, $P\{|x-\mu| \le \epsilon\} \le  1-\frac{\sigma^2}{\epsilon^2}$.
 \item \textbf{Markov inequality} If $f(x)=0$ for $x<0$, then, for any $\alpha > 0$: $P\{ \mb x \ge \alpha \} \le \frac{\mu}{\alpha}$
 \item \textbf{Bienayme inequality}. $P\{ |\mb x - a| \ge \epsilon\} \le \frac{E\{ |\mb x - a|^n \}}{\epsilon^n}$
 \item \textbf{Lyapunov inequality}. Let $\beta_k = E\{|\mb x|^k\} < \infty$ be the absolute moments of $\mb x$. Then, for any $k$, $\beta^{1/(k-1)}_{k-1} \le \beta_k^{1/k}$
@@ -429,6 +429,8 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 	\begin{itemize}
 	\item The DeMoivre-Laplace theorem is proven this way (see p156). 
 	\item See Examples 5-34 and 5-35.
+	\item Sum of two poisson distributions is poisson (p.216) and this is easier to show with characteristic function than with manipulation on PMF (compare example 6-33 with example 6-20)
+	\item Same as above but for two normal variables (compare example 6-34 with p.175)
 	\item Computing the PDF of Bernoulli from Binomials (p256)
 	\item Computing the PDF of Poisson from Binomials (p256)
 	\item The sum of jointly normal RVs is normal (p257)
@@ -463,15 +465,16 @@ Special case: Normal Random Variables. All the moments of the standard RV can be
 \section{Re-do}
 
 \begin{itemize}
-\item What RV transformation shall we apply to go from $F_x(x)$ to a uniform distribution (page \#139)?
+\item What RV transformation shall we apply to go from $F_x(x)$ to a uniform distribution (p.139)?
 \item The same as above but from uniform to $F_y(y)$?
-\item Re-read Theorem 5-1 (page \#142)
+\item Re-read Theorem 5-1 (p.142)
 \item Re-do: how to obtain eq. 5-73 -- the $n$th moment of a Gaussian RV?
-\item Re-prove: Chebyshev inequality (page \#151)
-\item Re-prove: Markov inequality (page \#151)
-\item Re-prove: Bienayme inequality (page \#152)
-\item Re-prove: Lyapunov inequality (page \#152)
-\item Re-prove: De Moivre - Laplace theorem (page \#156)
+\item Re-prove: Chebyshev inequality (p.151)
+\item Re-prove: Markov inequality (p.151)
+\item Re-prove: Bienayme inequality (p.152)
+\item Re-prove: Lyapunov inequality (p.152)
+\item Re-prove: De Moivre - Laplace theorem (p.156)
+\item Re-prove: 5-111 with the elegant trick 
 \end{itemize}
 
 
@@ -637,7 +640,21 @@ Using a limit argument (see p221), we can define $$f(y|x) = \frac{f(x,y)}{f(x)}$
 
 
 
-
+\section{Re-do}
+\begin{itemize}
+\item Property 1 (p.170)
+\item Marginal statistics (eq 6-9, p.171)
+\item Theorem 6-2 (p.174)
+\item Circular symmetry; Theorem 6-3 (p.176)
+\item Joint normality -> marginal normality (p.175)
+\item Circular symmetry (p.181)
+\item Example 6-10 (p.186)
+\item Example 6-17 (p.193)
+\item Equation 6-82 (p.195)
+\item Compare direct RV transformation vs transformation via characteristic function; i.e., compare Example 6-20 and Example 6-33
+\item Re-do Example 6-36
+\item Prove Theorem 6-7: Price's Theorem
+\end{itemize}
 
 
 
@@ -727,7 +744,11 @@ Note that this equals the sample mean if we assume that RVs $\mb x_i$ have the s
 $$R = E\{\mb X^t \mb X\}$$
 \item \textbf{Linear independence} of RVs. The RVs $\mb{x}_i$ are called linearly independent if (p251) $$E\{|a_1 \mb x_1 + \hdots + a_n \mb x_n|\}>0$$
 The determinant of the correlation matrix, $\Delta_n$, is zero if the RVs are linearly dependent. Otherwise, it is strictly and so are all its principal minors.
-\item \textbf{Orthonormal data transformation: Whitening}. If the data $\mb x_i$ are orthogonal, then $R$ is a diagonal matrix. One can obtain an orthonormal matrix through the Gram-Schmidt method (p271). Whitening is very useful, especially for linear estimators (see also last note in the item list below).
+\item \textbf{Orthonormal data transformation: Whitening}. If the data ${\mb x_i}$ are orthogonal, then $R$ is a diagonal matrix. One can obtain an \textit{equivalent} set of linear vectors $\{\mb z_i\}$, in the sense that the vectors of $\mb Z$ and $\mb X$ are related by a linear transformation: $\mb Z = \mb X \Gamma$ (eq. 702). Thus, the covariance matrix of $\mb X$  can be computed in terms of $Z$ (or the opposite):
+
+$$E\{\mb Z^T \mb Z\} = I = E\{\Gamma^T \mb X^T \mb X \Gamma\} = \Gamma^T E\{\mb X^T \mb X\}\Gamma, \text{ therefore (inverse of) cov matrix is: } R^{-1} = \Gamma \Gamma ^T$$
+
+ Whitening is very useful, especially for linear estimators (see also last note in the item list below).
 \end{itemize}
  
 \section{Mean square estimation}
@@ -833,12 +854,18 @@ If $\mb x$ and $\mb y$ are independent, then $c(x) = E\{\mb y | x\} = E\{\mb y\}
 
 \section{Redo in future}
 \begin{itemize}
-\item Poisson
-\item Chi square 
-\item Show why sample variance is divided by $n-1$.
+\item Show why sample variance is divided by $n-1$ (Example 7-5)
 \item Prove why the generalized orthogonality principle (7-92) leads to optimal MS estimators (linear or non-linear).
 \item Order convergence modes
 \item Prove the law of large numbers
+\item Re-read group independence
+\item Re-do example 7-7
+\item Prove Eq 7-57 (expression for jointly normal vector; p.257)
+\item Do example 7-9 (p. 258)
+\item Show how to find coefficients $a_i$ in Eq. 7-82
+\item Follow argument re: eq 7-95
+\item Example 7-12: solve properly
+\item Read summary argument about whitening
 \end{itemize}
 
 
