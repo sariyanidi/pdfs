@@ -817,7 +817,7 @@ If $\mb x$ and $\mb y$ are independent, then $c(x) = E\{\mb y | x\} = E\{\mb y\}
 	\item Some transformations:
 		\begin{itemize}
 		\item Binomial RV: Sum of $m$ \iid Bernoulli's equals Binomial (\#294).
-		\item Erlang: Sum of $m$ \iid exponentials equals Erlang
+		\item Erlang: Sum of $m$ \iid exponentials equals Erlang (\#295)
 		\item Chi-square: Sum an appropriate Erlang and a Normal
 		\item Student-t: Use a normal and a chi-square
 		\item Log-normal: Use a normal
@@ -897,7 +897,7 @@ If $\mb x$ and $\mb y$ are independent, then $c(x) = E\{\mb y | x\} = E\{\mb y\}
 \item \textit{Point estimate} $\hat{\theta}$ is a function of the \textit{observation vector} $X=[x_1, \hdots, x_n]$ and the corresponding RV; \ie $\hat{\theta}=g(X)$
 \item \textit{Consistent estimator.} Let $\bs{\hat{\theta}}_n=g_n(\mb{X})$ be estimator of parameter $\theta$ based on a sample $\mb{X}$ with $n$ observations. $\bs{\hat{\theta}}$ is a consistent estimator if its error, $E\{(\bs{\hat{\theta}}_n-\theta)^2\}$, tends to zero as $n\to \infty$.
 \item \textit{Best estimator.} Let $\bs{\hat{\theta}}=g_n(\mb{X})$ be estimator of parameter $\theta$. $\bs{\hat{\theta}}$ is best estimator if it minimizes the error $E\{(\bs{\hat{\theta}}_n-\theta)^2\}$.
-\item \textit{Sufficient statistic.} A function $T(\mb{X})$ is a sufficient statistic for a parameter $\theta$, if $T(\mb{X})$ contains all information about $\theta$ in the data set $\mb{X}$. That is, given the PDF $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta\}$, if $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta | T(\mb{X}\}$ \textit{does not} depend on $\theta$, then $T(\mb{X})$ is sufficient statistic for $\theta$. (p322-323)
+\item \textit{Sufficient statistic.} A function $T(\mb{X})$ is a sufficient statistic for a parameter $\theta$, if $T(\mb{X})$ contains all information about $\theta$ in the data set $\mb{X}$. That is, given the PDF $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta\}$, if $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta | T(\mb{X})\}$ \textit{does not} depend on $\theta$, then $T(\mb{X})$ is sufficient statistic for $\theta$. (p322-323)
 \item \textit{Efficient estimator.} An estimator is called efficient if it has the lowest possible variance. More specifically, we have first-order efficiency and second-order efficiency. The former means that an estimator is efficient w.r.t. the Cramer-Rao bound (see below), because the CR bound uses only first-order derivatives; the latter means that an estimator is efficient w.r.t. Bhattacharya bound, which is computed using the second-order derivative.
 \end{itemize}
 
@@ -907,6 +907,7 @@ Very important section with concepts directly applicable to machine learning. Sp
 
 The concepts of Sufficient Statistic and Uniformly Minimum Variance Unbiased Estimator (UMVUE) are introduced. The latter is a desirable and most used estimator type, and the former leads to finding it. The most important theorems along the way are: \textit{Factorization theorem} (helps finding sufficient statistic), the \textit{Cramer-Rao Bound} (finds lower bound for variance of unbiased estimator), the \textit{Bhattacharya Bound} (improves Cramer-Rao), and the \textit{Rao-Blackwell theorem} (the finale: finds the UMVUE from sufficient statistic).
 
+% To compile fig below, first compile DVI->PS and then PS->PDF
 \begin{figure}[!h]
 \begin{center}
 \begin{pspicture}[shift=*](-2,-0.5)(6,2)
@@ -931,7 +932,7 @@ The concepts of Sufficient Statistic and Uniformly Minimum Variance Unbiased Est
 \begin{itemize}
 \item \textbf{The Factorization Theorem} allows us to find suff. statistic (see also Examples 8-14, 8-15). Let $\mb{x}_1,\hdots,\mb{x}_n$ be a set of discrete RVs with PMF $P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta \}$. Then, $T(\mb{x}_1, \hdots, \mb{x}_n)$ is sufficient for $\theta$ iff 
 \begin{equation}
-P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta | T(\mb{X})\}=h(x_1,\dots,x_n)g_\theta(T\mb{x}=t)
+P\{\mb{x}_1=x_1,\hdots,\mb{x}_n=x_n; \theta | T(\mb{X})\}=h(x_1,\dots,x_n)g_\theta(T(\mb{x})=t)
 \end{equation}	
 where $h(\cdot)$ is a nonnegative function of $\mb{x}_1, \hdots, \mb{x}_n$ that does not depend on $\theta$, and $g(\cdot)$ is a nonnegative function of $\theta$ and $T$ only (and \textit{not} of $\mb{x}_1, \hdots, \mb{x}_n$ in any other manner.)
 \item \textbf{Cramer-Rao (CR) Lower Bound} gives us the lower bound for the variance of an estimator $T(\mb{x})$. Let $T(\mb{x})$ be any unbiased estimator for $\theta$ under the joint PDF $f(\mb{x}_1=x_1,\hdots,\mb{x}_n; \theta)$, denoted by $f(\mb{x};\theta)$. Then,
